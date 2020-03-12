@@ -21,6 +21,19 @@ def AddFridge(_conn, _FridgeID, _Mboxes, _Temparture):
     Temp.execute(command)
     _conn.commit()
 
+
+#Not confirmed working, checking to see if FridgeID given is unique
+def CheckFridgeID(_conn, _FridgeID):
+    Temp = _conn.cursor()
+    Temp.execute("SELECT * FROM Fridges WHERE FridgeID=?", (_FridgeID,))
+    Entries = Temp.fetchall()
+    count = 0
+    for Entry in Entries:
+        count++
+    if count == 0:
+        return true
+    return false
+
 #command for returning the number of fridges in database
 def ReturnNumberOfFridges(_conn):
     Temp = _conn.cursor()
