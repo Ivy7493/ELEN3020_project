@@ -9,6 +9,7 @@ def ConnectDatabase():
     conn = sqlite3.connect('Test.db')
     c = conn.cursor()
     print("Successfully connected to Database!")
+    return conn
 
 #command to add fridge to database 
 def AddFridge(_conn, _FridgeID, _Mboxes, _Temparture):
@@ -29,10 +30,10 @@ def CheckFridgeID(_conn, _FridgeID):
     Entries = Temp.fetchall()
     count = 0
     for Entry in Entries:
-        count++
+        count = count + 1
     if count == 0:
-        return true
-    return false
+        return "True"
+    return "False"
 
 #command for returning the number of fridges in database
 def ReturnNumberOfFridges(_conn):
@@ -40,7 +41,7 @@ def ReturnNumberOfFridges(_conn):
     Results = Temp.execute("SELECT * FROM Fridges")
     count = 0
     for Result in Results:
-        count++
+        count = count + 1
     return count
 
 #basic function for creating the fridge table in the database
@@ -54,5 +55,4 @@ def CreateFridgeTable(_conn):
                    )""")
     _conn.commit()
 
-def GetFile(Filename);
 
