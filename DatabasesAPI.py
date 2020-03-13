@@ -31,8 +31,8 @@ def CheckFridgeID(_conn, _FridgeID):
     for Entry in Entries:
         count = count + 1
     if count == 0:
-        return "True"
-    return "False"
+        return "True" #true means it doesnt exist
+    return "False" #false means it exists already
 
 #command for returning the number of fridges in database
 def ReturnNumberOfFridges(_conn):
@@ -118,7 +118,28 @@ def ReturnFridgeBoxCount(_conn, _FridgeID):
     count = 0    
     for x in Current:
         count = count + 1
-    return count     
+    return count
+
+def MoveBox(_conn, _BoxID, _FridgeID):
+    Temp = _conn.cursor()
+    if CheckBoxID(_conn, _BoxID) == "False" and CheckFridgeID(_conn, _FridgeID) == "False":
+        if ReturnFridgeBoxCount(_conn, _FridgeID) < ReturnFridgeSize(_conn, _FridgeID):
+            Temp.execute("UPDATE Boxes SET FridgeID = " + "'" + _FridgeID + "'" + " WHERE BoxID = " + "'" + _BoxID + "'")
+            _conn.commit()
+            print("Moved Box : " + _BoxID + " To fridge : " + _FridgeID)
+
+
+def CheckBoxID(_conn, _BoxID):
+    Temp = _conn.cursor()
+    Temp.execute("SELECT * FROM Boxes WHERE BoxID=?", (_BoxID,))
+    Entries = Temp.fetchall()
+    count = 0
+    for Entry in Entries:
+        count = count + 1
+    if count == 0:
+        return "True" #true means it doesnt exist
+    return "False" #false means it exists already
+         
     
     
 
