@@ -1,4 +1,5 @@
 import sqlite3 #Importing sqlite3 library
+import LoggingAPI
 
 #this is for testing purposes...This will go in front end
 conn = ""
@@ -82,6 +83,7 @@ def AddBox(_conn,_BoxID, _FridgeID, _Msamples):
     if CheckFridgeID(_conn, _FridgeID) == "False" and IsFridgeFull(_conn, _FridgeID) == "False":
         command = "INSERT INTO Boxes VALUES (" + "'" + _BoxID + "'"  + ", " + "'" + _FridgeID + "'" + ", " +   str(_Msamples) + ")" 
         Temp.execute(command)
+        LoggingAPI.Log("Box: " + _BoxID + " created = [" + _BoxID + "," + _FridgeID + "," + _Msamples + "]") #logging line
         _conn.commit()
     elif CheckFridgeID(_conn, _FridgeID) == "True":
         print("Not a valid entry, FridgeID does not exist")
@@ -127,6 +129,13 @@ def MoveBox(_conn, _BoxID, _FridgeID):
             Temp.execute("UPDATE Boxes SET FridgeID = " + "'" + _FridgeID + "'" + " WHERE BoxID = " + "'" + _BoxID + "'")
             _conn.commit()
             print("Moved Box : " + _BoxID + " To fridge : " + _FridgeID)
+            LoggingAPI.Log("Box: " + _BoxID + " moved to fridge: " + _FridgeID)
+        elif ReturnFridgeBoxCount(_conn, _FridgeID) >= ReturnFridgeSize(_conn, _FridgeID):
+            print("Fridge is full cannot move box")
+    elif CheckBoxID(_conn, _BoxID) == "True":
+        print("Not a Valid Box Code")
+    elif CheckFridgeID(_conn, _FridgeID) == "True":
+        print("Not a Valid Fridge Code")
 
 
 def CheckBoxID(_conn, _BoxID):
