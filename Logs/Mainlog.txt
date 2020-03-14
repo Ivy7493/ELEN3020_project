@@ -2,3 +2,4 @@
 2020-38-03/13/20 14:38:57 - Box: EEP moved to fridge: FFF
 2020-39-03/13/20 14:39:01 - Box: EEP moved to fridge: ABC
 2020-42-03/13/20 14:42:31 - Box: VBC created = [VBC,ABC,10]
+2020-32-03/14/20 09:32:14 - Box: FFF created = [FFF,ABC,5]

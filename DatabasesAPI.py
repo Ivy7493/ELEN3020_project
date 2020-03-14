@@ -13,12 +13,13 @@ def ConnectDatabase():
     return conn
 
 #command to add fridge to database 
-def AddFridge(_conn, _FridgeID, _Mboxes, _Temparture):
+def AddFridge(_conn, _FridgeID, _Mboxes,_ShelfWidth, _Temparture):
     Temp = _conn.cursor()
     FridgeID = _FridgeID
     Mboxes = _Mboxes
     Temparture = _Temparture
-    command = "INSERT INTO Fridges VALUES (" + "'" + FridgeID + "'"  + ", " +   str(Mboxes) + ", " + str(Temparture) + ")" 
+    ShelfWidth = _ShelfWidth
+    command = "INSERT INTO Fridges VALUES (" + "'" + FridgeID + "'"  + ", " +   str(Mboxes) + ", " + str(ShelfWidth) + ", " + str(Temparture) + ")" 
     Temp.execute(command)
     _conn.commit()
 
@@ -50,6 +51,7 @@ def CreateFridgeTable(_conn):
     Temp.execute("""CREATE TABLE Fridges(
                    FridgeID TEXT NOT NULL PRIMARY KEY,
                    Mboxes INTEGER,
+                   ShelfWidth INTEGER,
                    Tempature INTEGER
                    )""")
     _conn.commit()

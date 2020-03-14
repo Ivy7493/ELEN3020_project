@@ -5,8 +5,9 @@ from tkinter import *
 def GetFridgeInfo():
     _FridgeID = FridgeIDUI.get()
     _MaxBoxes = MaxBoxesUI.get()
+    _ShelfWidth = ShelfWidthUI.get()
     _Temperature = TemperatureUI.get()
-    DatabasesAPI.AddFridge(conn,_FridgeID,_MaxBoxes,_Temperature)
+    DatabasesAPI.AddFridge(conn,_FridgeID,_MaxBoxes,_ShelfWidth,_Temperature)
 
 def GetBoxInfo():
     _FridgeID = FridgeIDBox.get()
@@ -21,7 +22,7 @@ def PrintBoxTable():
 
 def PrintFridgeTable():
     print("-----------Fridge Table Entries-----------")
-    print("Fridge Code | Max Boxes | Temparture")
+    print("Fridge Code | Max Boxes | Shelf Width| Temparture")
     DatabasesAPI.PrintFridgeTable(conn)
 
 def MoveBox():
@@ -47,16 +48,20 @@ Connect = Button(win,text="Click To make Database",command=CreateTables)
 Connect.grid(row=1,column=1)
 FridgeIDUI = Entry(win)
 MaxBoxesUI = Entry(win)
+ShelfWidthUI = Entry(win)
 TemperatureUI = Entry(win)
 FridgeIDUI.grid(row=3,column=0)
 MaxBoxesUI.grid(row=3,column=1)
-TemperatureUI.grid(row=3,column=2)
+ShelfWidthUI.grid(row=3,column=2)
+TemperatureUI.grid(row=3,column=3)
 FridgeIDLabel = Label(win,text="Enter Fridge ID")
 MaxBoxesLabel = Label(win,text="Enter max boxes")
+ShelfWidthLabel = Label(win,text="Enter Shelf Width")
 TemperatureLabel = Label(win,text="Enter Fridge Temp")
 FridgeIDLabel.grid(row=2,column=0)
 MaxBoxesLabel.grid(row=2,column=1)
-TemperatureLabel.grid(row=2,column=2)
+ShelfWidthLabel.grid(row=2,column=2)
+TemperatureLabel.grid(row=2,column=3)
 SubmitFridge = Button(win,text="Add Fridge",command=GetFridgeInfo)
 SubmitFridge.grid(row=4,column=1)
 BoxIDUI = Entry(win)
