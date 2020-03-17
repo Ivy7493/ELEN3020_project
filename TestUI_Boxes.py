@@ -6,7 +6,7 @@ import DataAPI
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
-##########---------->    START: WINDOW FOR ADDING BOXES <----------##########
+##########---------->START: WINDOW FOR ADDING BOXES<----------##########
 def AddBox_Window():
     def CreateBox():
         try:
@@ -59,9 +59,9 @@ def AddBox_Window():
                         command = Open_MainBox_Window).grid(row = 10, column=1)
 
     window_AddBox.mainloop()
-##########---------->    END: WINDOW FOR ADDING BOXES <----------##########
+##########---------->END: WINDOW FOR ADDING BOXES<----------##########
 
-##########---------->    START: WINDOW FOR MOVING BOXES <----------##########
+##########---------->START: WINDOW FOR MOVING BOXES<----------##########
 def MoveBox_Window():
     def MoveBox():
         try:
@@ -92,9 +92,9 @@ def MoveBox_Window():
                         command = Open_MainBox_Window).grid(row = 10, column=1)
 
     window_MoveBox.mainloop()
-##########---------->    END: WINDOW FOR MOVING BOXES <----------##########
+##########---------->END: WINDOW FOR MOVING BOXES<----------##########
 
-##########---------->    START: WINDOW FOR DELETING BOXES <----------##########
+##########---------->START: WINDOW FOR DELETING BOXES<----------##########
 def DeleteBox_Window():
     def DeleteBox():
         try:
@@ -125,9 +125,9 @@ def DeleteBox_Window():
                         command = Open_MainBox_Window).grid(row = 10, column=1)
 
     window_DeleteBox.mainloop()
-##########---------->    END: WINDOW FOR DELETING BOXES <----------##########
+##########---------->END: WINDOW FOR DELETING BOXES<----------##########
 
-##########---------->    START: MAIN WINDOW FOR BOXES <----------##########
+##########---------->START: MAIN WINDOW FOR BOXES<----------##########
 def MainBox_Window():
     window_MainBox = tk.Tk()
     window_MainBox.geometry("300x300")
@@ -153,9 +153,7 @@ def MainBox_Window():
                         command = Open_DeleteBox_Window).grid(row = 2, column=0)
 
     window_MainBox.mainloop()
-##########---------->    END: MAIN WINDOW FOR BOXES <----------##########
-
-
+##########---------->END: MAIN WINDOW FOR BOXES<----------##########
 
 
 SetupAPI.CreateAllTables(conn)   

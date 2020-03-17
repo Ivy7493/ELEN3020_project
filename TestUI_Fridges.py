@@ -6,6 +6,7 @@ import DataAPI
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
+##########---------->START: WINDOW FOR ADDING FRIDGES<----------##########
 def AddFridge_Window():
     def CreateFridge():
         try:
@@ -19,6 +20,10 @@ def AddFridge_Window():
 
     def console_PrintFridge():
         print("Fridge ID: %s\nTemperature: %s\nNumShelves: %s\nNumBoxes: %s" % (fridgeID.get(), temp.get(), numShelves.get(), widthShelves.get()))
+
+    def Open_MainFridge_Window():
+        window_AddFridge.destroy()
+        MainFridge_Window()
 
     window_AddFridge = tk.Tk()
     window_AddFridge.geometry("300x300")
@@ -42,25 +47,70 @@ def AddFridge_Window():
 
     tk.Button(window_AddFridge, text = 'Print to Console', command = console_PrintFridge).grid(row = 7, column=1)
     tk.Button(window_AddFridge, text = 'Add Fridge', command = CreateFridge).grid(row = 8, column=1)
+    tk.Button(window_AddFridge, text = 'Back to Fridge Menu', 
+                        command = Open_MainFridge_Window).grid(row = 10, column=1)
 
     window_AddFridge.mainloop()
+##########---------->END: MAIN WINDOW FOR ADDING FRIDGES<----------##########
 
+
+##########---------->START: WINDOW FOR DELETING FRIDGES<----------##########
+def DeleteFridge_Window():
+    def DeleteFridge():
+        try:
+            _fridgeID = fridgeID.get()
+            print("HAVEN'T MADE DELETE FUNCTION YET")
+        except:
+            print("ERROR: Invalid data entered")
+
+    def Open_MainFridge_Window():
+        window_DeleteFridge.destroy()
+        MainFridge_Window()
+
+    window_DeleteFridge = tk.Tk()
+    #window_DeleteFridge.geometry("300x300")
+    window_DeleteFridge.title("DELETE FRIDGE")
+
+    tk.Label(window_DeleteFridge, text = "Delete fridge with FridgeID: ").grid(row = 0)
+    fridgeID = tk.Entry(window_DeleteFridge)
+    fridgeID.grid(row = 0, column = 1)
+
+    tk.Label(window_DeleteFridge, text = "From fridge with FridgeID: ").grid(row = 1)
+    fridgeID = tk.Entry(window_DeleteFridge)
+    fridgeID.grid(row = 1, column = 1)
+
+    tk.Button(window_DeleteFridge, text = 'Delete Fridge', command = DeleteFridge).grid(row = 5, column=1)
+    tk.Button(window_DeleteFridge, text = 'Back to Fridge Menu', 
+                        command = Open_MainFridge_Window).grid(row = 10, column=1)
+
+    window_DeleteFridge.mainloop()
+##########---------->END: WINDOW FOR DELETING FRIDGES<----------##########
+
+##########---------->START: MAIN WINDOW FOR FRIDGES<----------##########
 def MainFridge_Window():
-    MainFridge_Window = tk.Tk()
-    MainFridge_Window.geometry("300x300")
-    MainFridge_Window.title("FRIDGE MENU")
+    window_MainFridge = tk.Tk()
+    window_MainFridge.geometry("300x300")
+    window_MainFridge.title("FRIDGE MENU")
 
-    tk.Button(MainFridge_Window, text = 'Add Fridge', command = AddFridge_Window).grid(row = 0, column=0)
-    #tk.Button(MainFridge_Window, text = 'Move Box', command = MoveBox_Window).grid(row = 1, column=0)
-    #tk.Button(MainFridge_Window, text = 'Delete Box', command = DeleteBox_Window).grid(row = 2, column=0)
+    def Open_AddFridge_Window():
+        window_MainFridge.destroy()
+        AddFridge_Window()
 
-    MainFridge_Window.mainloop()
+    def Open_DeleteFridge_Window():
+        window_MainFridge.destroy()
+        DeleteFridge_Window()
+
+    tk.Button(window_MainFridge, text = 'Add Fridge', 
+                        command = Open_AddFridge_Window).grid(row = 0, column=0)
+    tk.Button(window_MainFridge, text = 'Delete Fridge', 
+                        command = Open_DeleteFridge_Window).grid(row = 2, column=0)
+
+    window_MainFridge.mainloop()
+##########---------->END: MAIN WINDOW FOR BOXES<----------##########
 
 
 SetupAPI.CreateAllTables(conn)   
 MainFridge_Window()
-
-
   
 
 
