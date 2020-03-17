@@ -69,8 +69,6 @@ def MoveBox(_conn, _boxID, _fridgeID):
     elif DoesIDExist(_conn, "BOX", _boxID) == "FALSE":
         #print("Not a Valid BoxID")
         return "Not a Valid BoxID"
-        
- 
 
 
 def AddBox(_conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ):

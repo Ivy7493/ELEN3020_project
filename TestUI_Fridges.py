@@ -2,6 +2,7 @@ import SetupAPI
 import sqlite3
 import tkinter as tk
 import DataAPI
+import TestUI_MAIN
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -100,17 +101,23 @@ def MainFridge_Window():
         window_MainFridge.destroy()
         DeleteFridge_Window()
 
+    def Open_MainMenu_Window():
+        window_MainFridge.destroy()
+        TestUI_MAIN.Main_Window()
+
     tk.Button(window_MainFridge, text = 'Add Fridge', 
                         command = Open_AddFridge_Window).grid(row = 0, column=0)
     tk.Button(window_MainFridge, text = 'Delete Fridge', 
                         command = Open_DeleteFridge_Window).grid(row = 2, column=0)
+    tk.Button(window_MainFridge, text = 'Back to Main Menu', 
+                        command = Open_MainMenu_Window).grid(row = 3, column=0)
 
     window_MainFridge.mainloop()
 ##########---------->END: MAIN WINDOW FOR BOXES<----------##########
 
 
-SetupAPI.CreateAllTables(conn)   
-MainFridge_Window()
+#SetupAPI.CreateAllTables(conn)   
+#MainFridge_Window()
   
 
 

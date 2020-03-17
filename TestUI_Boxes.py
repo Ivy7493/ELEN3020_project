@@ -2,6 +2,7 @@ import SetupAPI
 import sqlite3
 import tkinter as tk
 import DataAPI
+import TestUI_MAIN
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -30,6 +31,7 @@ def AddBox_Window():
     window_AddBox = tk.Tk()
     #window_AddBox.geometry("300x300")
     window_AddBox.title("ADD BOX")
+    window_AddBox["bg"] = 'red'
 
     tk.Label(window_AddBox, text = "Box ID").grid(row = 0)
     boxID = tk.Entry(window_AddBox)
@@ -78,6 +80,7 @@ def MoveBox_Window():
     window_MoveBox = tk.Tk()
     #window_MoveBox.geometry("300x300")
     window_MoveBox.title("MOVE BOX")
+    window_MoveBox["bg"] = 'red'
 
     tk.Label(window_MoveBox, text = "Move box with BoxID:").grid(row = 0)
     boxID = tk.Entry(window_MoveBox)
@@ -111,6 +114,7 @@ def DeleteBox_Window():
     window_DeleteBox = tk.Tk()
     #window_DeleteBox.geometry("300x300")
     window_DeleteBox.title("DELETE BOX")
+    window_DeleteBox["bg"] = 'red'
 
     tk.Label(window_DeleteBox, text = "Delete box with BoxID: ").grid(row = 0)
     boxID = tk.Entry(window_DeleteBox)
@@ -132,6 +136,7 @@ def MainBox_Window():
     window_MainBox = tk.Tk()
     window_MainBox.geometry("300x300")
     window_MainBox.title("BOX MENU")
+    window_MainBox["bg"] = 'red'
 
     def Open_AddBox_Window():
         window_MainBox.destroy()
@@ -145,17 +150,23 @@ def MainBox_Window():
         window_MainBox.destroy()
         DeleteBox_Window()
 
+    def Open_MainMenu_Window():
+        window_MainBox.destroy()
+        TestUI_MAIN.Main_Window()
+
     tk.Button(window_MainBox, text = 'Add Box', 
                         command = Open_AddBox_Window).grid(row = 0, column=0)
     tk.Button(window_MainBox, text = 'Move Box', 
                         command = Open_MoveBox_Window).grid(row = 1, column=0)
     tk.Button(window_MainBox, text = 'Delete Box', 
                         command = Open_DeleteBox_Window).grid(row = 2, column=0)
+    tk.Button(window_MainBox, text = 'Back to Main Menu', 
+                        command = Open_MainMenu_Window).grid(row = 3, column=0)
 
     window_MainBox.mainloop()
 ##########---------->END: MAIN WINDOW FOR BOXES<----------##########
 
 
-SetupAPI.CreateAllTables(conn)   
-MainBox_Window()
+#SetupAPI.CreateAllTables(conn)   
+#MainBox_Window()
 
