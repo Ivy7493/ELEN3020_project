@@ -64,10 +64,10 @@ def MoveBox(_conn, _boxID, _fridgeID):
             _conn.commit()
             return ("Box: " + _boxID + " was moved to fridge: " + _fridgeID)
     elif DoesIDExist(_conn, "FRIDGE", _fridgeID) == "FALSE":
-        print("Not a Valid FridgeID")
+        #print("Not a Valid FridgeID")
         return "Not a Valid FridgeID"
     elif DoesIDExist(_conn, "BOX", _boxID) == "FALSE":
-        print("Not a Valid BoxID")
+        #print("Not a Valid BoxID")
         return "Not a Valid BoxID"
         
  
