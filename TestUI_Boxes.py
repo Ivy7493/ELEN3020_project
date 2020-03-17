@@ -23,7 +23,9 @@ def console_PrintBox():
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
-SetupAPI.CreateAllTables(conn)    
+SetupAPI.CreateAllTables(conn)   
+print(DataAPI.IsFridgeFull(conn, 'BCD')) 
+print(DataAPI.MoveBox(conn, 'B1', 'TITS'))
 
 window_AddBox = tk.Tk()
 window_AddBox.geometry("300x300")
