@@ -1,14 +1,27 @@
 
-def CreateFridgeTable(conn):
-    c = conn.cursor()
+def CreateFridgeTable(_conn):
+    c = _conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS FridgeTable(
                                     fridgeID TEXT NOT NULL PRIMARY KEY,
                                     temperature INTEGER NOT NULL,
                                     numShelves INTEGER NOT NULL,
                                     widthShelves INTEGER NOT NULL)""")
-    #c.execute("""CREATE UNQIUE INDEX IF NOT EXIST fridgeID ON FridgeTable(fridgeID)""")
-    conn.commit()                               
+    _conn.commit()                               
+
+def CreateBoxTable(_conn):
+    c = _conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS BoxTable(
+                                    boxID TEXT NOT NULL PRIMARY KEY,
+                                    fridgeID TEXT NOT NULL,
+                                    boxX INTEGER NOT NULL,                                    
+                                    boxY INTEGER NOT NULL,                                    
+                                    boxZ INTEGER NOT NULL,
+                                    FOREIGN KEY(fridgeID) REFERENCES FridgeTable(fridgeID))""")
+    _conn.commit()  
 
 
-def CreateAllTables(conn):
-    c = conn.cursor()
+
+def CreateAllTables(_conn):
+    CreateFridgeTable(_conn)
+    CreateBoxTable(_conn)
+    c = _conn.cursor()

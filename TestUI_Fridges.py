@@ -6,11 +6,16 @@ import DataAPI
 
 
 def CreateFridge():
-    _fridgeID = fridgeID.get()
-    _temperature = temp.get()
-    _numShelves = numShelves.get()
-    _widthShelves = widthShelves.get()
-    DataAPI.AddFridge(conn, _fridgeID, _temperature, _numShelves, _widthShelves)
+    try:
+        _fridgeID = fridgeID.get()
+        _temperature = int(temp.get())
+        _numShelves = int(numShelves.get())
+        _widthShelves = int(widthShelves.get())
+        print(DataAPI.AddFridge(conn, _fridgeID, _temperature, _numShelves, _widthShelves))
+    except:
+        print("ERROR: Invalid data entered")
+ 
+    
 
 def console_PrintFridge():
     print("Fridge ID: %s\nTemperature: %s\nNumShelves: %s\nNumBoxes: %s" % (fridgeID.get(), temp.get(), numShelves.get(), widthShelves.get()))
