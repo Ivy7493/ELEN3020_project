@@ -102,8 +102,7 @@ def DeleteBox_Window():
     def DeleteBox():
         try:
             _boxID = boxID.get()
-            _fridgeID = fridgeID.get()
-            print("HAVEN'T MADE DELETE FUNCTION YET")
+            print(DataAPI.DeleteBox(conn, _boxID))
         except:
             print("ERROR: Invalid data entered")
 
@@ -119,10 +118,6 @@ def DeleteBox_Window():
     tk.Label(window_DeleteBox, text = "Delete box with BoxID: ").grid(row = 0)
     boxID = tk.Entry(window_DeleteBox)
     boxID.grid(row = 0, column = 1)
-
-    tk.Label(window_DeleteBox, text = "From fridge with FridgeID: ").grid(row = 1)
-    fridgeID = tk.Entry(window_DeleteBox)
-    fridgeID.grid(row = 1, column = 1)
 
     tk.Button(window_DeleteBox, text = 'Delete Box', command = DeleteBox).grid(row = 5, column=1)
     tk.Button(window_DeleteBox, text = 'Back to Box Menu', 

@@ -60,7 +60,7 @@ def DeleteFridge_Window():
     def DeleteFridge():
         try:
             _fridgeID = fridgeID.get()
-            print("HAVEN'T MADE DELETE FUNCTION YET")
+            print(DataAPI.DeleteFridge(conn, _fridgeID))
         except:
             print("ERROR: Invalid data entered")
 
@@ -75,10 +75,6 @@ def DeleteFridge_Window():
     tk.Label(window_DeleteFridge, text = "Delete fridge with FridgeID: ").grid(row = 0)
     fridgeID = tk.Entry(window_DeleteFridge)
     fridgeID.grid(row = 0, column = 1)
-
-    tk.Label(window_DeleteFridge, text = "From fridge with FridgeID: ").grid(row = 1)
-    fridgeID = tk.Entry(window_DeleteFridge)
-    fridgeID.grid(row = 1, column = 1)
 
     tk.Button(window_DeleteFridge, text = 'Delete Fridge', command = DeleteFridge).grid(row = 5, column=1)
     tk.Button(window_DeleteFridge, text = 'Back to Fridge Menu', 
