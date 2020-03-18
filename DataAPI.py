@@ -189,6 +189,15 @@ def DeleteFridge(_conn, _fridgeID):
         return "Fridge: " + _fridgeID +  " succesfully deleted!"
     elif IsFridgeEmpty(_conn, _fridgeID) == "FALSE":
         return "Fridge doesn't exist or is not empty! Cannot be deleted"    
+
+def DeleteSample(_conn, _sampleID):
+    if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE":
+        print("DO STUFF")
+        c = _conn.cursor()
+        c.execute("DELETE FROM SampleTable WHERE sampleID=?",(_sampleID,))
+        _conn.commit()
+    elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
+        return "Sample ID: " + _sampleID + " does not exist"  
          
         
     
