@@ -1,4 +1,26 @@
 
+def CreateSampleTable(_conn):
+    c = _conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS SampleTable(
+                                    sampleID TEXT NOT NULL PRIMARY KEY,
+                                    sampleType TEXT NOT NULL,
+                                    originCountry TEXT NOT NULL,
+                                    collectionDate TEXT NOT NULL,
+                                    entryDate TEXT NOT NULL,
+                                    sampleHistory TEXT NOT NULL,
+                                    subjectAge INTEGER NOT NULL,
+                                    tubeRating INTEGER NOT NULL,
+                                    collectionTitle TEXT NOT NULL,
+                                    donorPhone TEXT NOT NULL,
+                                    authorisedPhone TEXT NOT NULL,
+                                    returnType TEXT NOT NULL,
+                                    returnDate TEXT NOT NULL,
+                                    testResults TEXT NOT NULL,
+                                    phenotypeValue TEXT NOT NULL,
+                                    diseaseState TEXT NOT NULL)""")
+    _conn.commit()
+                                    
+
 def CreateFridgeTable(_conn):
     c = _conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS FridgeTable(
@@ -24,4 +46,5 @@ def CreateBoxTable(_conn):
 def CreateAllTables(_conn):
     CreateFridgeTable(_conn)
     CreateBoxTable(_conn)
+    CreateSampleTable(_conn)
     c = _conn.cursor()
