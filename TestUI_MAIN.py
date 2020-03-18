@@ -22,10 +22,14 @@ def Main_Window():
         window_Main.destroy()
         TestUI_Fridges.MainFridge_Window()
 
-    tk.Button(window_Main, text = 'Open Box Menu', 
-                        command = Open_BoxMenu_Window).grid(row = 0, column=0)
+
     tk.Button(window_Main, text = 'Open Fridge Menu', 
-                        command = Open_FridgeMenu_Window).grid(row = 1, column=0)
+                        command = Open_FridgeMenu_Window).grid(row = 0, column=0)
+
+    tk.Button(window_Main, text = 'Open Box Menu', 
+                        command = Open_BoxMenu_Window).grid(row = 1, column=0)
+
+
 
     window_Main.mainloop()
 ##########---------->END: MAIN WINDOW<----------##########

@@ -3,6 +3,10 @@ def CreateSampleTable(_conn):
     c = _conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS SampleTable(
                                     sampleID TEXT NOT NULL PRIMARY KEY,
+                                    boxID TEXT NOT NULL,
+                                    boxX INTEGER NOT NULL,     
+                                    boxY INTEGER NOT NULL,
+                                    boxZ INTEGER NOT NULL,
                                     sampleType TEXT NOT NULL,
                                     originCountry TEXT NOT NULL,
                                     collectionDate TEXT NOT NULL,
@@ -17,7 +21,8 @@ def CreateSampleTable(_conn):
                                     returnDate TEXT NOT NULL,
                                     testResults TEXT NOT NULL,
                                     phenotypeValue TEXT NOT NULL,
-                                    diseaseState TEXT NOT NULL)""")
+                                    diseaseState TEXT NOT NULL,
+                                    FOREIGN KEY(boxID) REFERENCES BoxTable(boxID))""")
     _conn.commit()
                                     
 
