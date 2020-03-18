@@ -51,7 +51,16 @@ def DoesIDExist(_conn, _type, _ID):
         elif count > 0:        
             return "TRUE"    
     elif _type == "SAMPLE":
-        print("NEED TO DO SAMPLE")
+        c = _conn.cursor()
+        c.execute("SELECT * FROM SampleTable WHERE sampleID=?", (_ID,))
+        results = c.fetchall()
+        count = 0
+        for result in results:
+            count = count + 1
+        if count == 0:
+            return "FALSE"
+        elif count > 0:
+            return "TRUE"
  
 
 def MoveBox(_conn, _boxID, _fridgeID):
@@ -81,7 +90,21 @@ def AddBox(_conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ):
     except sqlite3.Error as error:
         return(error)
 
-def IsPositionFree(_conn, _boxID, _posX, _posY, posZ)
+def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState):
+    try:
+        c = _conn.cursor()
+        if IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) == "TRUE":
+            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, donorPhone, authorisedPhone, returnType, returnDate, testResults, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
+            _conn.commit()
+            return ("Successfully added sample " + _sampleID) 
+        else:
+            return (IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) + " in box: " + _boxID)
+           
+    except sqlite3.Error as error:
+        return error
+        
+
+def IsPositionFree(_conn, _boxID, _posX, _posY, posZ):
     c = _conn.cursor()
     c.execute("SELECT * FROM BoxTable WHERE boxID=?",(_boxID,))
     results = c.fetchone()
