@@ -104,18 +104,17 @@ def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _origi
         return error
         
 
-def IsPositionFree(_conn, _boxID, _posX, _posY, posZ):
+def IsPositionFree(_conn, _boxID, _posX, _posY, _posZ):
     c = _conn.cursor()
     c.execute("SELECT * FROM BoxTable WHERE boxID=?",(_boxID,))
     results = c.fetchone()
     boxX = results[2]
     boxY = results[3]
     boxZ = results[4]
-    if _posX <= boxX and _posY <= boxY and _posz <= boxZ and _posX >= 1 and _posY >= 1 and _posZ >= 1:
-        print("DO STUFFFZ HERE")
+    if _posX <= boxX and _posY <= boxY and _posZ <= boxZ and _posX >= 1 and _posY >= 1 and _posZ >= 1:
         ##################################
         c.execute("SELECT * FROM SampleTable WHERE boxID=? AND boxX=? AND boxY=? AND boxZ=?",(_boxID,_posX, _posY, _posZ,))
-        LocResults = c.fetchone()
+        LocResults = c.fetchall()
         count = 0;
         for result in LocResults:
             count = count + 1

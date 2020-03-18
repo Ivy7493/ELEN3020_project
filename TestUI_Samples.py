@@ -21,8 +21,8 @@ def AddSample_Window():
             _sampleType = sampleType.get()
             _originCountry = originCountry.get()
             _collectionDate = collectionDate.get()
-            #_entryDate = entryDate.get()
-            #_sampleHistory = sampleHistory.get()
+            _entryDate = entryDate
+            _sampleHistory = sampleHistory
             _subjectAge = int(subjectAge.get())
             _tubeRating = int(tubeRating.get())
             _collectionTitle = collectionTitle.get()
@@ -34,7 +34,7 @@ def AddSample_Window():
             _phenotypeValue = phenotypeValue.get()
             _diseaseState = diseaseState.get()
 
-            print(DataAPI.SampleBox(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
+            print(DataAPI.AddSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
         except:
             print("ERROR: Invalid data entered")
 
