@@ -132,7 +132,6 @@ def IsPositionFree(_conn, _boxID, _posX, _posY, _posZ):
 def MoveSample(_conn, _sampleID, _boxID, _posX , _posY, _posZ):
     c = _conn.cursor()
     if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE" and DoesIDExist(_conn, "BOX", _boxID) == "TRUE" and IsPositionFree(_conn, _boxID, _posX, _posY, _posZ) == "TRUE":
-        print("HELLO")
         c.execute("UPDATE SampleTable SET boxID=? AND boxX=? AND boxY=? AND boxZ=? WHERE sampleID=?", (_boxID,_posX,_posY,_posZ,_sampleID,))
         _conn.commit()
         return "Successfully moved sample: " + _sampleID + " into box: " + _boxID

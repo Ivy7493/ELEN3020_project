@@ -148,7 +148,7 @@ def MoveSample_Window():
             _boxX = int(boxX.get())
             _boxY = int(boxY.get())
             _boxZ = int(boxZ.get())
-            print(DataAPI.MoveSample(conn, _sampleID, _boxID, _boxX, _boxY, boxZ))
+            print(DataAPI.MoveSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ))
         except:
             print("ERROR: Invalid data entered")
 
