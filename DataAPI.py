@@ -141,6 +141,54 @@ def MoveSample(_conn, _sampleID, _boxID, _posX , _posY, _posZ):
         return "Box ID: " + _boxID + " does not exist!"
     elif IsPositionFree(_conn, _boxID, _posX, _posY, _posZ) != "TRUE":
         return IsPositionFree(_conn, _boxID, _posX, _posY, _posZ)
+
+def IsBoxEmpty(_conn , _boxID):
+    c = _conn.cursor()
+    if DoesIDExist(_conn, "BOX", _boxID) == "TRUE":
+        c.execute("SELECT * FROM SampleTable WHERE boxID=?", (_boxID,))
+        results = c.fetchall()
+        count = 0
+        for result in results:
+            count = count + 1
+        if count == 0:
+            return "TRUE"
+        elif count >= 1:
+            return "FALSE"
+    elif DoesIDExist(_conn, "BOX", _boxID) == "FALSE":
+        return "FALSE" 
+
+def DeleteBox(_conn , _boxID):
+    if IsBoxEmpty(_conn, _boxID) == "TRUE":
+        c = _conn.cursor()
+        c.execute("DELETE FROM BoxTable WHERE boxID=?",(_boxID,))
+        _conn.commit()
+        return "Box: " + _boxID +  " succesfully deleted!"
+    elif IsBoxEmpty(_conn, _boxID) == "FALSE":
+        return "Box doesn't exist or is not empty! Cannot be deleted"
+
+def IsFridgeEmpty(_conn, _fridgeID):
+    c = _conn.cursor()
+    if DoesIDExist(_conn, "FRIDGE", _fridgeID) == "TRUE":
+        c.execute("SELECT * FROM BoxTable WHERE fridgeID=?", (_fridgeID,))
+        results = c.fetchall()
+        count = 0
+        for result in results:
+            count = count + 1
+        if count == 0:
+            return "TRUE"
+        elif count >= 1:
+            return "FALSE"
+    elif DoesIDExist(_conn, "FRIDGE", _fridgeID) == "FALSE":
+        return "FALSE" 
+
+def DeleteFridge(_conn, _fridgeID):
+    if IsFridgeEmpty(_conn, _fridgeID) == "TRUE":
+        c = _conn.cursor()
+        c.execute("DELETE FROM FridgeTable WHERE fridgeID=?",(_fridgeID,))
+        _conn.commit()
+        return "Fridge: " + _fridgeID +  " succesfully deleted!"
+    elif IsFridgeEmpty(_conn, _fridgeID) == "FALSE":
+        return "Fridge doesn't exist or is not empty! Cannot be deleted"    
          
         
     

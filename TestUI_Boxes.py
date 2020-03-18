@@ -100,11 +100,9 @@ def MoveBox_Window():
 ##########---------->START: WINDOW FOR DELETING BOXES<----------##########
 def DeleteBox_Window():
     def DeleteBox():
-        try:
-            _boxID = boxID.get()
-            print(DataAPI.DeleteBox(conn, _boxID))
-        except:
-            print("ERROR: Invalid data entered")
+        _boxID = boxID.get()
+        print(DataAPI.DeleteBox(conn, _boxID))
+        
 
     def Open_MainBox_Window():
         window_DeleteBox.destroy()

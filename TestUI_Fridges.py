@@ -58,11 +58,9 @@ def AddFridge_Window():
 ##########---------->START: WINDOW FOR DELETING FRIDGES<----------##########
 def DeleteFridge_Window():
     def DeleteFridge():
-        try:
-            _fridgeID = fridgeID.get()
-            print(DataAPI.DeleteFridge(conn, _fridgeID))
-        except:
-            print("ERROR: Invalid data entered")
+        _fridgeID = fridgeID.get()
+        print(DataAPI.DeleteFridge(conn, _fridgeID))
+        
 
     def Open_MainFridge_Window():
         window_DeleteFridge.destroy()
