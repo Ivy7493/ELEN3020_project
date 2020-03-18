@@ -186,14 +186,42 @@ def MoveSample_Window():
                         command = Open_MainSample_Window).grid(row = 10, column=1)
 
     window_MoveSample.mainloop()
-##########---------->END: WINDOW FOR MOVING BOXES<----------##########
+##########---------->END: WINDOW FOR MOVING SAMPLE<----------##########
+
+
+##########---------->START: WINDOW FOR DELETING SAMPLE<----------##########
+def DeleteSample_Window():
+    def deleteSample():
+        _sampleID = sampleID.get()
+        print(DataAPI.DeleteSample(conn, _sampleID))
+        
+    def Open_MainSample_Window():
+        window_DeleteSample.destroy()
+        MainSample_Window()
+
+    window_DeleteSample = tk.Tk()
+    #window_DeleteSample.geometry("300x300")
+    window_DeleteSample.title("DELETE SAMPLE")
+    window_DeleteSample["bg"] = 'red'
+
+    tk.Label(window_DeleteSample, text = "Delete sample with SampleID: ").grid(row = 0)
+    sampleID = tk.Entry(window_DeleteSample)
+    sampleID.grid(row = 0, column = 1)
+
+    tk.Button(window_DeleteSample, text = 'Delete Sample', command = deleteSample).grid(row = 5, column=1)
+    tk.Button(window_DeleteSample, text = 'Back to Sample Menu', 
+                        command = Open_MainSample_Window).grid(row = 10, column=1)
+
+    window_DeleteSample.mainloop()
+##########---------->END: WINDOW FOR DELETING SAMPLE<----------##########
+
 
 
 ##########---------->START: MAIN WINDOW FOR SAMPLES<----------##########
 def MainSample_Window():
     window_MainSample = tk.Tk()
     window_MainSample.geometry("300x300")
-    window_MainSample.title("FRIDGE MENU")
+    window_MainSample.title("SAMPLE MENU")
 
     def Open_AddSample_Window():
         window_MainSample.destroy()
@@ -203,16 +231,25 @@ def MainSample_Window():
         window_MainSample.destroy()
         MoveSample_Window()
 
+    def Open_DeleteSample_Window():
+        window_MainSample.destroy()
+        DeleteSample_Window()
+
     def Open_MainMenu_Window():
         window_MainSample.destroy()
         TestUI_MAIN.Main_Window()
 
     tk.Button(window_MainSample, text = 'Add Sample', 
                         command = Open_AddSample_Window).grid(row = 0, column=0)
+
     tk.Button(window_MainSample, text = 'Move Sample', 
                         command = Open_MoveSample_Window).grid(row = 2, column=0)
+
+    tk.Button(window_MainSample, text = 'Delete Sample', 
+                        command = Open_DeleteSample_Window).grid(row = 3, column=0)
+
     tk.Button(window_MainSample, text = 'Back to Main Menu', 
-                        command = Open_MainMenu_Window).grid(row = 3, column=0)
+                        command = Open_MainMenu_Window).grid(row = 4, column=0)
 
     window_MainSample.mainloop()
 ##########---------->END: MAIN WINDOW FOR SAMPLES<----------##########
