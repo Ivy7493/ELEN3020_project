@@ -3,6 +3,7 @@ import sqlite3
 import tkinter as tk
 import DataAPI
 import TestUI_MAIN
+from tkinter import messagebox
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -16,9 +17,9 @@ def AddBox_Window():
             _boxX = int(boxX.get())
             _boxY = int(boxY.get())
             _boxZ = int(boxZ.get())
-            print(DataAPI.AddBox(conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ))
+            messagebox.showinfo("Add Box", DataAPI.AddBox(conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ))
         except:
-            print("ERROR: Invalid data entered")
+            messagebox.showinfo("Add Box", "ERROR: Invalid data entered")
         
     def console_PrintBox():
         print("Box ID: %s\nFridge ID: %s\nBox X: %s\nBox Y: %s\nBox Z: %s" % 
@@ -69,9 +70,9 @@ def MoveBox_Window():
         try:
             _boxID = boxID.get()
             _fridgeID = fridgeID.get()
-            print(DataAPI.MoveBox(conn, _boxID, _fridgeID))
+            messagebox.showinfo("Move Box", DataAPI.MoveBox(conn, _boxID, _fridgeID))
         except:
-            print("ERROR: Invalid data entered")
+            messagebox.showinfo("Move Box", "ERROR: Invalid data entered")
 
     def Open_MainBox_Window():
         window_MoveBox.destroy()
@@ -101,9 +102,8 @@ def MoveBox_Window():
 def DeleteBox_Window():
     def DeleteBox():
         _boxID = boxID.get()
-        print(DataAPI.DeleteBox(conn, _boxID))
+        messagebox.showinfo("Delete Box", (DataAPI.DeleteBox(conn, _boxID)))
         
-
     def Open_MainBox_Window():
         window_DeleteBox.destroy()
         MainBox_Window()

@@ -3,6 +3,7 @@ import sqlite3
 import tkinter as tk
 import DataAPI
 import TestUI_MAIN
+from tkinter import messagebox
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -15,9 +16,9 @@ def AddFridge_Window():
             _temperature = int(temp.get())
             _numShelves = int(numShelves.get())
             _widthShelves = int(widthShelves.get())
-            print(DataAPI.AddFridge(conn, _fridgeID, _temperature, _numShelves, _widthShelves))
+            messagebox.showinfo("Add Fridge", DataAPI.AddFridge(conn, _fridgeID, _temperature, _numShelves, _widthShelves))
         except:
-            print("ERROR: Invalid data entered")
+            messagebox.showinfo("Add Fridge", "ERROR: Invalid data entered")
 
     def console_PrintFridge():
         print("Fridge ID: %s\nTemperature: %s\nNumShelves: %s\nNumBoxes: %s" % (fridgeID.get(), temp.get(), numShelves.get(), widthShelves.get()))
@@ -59,8 +60,7 @@ def AddFridge_Window():
 def DeleteFridge_Window():
     def DeleteFridge():
         _fridgeID = fridgeID.get()
-        print(DataAPI.DeleteFridge(conn, _fridgeID))
-        
+        messagebox.showinfo("Delete Fridge", DataAPI.DeleteFridge(conn, _fridgeID))
 
     def Open_MainFridge_Window():
         window_DeleteFridge.destroy()

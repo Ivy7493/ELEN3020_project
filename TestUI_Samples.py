@@ -5,6 +5,8 @@ import DataAPI
 import TestUI_MAIN
 import time
 import datetime
+from tkinter import messagebox
+from tkinter import ttk
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -34,9 +36,9 @@ def AddSample_Window():
             _phenotypeValue = phenotypeValue.get()
             _diseaseState = diseaseState.get()
 
-            print(DataAPI.AddSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
+            messagebox.showinfo("Add Sample", DataAPI.AddSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
         except:
-            print("ERROR: Invalid data entered")
+            messagebox.showinfo("Add Sample", "ERROR: Invalid data entered")
 
     def console_PrintSample():
         print("Sample ID: %s\nBox ID: %s\nBox X: %s\nBox Y: %s\nBox Z: %s\nSample Type: %s\nCountry of Origin: %s\nCollection Date: %s\nSubject Age: %s\nTube Rating: %s\nCollection Title: %s\nDonor Phone: %s\nAuthorised Phone: %s\nReturn or Destroy?: %s\nReturn or Destroy Date: %s\nTest Results: %s\nPhenotype Value: %s\nDisease State Value: %s" % 
@@ -72,7 +74,7 @@ def AddSample_Window():
     boxZ.grid(row = 4, column = 1)
 
     tk.Label(window_AddSample, text = "Sample Type").grid(row = 5)
-    sampleType = tk.Entry(window_AddSample)
+    sampleType = ttk.Combobox(window_AddSample, values=["Blood", "Urine", "Skin cells", "Organ tissue"]) 
     sampleType.grid(row = 5, column = 1)
 
     tk.Label(window_AddSample, text = "Country of Origin").grid(row = 6)
@@ -148,9 +150,9 @@ def MoveSample_Window():
             _boxX = int(boxX.get())
             _boxY = int(boxY.get())
             _boxZ = int(boxZ.get())
-            print(DataAPI.MoveSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ))
+            messagebox.showinfo("Move Sample", DataAPI.MoveSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ))
         except:
-            print("ERROR: Invalid data entered")
+            messagebox.showinfo("Move Sample", "ERROR: Invalid data entered")
 
     def Open_MainSample_Window():
         window_MoveSample.destroy()
@@ -193,7 +195,7 @@ def MoveSample_Window():
 def DeleteSample_Window():
     def deleteSample():
         _sampleID = sampleID.get()
-        print(DataAPI.DeleteSample(conn, _sampleID))
+        messagebox.showinfo("Delete Sample", DataAPI.DeleteSample(conn, _sampleID))
         
     def Open_MainSample_Window():
         window_DeleteSample.destroy()
