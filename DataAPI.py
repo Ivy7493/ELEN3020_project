@@ -81,3 +81,31 @@ def AddBox(_conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ):
     except sqlite3.Error as error:
         return(error)
 
+def IsPositionFree(_conn, _boxID, _posX, _posY, posZ)
+    c = _conn.cursor()
+    c.execute("SELECT * FROM BoxTable WHERE boxID=?",(_boxID,))
+    results = c.fetchone()
+    boxX = results[2]
+    boxY = results[3]
+    boxZ = results[4]
+    if _posX <= boxX and _posY <= boxY and _posz <= boxZ and _posX >= 1 and _posY >= 1 and _posZ >= 1:
+        print("DO STUFFFZ HERE")
+        ##################################
+        c.execute("SELECT * FROM SampleTable WHERE boxID=? AND boxX=? AND boxY=? AND boxZ=?",(_boxID,_posX, _posY, _posZ,))
+        LocResults = c.fetchone()
+        count = 0;
+        for result in LocResults:
+            count = count + 1
+        if count > 0:
+            return "Position Already taken"
+        elif count == 0:
+            return "TRUE" 
+    elif _posX > boxX or _posX < 1:
+        return "Invalid X location"
+    elif _posY > boxY or _posY < 1:
+        return "Invalid Y Location"
+    elif _posZ > boxZ or _posZ < 1:
+        return "Invalid Z Location"
+        
+    
+
