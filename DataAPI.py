@@ -1,10 +1,12 @@
 import sqlite3
+import LoggingAPI
 
 def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves):
     try:
         c = _conn.cursor()
         c.execute("INSERT INTO FridgeTable (fridgeID, temperature, numShelves, widthShelves) VALUES (?, ?, ?, ?)",(_fridgeID,int(_temperature), int(_numShelves), int(_widthShelves)))
         _conn.commit()
+        LoggingAPI.Log("Added new fridge: " + _fridgeID) #logging
         return("Successfully added Fridge " + _fridgeID)
 
     except sqlite3.Error as error:
@@ -71,6 +73,7 @@ def MoveBox(_conn, _boxID, _fridgeID):
             c = _conn.cursor()
             c.execute("UPDATE BoxTable SET fridgeID =? WHERE boxID =?",(_fridgeID,_boxID,))
             _conn.commit()
+            LoggingAPI.Log("Box: " + _boxID + " was moved to fridge: " + _fridgeID)#logging
             return ("Box: " + _boxID + " was moved to fridge: " + _fridgeID)
     elif DoesIDExist(_conn, "FRIDGE", _fridgeID) == "FALSE":
         #print("Not a Valid FridgeID")
@@ -85,6 +88,7 @@ def AddBox(_conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ):
         c = _conn.cursor()
         c.execute("INSERT INTO BoxTable (boxID, fridgeID, boxX, boxY, boxZ) VALUES (?, ?, ?, ?, ?)",(_boxID, _fridgeID,int(_boxX), int(_boxY), int(_boxZ)))
         _conn.commit()
+        LoggingAPI.Log("Added new box: " + _boxID)#logging
         return("Successfully added Box " + _boxID)
 
     except sqlite3.Error as error:
@@ -96,7 +100,8 @@ def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _origi
         if IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) == "TRUE":
             c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, donorPhone, authorisedPhone, returnType, returnDate, testResults, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
             _conn.commit()
-            return ("Successfully added sample " + _sampleID) 
+            LoggingAPI.Log("Added new sample: " + _sampleID)#logging
+            return ("Successfully added sample " + _sampleID)             
         else:
             return (IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) + " in box: " + _boxID)
            
@@ -134,6 +139,7 @@ def MoveSample(_conn, _sampleID, _boxID, _posX , _posY, _posZ):
     if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE" and DoesIDExist(_conn, "BOX", _boxID) == "TRUE" and IsPositionFree(_conn, _boxID, _posX, _posY, _posZ) == "TRUE":
         c.execute("UPDATE SampleTable SET boxID=?, boxX=?, boxY=?, boxZ=? WHERE sampleID=?", (_boxID,_posX,_posY,_posZ,_sampleID,))
         _conn.commit()
+        LoggingAPI.Log("Sample: " + _sampleID + " was move into box: " + _boxID) #logging
         return "Successfully moved sample: " + _sampleID + " into box: " + _boxID
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
         return "Sample ID: " + _sampleID + " does not exist!"
@@ -162,6 +168,7 @@ def DeleteBox(_conn , _boxID):
         c = _conn.cursor()
         c.execute("DELETE FROM BoxTable WHERE boxID=?",(_boxID,))
         _conn.commit()
+        LoggingAPI.Log("Box: " + _boxID +  " deleted!")#logging
         return "Box: " + _boxID +  " succesfully deleted!"
     elif IsBoxEmpty(_conn, _boxID) == "FALSE":
         return "Box doesn't exist or is not empty! Cannot be deleted"
@@ -186,6 +193,7 @@ def DeleteFridge(_conn, _fridgeID):
         c = _conn.cursor()
         c.execute("DELETE FROM FridgeTable WHERE fridgeID=?",(_fridgeID,))
         _conn.commit()
+        LoggingAPI.Log("Fridge: " + _fridgeID +  " deleted!")#logging
         return "Fridge: " + _fridgeID +  " succesfully deleted!"
     elif IsFridgeEmpty(_conn, _fridgeID) == "FALSE":
         return "Fridge doesn't exist or is not empty! Cannot be deleted"    
@@ -196,6 +204,8 @@ def DeleteSample(_conn, _sampleID):
         c = _conn.cursor()
         c.execute("DELETE FROM SampleTable WHERE sampleID=?",(_sampleID,))
         _conn.commit()
+        LoggingAPI.Log("Sample: " + _sampleID +  " deleted!")#logging
+        return "Sample: " + _sampleID + " successfully deleted!"
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
         return "Sample ID: " + _sampleID + " does not exist"  
          

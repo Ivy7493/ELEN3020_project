@@ -1,6 +1,7 @@
-2020-38-03/13/20 14:38:53 - Box: EEP moved to fridge: ABC
-2020-38-03/13/20 14:38:57 - Box: EEP moved to fridge: FFF
-2020-39-03/13/20 14:39:01 - Box: EEP moved to fridge: ABC
-2020-42-03/13/20 14:42:31 - Box: VBC created = [VBC,ABC,10]
-2020-32-03/14/20 09:32:14 - Box: FFF created = [FFF,ABC,5]
-2020-21-03/14/20 12:21:22 - Box: CCC created = [CCC,ABC,25]
+
+2020-14-03/18/20 12:14:11 - Added new fridge: DDD
+2020-14-03/18/20 12:14:36 - Added new box: CBG
+2020-15-03/18/20 12:15:15 - Box: CBG deleted!
+2020-15-03/18/20 12:15:28 - Fridge: DDD deleted!
+2020-16-03/18/20 12:16:06 - Added new box: Ivan
+2020-16-03/18/20 12:16:34 - Box: Ivan was moved to fridge: F3
