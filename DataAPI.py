@@ -192,10 +192,10 @@ def DeleteFridge(_conn, _fridgeID):
 
 def DeleteSample(_conn, _sampleID):
     if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE":
-        print("DO STUFF")
         c = _conn.cursor()
         c.execute("DELETE FROM SampleTable WHERE sampleID=?",(_sampleID,))
         _conn.commit()
+        return ("Successfully deleted sample: " + _sampleID)
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
         return "Sample ID: " + _sampleID + " does not exist"  
          
