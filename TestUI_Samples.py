@@ -3,6 +3,8 @@ import sqlite3
 import tkinter as tk
 import DataAPI
 import TestUI_MAIN
+import time
+import datetime
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -35,11 +37,10 @@ def AddSample_Window():
             print(DataAPI.SampleBox(conn, _sampleID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
         except:
             print("ERROR: Invalid data entered")
-        
-    def console_PrintSample():
-        print("Sample ID: %s\Box ID: %s\nBox X: %s\nBox Y: %s\nBox Z: %s\nSample Type: %s\nCountry of Origin: %s\nCollection Date: %s\nEntry Date: %s\nSample History (REFERENCE): %s\nSubject Age: %s\nTube Rating: %s\nCollection Title: %s\nDonor Phone: %s\nAuthorised Phone: %s\nReturn or Destroy?: %s\nReturn or Destroy Date: %s\nTest Results: %s\nPhenotype Value: %s\nDisease State Value: %s" % 
-                    (sampleID.get(), boxX.get(), boxY.get(), boxZ.get(), sampleType.get(), originCountry.get(), collectionDate.get(), entryDate.get(), sampleHistory.get(), subjectAge.get(), tubeRating.get(), collectionTitle.get(), donorPhone.get(), authorisedPhone.get(), returnType.get(), returnDate.get(), testResults.get(), phenotypeValue.get(), diseaseState.get()))
 
+    def console_PrintSample():
+        print("Sample ID: %s\nBox ID: %s\nBox X: %s\nBox Y: %s\nBox Z: %s\nSample Type: %s\nCountry of Origin: %s\nCollection Date: %s\nSubject Age: %s\nTube Rating: %s\nCollection Title: %s\nDonor Phone: %s\nAuthorised Phone: %s\nReturn or Destroy?: %s\nReturn or Destroy Date: %s\nTest Results: %s\nPhenotype Value: %s\nDisease State Value: %s" % 
+        (sampleID.get(), boxID.get(), boxX.get(), boxY.get(), boxZ.get(), sampleType.get(), originCountry.get(), collectionDate.get(), subjectAge.get(), tubeRating.get(), collectionTitle.get(), donorPhone.get(), authorisedPhone.get(), returnType.get(), returnDate.get(), testResults.get(), phenotypeValue.get(), diseaseState.get()))
 
     def Open_MainSample_Window():
         window_AddSample.destroy()
@@ -85,7 +86,7 @@ def AddSample_Window():
     todaysDate = time.time()
     entryDate = str(datetime.datetime.fromtimestamp(todaysDate).strftime('%Y-%m-%d %H:%M%S'))
 
-    sampleHistory
+    sampleHistory = "INSERT REFERENCE HERE"
 
     tk.Label(window_AddSample, text = "Age of Subject").grid(row = 8)
     subjectAge = tk.Entry(window_AddSample)
@@ -111,129 +112,64 @@ def AddSample_Window():
     returnType = tk.Entry(window_AddSample)
     returnType.grid(row = 13, column = 1)
 
-    tk.Label(window_AddSample, text = "Return or Destroy?").grid(row = 14)
+    tk.Label(window_AddSample, text = "Date of Return/Destroy").grid(row = 14)
     returnDate = tk.Entry(window_AddSample)
     returnDate.grid(row = 14, column = 1)
 
+    tk.Label(window_AddSample, text = "Test Results").grid(row = 15)
+    testResults = tk.Entry(window_AddSample)
+    testResults.grid(row = 15, column = 1)
 
-testResults TEXT NOT NULL,
-phenotypeValue TEXT NOT NULL,
-diseaseState TEXT NOT NULL
+    tk.Label(window_AddSample, text = "Phenotype Value").grid(row = 16)
+    phenotypeValue = tk.Entry(window_AddSample)
+    phenotypeValue.grid(row = 16, column = 1)
 
-    tk.Button(window_AddBox, text = 'Print Box to Console', 
-                        command = console_PrintBox).grid(row = 7, column=1)
-    tk.Button(window_AddBox, text = 'Add Box', command = CreateBox).grid(row = 8, column=1)
+    tk.Label(window_AddSample, text = "Disease Stae Value").grid(row = 17)
+    diseaseState = tk.Entry(window_AddSample)
+    diseaseState.grid(row = 17, column = 1)
 
-    tk.Button(window_AddBox, text = 'Back to Box Menu', 
-                        command = Open_MainBox_Window).grid(row = 10, column=1)
+    tk.Button(window_AddSample, text = 'Print Sample to Console', 
+                        command = console_PrintSample).grid(row = 18, column=1)
+    #tk.Button(window_AddSample, text = 'Add Box', command = CreateBox).grid(row = 8, column=1)
 
-    window_AddBox.mainloop()
+    #tk.Button(window_AddSample, text = 'Back to Sample Menu', 
+                        #command = Open_MainBox_Window).grid(row = 10, column=1)
+
+    window_AddSample.mainloop()
 ##########---------->END: WINDOW FOR ADDING BOXES<----------##########
 
-##########---------->START: WINDOW FOR MOVING BOXES<----------##########
-def MoveBox_Window():
-    def MoveBox():
-        try:
-            _boxID = boxID.get()
-            _fridgeID = fridgeID.get()
-            print(DataAPI.MoveBox(conn, _boxID, _fridgeID))
-        except:
-            print("ERROR: Invalid data entered")
 
-    def Open_MainBox_Window():
-        window_MoveBox.destroy()
-        MainBox_Window()
+##########---------->START: MAIN WINDOW FOR SAMPLES<----------##########
+def MainSample_Window():
+    window_MainSample = tk.Tk()
+    window_MainSample.geometry("300x300")
+    window_MainSample.title("FRIDGE MENU")
 
-    window_MoveBox = tk.Tk()
-    #window_MoveBox.geometry("300x300")
-    window_MoveBox.title("MOVE BOX")
-    window_MoveBox["bg"] = 'red'
+    def Open_AddSample_Window():
+        window_MainSample.destroy()
+        AddSample_Window()
 
-    tk.Label(window_MoveBox, text = "Move box with BoxID:").grid(row = 0)
-    boxID = tk.Entry(window_MoveBox)
-    boxID.grid(row = 0, column = 1)
-
-    tk.Label(window_MoveBox, text = "To fridge with FridgeID:").grid(row = 1)
-    fridgeID = tk.Entry(window_MoveBox)
-    fridgeID.grid(row = 1, column = 1)
-
-    tk.Button(window_MoveBox, text = 'Move Box', command = MoveBox).grid(row = 5, column=1)
-    tk.Button(window_MoveBox, text = 'Back to Box Menu', 
-                        command = Open_MainBox_Window).grid(row = 10, column=1)
-
-    window_MoveBox.mainloop()
-##########---------->END: WINDOW FOR MOVING BOXES<----------##########
-
-##########---------->START: WINDOW FOR DELETING BOXES<----------##########
-def DeleteBox_Window():
-    def DeleteBox():
-        try:
-            _boxID = boxID.get()
-            _fridgeID = fridgeID.get()
-            print("HAVEN'T MADE DELETE FUNCTION YET")
-        except:
-            print("ERROR: Invalid data entered")
-
-    def Open_MainBox_Window():
-        window_DeleteBox.destroy()
-        MainBox_Window()
-
-    window_DeleteBox = tk.Tk()
-    #window_DeleteBox.geometry("300x300")
-    window_DeleteBox.title("DELETE BOX")
-    window_DeleteBox["bg"] = 'red'
-
-    tk.Label(window_DeleteBox, text = "Delete box with BoxID: ").grid(row = 0)
-    boxID = tk.Entry(window_DeleteBox)
-    boxID.grid(row = 0, column = 1)
-
-    tk.Label(window_DeleteBox, text = "From fridge with FridgeID: ").grid(row = 1)
-    fridgeID = tk.Entry(window_DeleteBox)
-    fridgeID.grid(row = 1, column = 1)
-
-    tk.Button(window_DeleteBox, text = 'Delete Box', command = DeleteBox).grid(row = 5, column=1)
-    tk.Button(window_DeleteBox, text = 'Back to Box Menu', 
-                        command = Open_MainBox_Window).grid(row = 10, column=1)
-
-    window_DeleteBox.mainloop()
-##########---------->END: WINDOW FOR DELETING BOXES<----------##########
-
-##########---------->START: MAIN WINDOW FOR BOXES<----------##########
-def MainBox_Window():
-    window_MainBox = tk.Tk()
-    window_MainBox.geometry("300x300")
-    window_MainBox.title("BOX MENU")
-    window_MainBox["bg"] = 'red'
-
-    def Open_AddBox_Window():
-        window_MainBox.destroy()
-        AddBox_Window()
-
-    def Open_MoveBox_Window():
-        window_MainBox.destroy()
-        MoveBox_Window()
-
-    def Open_DeleteBox_Window():
-        window_MainBox.destroy()
-        DeleteBox_Window()
+    def Open_DeleteSample_Window():
+        window_MainSample.destroy()
+        DeleteSample_Window()
 
     def Open_MainMenu_Window():
-        window_MainBox.destroy()
+        window_MainSample.destroy()
         TestUI_MAIN.Main_Window()
 
-    tk.Button(window_MainBox, text = 'Add Box', 
-                        command = Open_AddBox_Window).grid(row = 0, column=0)
-    tk.Button(window_MainBox, text = 'Move Box', 
-                        command = Open_MoveBox_Window).grid(row = 1, column=0)
-    tk.Button(window_MainBox, text = 'Delete Box', 
-                        command = Open_DeleteBox_Window).grid(row = 2, column=0)
-    tk.Button(window_MainBox, text = 'Back to Main Menu', 
+    tk.Button(window_MainSample, text = 'Add Sample', 
+                        command = Open_AddSample_Window).grid(row = 0, column=0)
+    tk.Button(window_MainSample, text = 'Delete Sample', 
+                        command = Open_DeleteSample_Window).grid(row = 2, column=0)
+    tk.Button(window_MainSample, text = 'Back to Main Menu', 
                         command = Open_MainMenu_Window).grid(row = 3, column=0)
 
-    window_MainBox.mainloop()
-##########---------->END: MAIN WINDOW FOR BOXES<----------##########
+    window_MainSample.mainloop()
+##########---------->END: MAIN WINDOW FOR SAMPLES<----------##########
+
 
 
 #SetupAPI.CreateAllTables(conn)   
 #MainBox_Window()
+AddSample_Window()
 

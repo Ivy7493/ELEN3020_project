@@ -113,7 +113,7 @@ def MainFridge_Window():
                         command = Open_MainMenu_Window).grid(row = 3, column=0)
 
     window_MainFridge.mainloop()
-##########---------->END: MAIN WINDOW FOR BOXES<----------##########
+##########---------->END: MAIN WINDOW FOR FRIDGES<----------##########
 
 
 #SetupAPI.CreateAllTables(conn)   
