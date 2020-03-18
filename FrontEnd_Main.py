@@ -1,5 +1,4 @@
 from tkinter import *
-import TestUI_MAIN
 import dropDownMenu
 
 #***** MAIN WINDOW *****
