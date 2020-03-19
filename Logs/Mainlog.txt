@@ -34,3 +34,25 @@
 2020-45-03/19/20 10:45:57 - Added new sample: TESTSAMPLE3
 2020-46-03/19/20 10:46:34 - Box: TESTBOX was moved to fridge: ASS
 2020-47-03/19/20 10:47:47 - Box: TESTBOX was moved to fridge: Test
+2020-52-03/19/20 10:52:39 - Box: TESTBOX was moved to fridge: ASS
+2020-57-03/19/20 10:57:35 - Box: TESTBOX was moved to fridge: F3
+2020-58-03/19/20 10:58:45 - Box: TESTBOX was moved to fridge: F1
+2020-59-03/19/20 10:59:31 - Box: TESTBOX was moved to fridge: F3
+2020-01-03/19/20 11:01:37 - Box: TESTBOX was moved to fridge: F1
+2020-02-03/19/20 11:02:07 - Box: TESTBOX was moved to fridge: F3
+2020-02-03/19/20 11:02:52 - Box: TESTBOX was moved to fridge: F1
+2020-05-03/19/20 11:05:34 - Box: TESTBOX was moved to fridge: F3
+2020-05-03/19/20 11:05:41 - Box: TESTBOX was moved to fridge: F1
+2020-06-03/19/20 11:06:10 - Box: TESTBOX was moved to fridge: F1
+2020-06-03/19/20 11:06:21 - Box: TESTBOX was moved to fridge: F3
+2020-09-03/19/20 11:09:45 - Box: TESTBOX was moved to fridge: F1
+2020-10-03/19/20 11:10:20 - Box: TESTBOX was moved to fridge: F3
+2020-11-03/19/20 11:11:13 - Box: TESTBOX was moved to fridge: F1
+2020-19-03/19/20 11:19:04 - Box: TESTBOX was moved to fridge: F3
+2020-24-03/19/20 11:24:05 - Added new sample: TESTSAMPLE4
+2020-26-03/19/20 11:26:22 - Added new sample: TESTSAMPLE5
+2020-27-03/19/20 11:27:36 - Added new sample: TESTSAMPLE6
+2020-29-03/19/20 11:29:19 - Added new sample: TESTSAMPLE7
+2020-30-03/19/20 11:30:06 - Added new sample: TESTSAMPLE8
+2020-30-03/19/20 11:30:53 - Added new sample: TESTSAMPLE9
+2020-31-03/19/20 11:31:51 - Added new sample: TESTSAMPLE10
