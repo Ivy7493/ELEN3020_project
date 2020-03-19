@@ -34,3 +34,9 @@
 2020-45-03/19/20 10:45:57 - Added new sample: TESTSAMPLE3
 2020-46-03/19/20 10:46:34 - Box: TESTBOX was moved to fridge: ASS
 2020-47-03/19/20 10:47:47 - Box: TESTBOX was moved to fridge: Test
+2020-51-03/19/20 10:51:28 - Box: B1 was moved to fridge: ABC
+2020-51-03/19/20 10:51:57 - Added new box: NEWBOX
+2020-52-03/19/20 10:52:03 - Box: NEWBOX deleted!
+2020-53-03/19/20 10:53:29 - Added new box: NEWBOX
+2020-53-03/19/20 10:53:37 - Box: NEWBOX was moved to fridge: F1
+2020-55-03/19/20 10:55:36 - Box: NEWBOX was moved to fridge: ABC
