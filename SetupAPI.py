@@ -33,7 +33,15 @@ def CreateFridgeTable(_conn):
                                     temperature INTEGER NOT NULL,
                                     numShelves INTEGER NOT NULL,
                                     widthShelves INTEGER NOT NULL)""")
-    _conn.commit()                               
+    c.commit()
+
+def CreateLoginTable(_conn):
+    c = _conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS LoginTable(
+                                    username TEXT NOT NULL,
+                                    password TEXT NOT NULL,
+                                    accessLevel INTEGER NOT NULL)""")
+    c.commit()                               
 
 def CreateBoxTable(_conn):
     c = _conn.cursor()
@@ -52,4 +60,5 @@ def CreateAllTables(_conn):
     CreateFridgeTable(_conn)
     CreateBoxTable(_conn)
     CreateSampleTable(_conn)
+    CreateLoginTable(_conn)
     c = _conn.cursor()
