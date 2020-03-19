@@ -64,21 +64,24 @@ def DoesIDExist(_conn, _type, _ID):
         elif count > 0:
             return "TRUE"
 
-def BoxLog(_conn, _boxID, _fridgeID):
-    print("YO DAWG")
+
+def ReturnFridgeTemp(_conn, _fridgeID):
     c = _conn.cursor()
-    c.execute("SELECT * FROM FridgeTable WHERE fridgeID=?",(_fridgeID,))
-    temp = c.fetchone()
-    temp = temp[1]
-    print("temp = " + temp)
+    c.execute("SELECT temperature FROM FridgeTable WHERE fridgeID=?",(_fridgeID,))
+    result = c.fetchone()
+    return result[0]
+
+def BoxLog(_conn, _boxID, _fridgeID):
+    
+    c = _conn.cursor()
+    temp = ReturnFridgeTemp(_conn,_fridgeID)
     c.execute("SELECT * FROM SampleTable WHERE boxID=?",(_boxID,))
     results = c.fetchall()
     count = 0
     for result in results:
-        print("Got here")
-        currentSample = results[count][0]
+        currentSample = result[0]
         count = count + 1
-        LoggingAPI.IndividualLog("Sample: " + currentSample + " was move to fridge: " + _fridgeID + " at temperature " + temp)
+        LoggingAPI.IndividualLog("Sample: " + currentSample + " was move to fridge: " + _fridgeID + " at temperature: " + temp ,currentSample)
 
  
 
@@ -119,14 +122,27 @@ def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _origi
             c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, donorPhone, authorisedPhone, returnType, returnDate, testResults, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
             _conn.commit()
             LoggingAPI.Log("Added new sample: " + _sampleID)#logging
-            LoggingAPI.IndividualLog("Added new sample: " + _sampleID, _sampleID)
+            _FridgeID = ReturnFridgeSampleIn(_conn,_sampleID)
+            #print(_FridgeID)
+            #fridgeTemp = ReturnFridgeTemp(_conn,_FridgeID) 
+            #print(fridgeTemp)
+            LoggingAPI.IndividualLog("Added new sample:" + _sampleID,_sampleID)
             return ("Successfully added sample " + _sampleID)             
         else:
             return (IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) + " in box: " + _boxID)
            
     except sqlite3.Error as error:
         return error
-        
+
+def ReturnFridgeSampleIn(_conn, _sampleID):
+    c = _conn.cursor()
+    c.execute("SELECT boxID FROM SampleTable WHERE sampleID=?",(_sampleID,))
+    A = c.fetchone()
+    result = A[0]
+    c.execute("SELECT fridgeID FROM BoxTable WHERE boxID=?",(result,))
+    b = c.fetchone()
+    resultB = b[0]
+    return resultB         
 
 def IsPositionFree(_conn, _boxID, _posX, _posY, _posZ):
     c = _conn.cursor()
