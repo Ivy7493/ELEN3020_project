@@ -7,8 +7,8 @@ def Log(LogInfo):
     f = open(mainlog,"a")
     now = datetime.now()
     now = now.strftime("%Y-%M-%D %H:%M:%S")
-    logmes = now + " - " + LogInfo + '\n'
-    f.write(logmes)
+    logMes = now + " - " + LogInfo + '\n'
+    f.write(logMes)
     f.close()
 
 

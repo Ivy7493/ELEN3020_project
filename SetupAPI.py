@@ -52,4 +52,5 @@ def CreateAllTables(_conn):
     CreateFridgeTable(_conn)
     CreateBoxTable(_conn)
     CreateSampleTable(_conn)
-    c = _conn.cursor()
+
+

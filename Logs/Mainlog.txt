@@ -1,0 +1,17 @@
+2020-05-03/19/20 13:05:19 - Added new fridge: F1
+2020-05-03/19/20 13:05:23 - Added new fridge: F2
+2020-05-03/19/20 13:05:28 - Fridge: F2 deleted!
+2020-05-03/19/20 13:05:35 - Added new fridge: F2
+2020-05-03/19/20 13:05:53 - Added new box: B1
+2020-05-03/19/20 13:05:59 - Added new box: B2
+2020-06-03/19/20 13:06:01 - Added new box: B3
+2020-06-03/19/20 13:06:08 - Box: B3 deleted!
+2020-06-03/19/20 13:06:24 - Added new sample: S1
+2020-06-03/19/20 13:06:45 - Added new sample: S2
+2020-06-03/19/20 13:06:54 - Added new sample: S3
+2020-07-03/19/20 13:07:09 - Added new sample: S4
+2020-07-03/19/20 13:07:14 - Sample: S4 deleted!
+2020-07-03/19/20 13:07:45 - Sample: S3 was move into box: B2
+2020-08-03/19/20 13:08:24 - Box: B1 was moved to fridge: F2
+2020-13-03/19/20 13:13:37 - Sample: S1 was moved into box: B2 in fridge: F1 with temperature of: 1
+2020-14-03/19/20 13:14:45 - Box: B1 was moved to fridge: F1
