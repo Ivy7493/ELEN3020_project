@@ -1,6 +1,7 @@
 import sqlite3
 import LoggingAPI
 
+#JESSE'S COMMENT
 def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves):
     try:
         c = _conn.cursor()
