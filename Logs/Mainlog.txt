@@ -1,17 +1,22 @@
-2020-05-03/19/20 13:05:19 - Added new fridge: F1
-2020-05-03/19/20 13:05:23 - Added new fridge: F2
-2020-05-03/19/20 13:05:28 - Fridge: F2 deleted!
-2020-05-03/19/20 13:05:35 - Added new fridge: F2
-2020-05-03/19/20 13:05:53 - Added new box: B1
-2020-05-03/19/20 13:05:59 - Added new box: B2
-2020-06-03/19/20 13:06:01 - Added new box: B3
-2020-06-03/19/20 13:06:08 - Box: B3 deleted!
-2020-06-03/19/20 13:06:24 - Added new sample: S1
-2020-06-03/19/20 13:06:45 - Added new sample: S2
-2020-06-03/19/20 13:06:54 - Added new sample: S3
-2020-07-03/19/20 13:07:09 - Added new sample: S4
-2020-07-03/19/20 13:07:14 - Sample: S4 deleted!
-2020-07-03/19/20 13:07:45 - Sample: S3 was move into box: B2
-2020-08-03/19/20 13:08:24 - Box: B1 was moved to fridge: F2
-2020-13-03/19/20 13:13:37 - Sample: S1 was moved into box: B2 in fridge: F1 with temperature of: 1
-2020-14-03/19/20 13:14:45 - Box: B1 was moved to fridge: F1
+
+2020-14-03/18/20 12:14:11 - Added new fridge: DDD
+2020-14-03/18/20 12:14:36 - Added new box: CBG
+2020-15-03/18/20 12:15:15 - Box: CBG deleted!
+2020-15-03/18/20 12:15:28 - Fridge: DDD deleted!
+2020-16-03/18/20 12:16:06 - Added new box: Ivan
+2020-16-03/18/20 12:16:34 - Box: Ivan was moved to fridge: F3
+2020-38-03/18/20 12:38:53 - Added new box: B99
+2020-44-03/18/20 12:44:52 - Added new fridge: F77
+2020-45-03/18/20 12:45:23 - Added new fridge: F7
+2020-45-03/18/20 12:45:38 - Fridge: F77 deleted!
+2020-45-03/18/20 12:45:50 - Added new box: B7
+2020-46-03/18/20 12:46:07 - Box: B7 deleted!
+2020-46-03/18/20 12:46:19 - Added new box: B7
+2020-46-03/18/20 12:46:32 - Box: B7 was moved to fridge: ABC
+2020-46-03/18/20 12:46:58 - Added new sample: S666
+2020-47-03/18/20 12:47:08 - Sample: S666 was move into box: B1
+2020-47-03/18/20 12:47:18 - Sample: S666 deleted!
+2020-48-03/18/20 12:48:50 - Sample: S1 deleted!
+2020-49-03/18/20 12:49:06 - Added new sample: S1
+2020-53-03/18/20 12:53:55 - Added new sample: S69
+2020-54-03/18/20 12:54:45 - Added new sample: S70

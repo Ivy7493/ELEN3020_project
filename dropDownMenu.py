@@ -67,7 +67,7 @@ def Main_Window():
     win.mainloop()
 
 
-
+Main_Window()
 
 
 
