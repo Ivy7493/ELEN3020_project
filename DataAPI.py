@@ -63,6 +63,23 @@ def DoesIDExist(_conn, _type, _ID):
             return "FALSE"
         elif count > 0:
             return "TRUE"
+
+def BoxLog(_conn, _boxID, _fridgeID):
+    print("YO DAWG")
+    c = _conn.cursor()
+    c.execute("SELECT * FROM FridgeTable WHERE fridgeID=?",(_fridgeID,))
+    temp = c.fetchone()
+    temp = temp[1]
+    print("temp = " + temp)
+    c.execute("SELECT * FROM SampleTable WHERE boxID=?",(_boxID,))
+    results = c.fetchall()
+    count = 0
+    for result in results:
+        print("Got here")
+        currentSample = results[count][0]
+        count = count + 1
+        LoggingAPI.IndividualLog("Sample: " + currentSample + " was move to fridge: " + _fridgeID + " at temperature " + temp)
+
  
 
 def MoveBox(_conn, _boxID, _fridgeID):
@@ -74,6 +91,7 @@ def MoveBox(_conn, _boxID, _fridgeID):
             c.execute("UPDATE BoxTable SET fridgeID =? WHERE boxID =?",(_fridgeID,_boxID,))
             _conn.commit()
             LoggingAPI.Log("Box: " + _boxID + " was moved to fridge: " + _fridgeID)#logging
+            BoxLog(_conn, _boxID, _fridgeID)
             return ("Box: " + _boxID + " was moved to fridge: " + _fridgeID)
     elif DoesIDExist(_conn, "FRIDGE", _fridgeID) == "FALSE":
         #print("Not a Valid FridgeID")
@@ -101,6 +119,7 @@ def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _origi
             c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, donorPhone, authorisedPhone, returnType, returnDate, testResults, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
             _conn.commit()
             LoggingAPI.Log("Added new sample: " + _sampleID)#logging
+            LoggingAPI.IndividualLog("Added new sample: " + _sampleID, _sampleID)
             return ("Successfully added sample " + _sampleID)             
         else:
             return (IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) + " in box: " + _boxID)
@@ -140,6 +159,7 @@ def MoveSample(_conn, _sampleID, _boxID, _posX , _posY, _posZ):
         c.execute("UPDATE SampleTable SET boxID=?, boxX=?, boxY=?, boxZ=? WHERE sampleID=?", (_boxID,_posX,_posY,_posZ,_sampleID,))
         _conn.commit()
         LoggingAPI.Log("Sample: " + _sampleID + " was move into box: " + _boxID) #logging
+        LoggingAPI.IndividualLog("Sample: " + _sampleID + " was move into box: " + _boxID, _sampleID)
         return "Successfully moved sample: " + _sampleID + " into box: " + _boxID
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
         return "Sample ID: " + _sampleID + " does not exist!"
@@ -204,6 +224,7 @@ def DeleteSample(_conn, _sampleID):
         c.execute("DELETE FROM SampleTable WHERE sampleID=?",(_sampleID,))
         _conn.commit()
         LoggingAPI.Log("Sample: " + _sampleID +  " deleted!")#logging
+        LoggingAPI.IndividualLog("Sample: " + _sampleID +  " deleted!", _sampleID)
         return "Sample: " + _sampleID + " successfully deleted!"
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
         return "Sample ID: " + _sampleID + " does not exist"  

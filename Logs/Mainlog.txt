@@ -20,3 +20,17 @@
 2020-49-03/18/20 12:49:06 - Added new sample: S1
 2020-53-03/18/20 12:53:55 - Added new sample: S69
 2020-54-03/18/20 12:54:45 - Added new sample: S70
+2020-23-03/19/20 10:23:58 - Sample: REALTITS deleted!
+2020-26-03/19/20 10:26:04 - Sample: FITS was move into box: B1
+2020-37-03/19/20 10:37:15 - Box: B1 was moved to fridge: F1
+2020-37-03/19/20 10:37:46 - Box: B1 was moved to fridge: F3
+2020-39-03/19/20 10:39:58 - Box: B1 was moved to fridge: F1
+2020-41-03/19/20 10:41:30 - Box: B1 was moved to fridge: F3
+2020-42-03/19/20 10:42:31 - Box: B1 was moved to fridge: F1
+2020-44-03/19/20 10:44:10 - Added new fridge: Test
+2020-44-03/19/20 10:44:44 - Added new box: TESTBOX
+2020-45-03/19/20 10:45:29 - Added new sample: TESTSAMPLE1
+2020-45-03/19/20 10:45:47 - Added new sample: TESTSAMPLE2
+2020-45-03/19/20 10:45:57 - Added new sample: TESTSAMPLE3
+2020-46-03/19/20 10:46:34 - Box: TESTBOX was moved to fridge: ASS
+2020-47-03/19/20 10:47:47 - Box: TESTBOX was moved to fridge: Test
