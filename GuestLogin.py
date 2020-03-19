@@ -1,5 +1,9 @@
 from tkinter import *
+import sqlite3
 import Display_Guest_Samples
+
+conn = sqlite3.connect('Test.db')
+conn.execute("PRAGMA foreign_keys = ON")
 
 #***** MAIN WINDOW *****
 #Currently bypasses TestUI_MAIN in favour of the drop down menu script
@@ -12,10 +16,17 @@ def LoginScreen():
         n1 = entry_name.get()
         p1 = entry_pass.get()
         
-        if p1 == "0792390460":
-                openMain(p1)
-        else:
+        c = conn.cursor()
+        c.execute("SELECT * FROM SampleTable WHERE donorPhone=?", (str(p1),))
+        temp_result = c.fetchall()
+        count = 0
+
+        for result in temp_result:
+            count = count + 1
+        if count == 0:
             message['text'] = "No such name or phone number"
+        elif count > 0:
+            openMain(p1)
 
     def openMain(p1):
         login_window.destroy()
