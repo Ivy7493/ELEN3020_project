@@ -29,6 +29,9 @@ def AddBox_Window():
         window_AddBox.destroy()
         MainBox_Window()
       
+    def SuggestFridge():
+        messagebox.showinfo("Suggest Fridge", DataAPI.FindEmptyFridge(conn))
+
     window_AddBox = tk.Tk()
     #window_AddBox.geometry("300x300")
     window_AddBox.title("ADD BOX")
@@ -58,6 +61,7 @@ def AddBox_Window():
                         command = console_PrintBox).grid(row = 7, column=1)
     tk.Button(window_AddBox, text = 'Add Box', command = CreateBox).grid(row = 8, column=1)
 
+    tk.Button(window_AddBox, text = 'Suggest Fridge', command = SuggestFridge).grid(row = 1, column=3)
     tk.Button(window_AddBox, text = 'Back to Box Menu', 
                         command = Open_MainBox_Window).grid(row = 10, column=1)
 
