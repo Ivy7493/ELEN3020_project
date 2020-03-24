@@ -62,6 +62,7 @@ def AddBox_Window():
     tk.Button(window_AddBox, text = 'Add Box', command = CreateBox).grid(row = 8, column=1)
 
     tk.Button(window_AddBox, text = 'Suggest Fridge', command = SuggestFridge).grid(row = 1, column=3)
+
     tk.Button(window_AddBox, text = 'Back to Box Menu', 
                         command = Open_MainBox_Window).grid(row = 10, column=1)
 

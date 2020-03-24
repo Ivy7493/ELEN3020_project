@@ -46,7 +46,27 @@ def AddSample_Window():
     def Open_MainSample_Window():
         window_AddSample.destroy()
         MainSample_Window()
-      
+    
+    def Open_SuggestBox_Window():
+        def SuggestBox():
+            messagebox.showinfo("Suggest Box", DataAPI.FindEmptyBox(conn, minTemp, maxTemp))
+
+        window_SuggestBox = tk.Tk()
+        #window_SuggestBox.geometry("300x300")
+        window_SuggestBox.title("SUGGEST BOX")
+        window_SuggestBox["bg"] = 'red'
+    
+        tk.Label(window_SuggestBox, text = "Minimum Temperature").grid(row = 0)
+        minTemp = tk.Entry(window_SuggestBox)
+        minTemp.grid(row = 0, column = 1)
+
+        tk.Label(window_SuggestBox, text = "Maximum Temperature").grid(row = 1)
+        maxTemp = tk.Entry(window_SuggestBox)
+        maxTemp.grid(row = 1, column = 1)
+
+        tk.Button(window_SuggestBox, text = 'Suggest Box', 
+                            command = SuggestBox).grid(row = 2, column=1)
+
     window_AddSample = tk.Tk()
     #window_AddSample.geometry("300x300")
     window_AddSample.title("ADD SAMPLE")
@@ -128,6 +148,8 @@ def AddSample_Window():
     tk.Button(window_AddSample, text = 'Print Sample to Console', 
                         command = console_PrintSample).grid(row = 17, column=1)
     tk.Button(window_AddSample, text = 'Add Sample', command = CreateSample).grid(row = 19, column=1)
+
+    tk.Button(window_AddSample, text = 'Suggest Box', command = Open_SuggestBox_Window).grid(row = 1, column=3)
 
     tk.Button(window_AddSample, text = 'Back to Sample Menu', 
                         command = Open_MainSample_Window).grid(row = 18, column=1)
