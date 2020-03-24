@@ -1,8 +1,7 @@
 from tkinter import *
-import TestUI_Boxes
-import TestUI_Fridges
-import TestUI_Samples
-
+import Box_UI
+import Sample_UI
+import Fridge_UI
 
 def Main_Window():
 
@@ -11,19 +10,19 @@ def Main_Window():
     
     def FridgeMenu():
         win.destroy()
-        TestUI_Fridges.MainFridge_Window()
+        Fridge_UI.MainFridge_Window()
         
     def BoxMenu():
         win.destroy()
-        TestUI_Boxes.MainBox_Window()
+        Box_UI.MainBox_Window()
 
     def SampleMenu():
         win.destroy()
-        TestUI_Samples.MainSample_Window()
+        Sample_UI.MainSample_Window()
 
     def AddFridge():
         #win.destroy()
-        TestUI_Fridges.AddFridge_Window()
+        Fridge_UI.AddFridge_Window()
 
     def AddBox():
         #win.destroy()

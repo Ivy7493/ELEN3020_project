@@ -1,7 +1,6 @@
 import sqlite3
 import LoggingAPI
 
-#JESSE'S COMMENT
 def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves):
     try:
         c = _conn.cursor()
@@ -106,11 +105,11 @@ def AddBox(_conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ):
     except sqlite3.Error as error:
         return(error)
 
-def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _phenotypeValue, _diseaseState):
+def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState):
     try:
         c = _conn.cursor()
         if IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) == "TRUE":
-            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, donorPhone, authorisedPhone, returnType, returnDate, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _phenotypeValue, _diseaseState))
+            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, returnType, returnDate, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState))
             _conn.commit()
             
             _FridgeID = ReturnFridgeSampleIn(_conn,_sampleID)
@@ -316,8 +315,29 @@ def FindEmptyBox(_conn, _tempMin, _tempMax):
         #    return ("fridge: " + fridgeID + " not open for sample insertion") 
 
     return ("No place found for insertion")
+
+
+def AddCollection(_conn, _collectionTitle, _donorName, _donorPhone, _donorEmail, _donorOrganization, _authorisorName, _authorisorPhone, _authorisorEmail, _authorisorOrganization):
+    try:
+        c = _conn.cursor()
+        c.execute("INSERT INTO CollectionTable (collectionTitle, donorName, donorPhoneNumber, donorEmail, donorOrganization, authorisorName, authorisorPhoneNumber, authorisorEmail, authorisorOrganization) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",(_collectionTitle, _donorName, _donorPhone, _donorEmail, _donorOrganization, _authorisorName, _authorisorPhone, _authorisorEmail, _authorisorOrganization,))
+        _conn.commit()
+        return("Successfully added Collection " + _collectionTitle)
+
+    except sqlite3.Error as error:
+        return(error)
             
-         
+def GetCollectionTitles(_conn):
+    c = _conn.cursor()
+    c.execute("SELECT collectionTitle FROM CollectionTable")
+    collectionList = c.fetchall()
+    print(collectionList)
+    return collectionList
+
+def LogoutAll(_conn):
+    c = _conn.cursor()
+    c.execute("UPDATE LoginTable SET loggedIn = ?", ("0",))
+    _conn.commit()
     
     
 

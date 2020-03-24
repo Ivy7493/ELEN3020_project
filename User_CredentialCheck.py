@@ -23,6 +23,8 @@ def Check_Window(operation):
             result = temp_result[0]
             print(result)
             if p1 == result:
+                c.execute("UPDATE LoginTable SET loggedIn =? WHERE username = ?", ("1",str(n1),))
+                conn.commit()
                 openMain(op)
             else:
                 message['text'] = "Invalid Credentials"

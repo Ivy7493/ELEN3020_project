@@ -1,7 +1,0 @@
-2020-05-03/24/20 11:05:37 - Added new fridge: F1
-2020-05-03/24/20 11:05:58 - Added new box: B1
-2020-08-03/24/20 11:08:39 - Added new sample: S1 to fridge: F1 with temperature of: 0
-2020-08-03/24/20 11:08:53 - Added new sample: S2 to fridge: F1 with temperature of: 0
-2020-12-03/24/20 11:12:23 - Sample: S2 deleted!
-2020-13-03/24/20 11:13:10 - Added new box: B2
-2020-13-03/24/20 11:13:35 - Added new sample: S2 to fridge: F1 with temperature of: 0

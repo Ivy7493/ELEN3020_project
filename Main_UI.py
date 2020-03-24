@@ -6,11 +6,10 @@ import Fridge_UI
 import Sample_UI
 import User_CredentialCheck
 
-conn = sqlite3.connect('Test.db')
-conn.execute("PRAGMA foreign_keys = ON")
+
 
 ##########---------->START: MAIN WINDOW<----------##########
-def Main_Window():
+def Main_Window(conn):
     window_Main = tk.Tk()
     window_Main.geometry("300x300")
     window_Main.title("MAIN MENU")
@@ -41,6 +40,3 @@ def Main_Window():
     window_Main.mainloop()
 ##########---------->END: MAIN WINDOW<----------##########
 
-
-SetupAPI.CreateAllTables(conn)   
-#Main_Window()

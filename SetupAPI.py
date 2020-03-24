@@ -14,16 +14,28 @@ def CreateSampleTable(_conn):
                                     sampleHistory TEXT NOT NULL,
                                     subjectAge INTEGER NOT NULL,
                                     tubeRating INTEGER NOT NULL,
-                                    collectionTitle TEXT NOT NULL,
-                                    donorPhone TEXT NOT NULL,
-                                    authorisedPhone TEXT NOT NULL,
+                                    collectionTitle TEXT NOT NULL UNIQUE,
                                     returnType TEXT NOT NULL,
                                     returnDate TEXT NOT NULL,
                                     phenotypeValue TEXT NOT NULL,
                                     diseaseState TEXT NOT NULL,
-                                    FOREIGN KEY(boxID) REFERENCES BoxTable(boxID))""")
+                                    FOREIGN KEY(boxID) REFERENCES BoxTable(boxID),
+                                    FOREIGN KEY(collectionTitle) REFERENCES CollectionTable(collectionTitle))""")
     _conn.commit()
                                     
+def CreateCollectionTable(_conn):
+    c = _conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS CollectionTable(
+                                    collectionTitle TEXT NOT NULL PRIMARY KEY,
+                                    donorName TEXT NOT NULL,
+                                    donorPhoneNumber INTEGER NOT NULL,
+                                    donorEmail TEXT NOT NULL,
+                                    donorOrganization TEXT NOT NULL,   
+                                    authorisorName TEXT NOT NULL,
+                                    authorisorPhoneNumber INTEGER NOT NULL,
+                                    authorisorEmail TEXT NOT NULL,
+                                    authorisorOrganization TEXT NOT NULL)""")
+    _conn.commit()
 
 def CreateFridgeTable(_conn):
     c = _conn.cursor()
@@ -39,7 +51,8 @@ def CreateLoginTable(_conn):
     c.execute("""CREATE TABLE IF NOT EXISTS LoginTable(
                                     username TEXT NOT NULL,
                                     password TEXT NOT NULL,
-                                    accessLevel INTEGER NOT NULL)""")
+                                    accessLevel INTEGER NOT NULL,
+                                    loggedIn INTEGER NOT NULL)""")
     _conn.commit()                               
 
 def CreateBoxTable(_conn):
@@ -69,5 +82,6 @@ def CreateAllTables(_conn):
     CreateSampleTable(_conn)
     CreateLoginTable(_conn)
     CreateSampleTestTable(_conn)
+    CreateCollectionTable(_conn)
 
 #JESSE'S COMMENT
