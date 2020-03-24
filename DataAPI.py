@@ -265,5 +265,61 @@ def DeleteSampleTest(_conn, _sampleID):
     c = _conn.cursor()
     c.execute("DELETE FROM SampleTestTable WHERE sampleID=?",(_sampleID,))
     _conn.commit()
+
+
+def FindEmptyFridge(_conn):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM FridgeTable")
+    results = c.fetchall()
+    for result in results:
+        tempID = result[0]
+        if IsFridgeFull(_conn, tempID) == "TRUE":
+            print("Fridge: " + tempID + " is not avaible")
+        elif IsFridgeFull(_conn, tempID) == "FALSE":
+            return ("Fridge: " + tempID + " is open for box insertion")
+    return ("No Fridge is open for insertion")
+
+
+def IsBoxFull(_conn, _boxID):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM BoxTable WHERE boxID=?",(_boxID,))
+    result = c.fetchone()
+    boxX = result[2]
+    boxY = result[3]
+    boxZ = result[4]
+    for x in range(1,boxX + 1):
+        for y in range(1, boxY + 1):
+            for z in range(1, boxZ + 1):
+                if IsPositionFree(_conn, _boxID, x, y, z) == "TRUE":
+                    return ("Box: " + _boxID + " is open for insertion, at position: " + str(x) + ", " + str(y) + ", " + str(z))
+    return "TRUE"
+                                 
+    
+
+def FindEmptyBox(_conn, _tempMin, _tempMax):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM FridgeTable")
+    results = c.fetchall()
+    for result in results:
+        fridgeID = result[0]
+        fridgeTemp = result[1]
+        if fridgeTemp <= _tempMax and fridgeTemp >= _tempMin and IsFridgeFull(_conn, fridgeID) == "FALSE":
+            c.execute("SELECT * FROM BoxTable WHERE fridgeID=?",(fridgeID,))
+            results1 = c.fetchall()
+            for result1 in results1:
+                tempBoxID = result1[0]
+                boxFullResult = IsBoxFull(_conn, tempBoxID)
+                if boxFullResult == "TRUE":
+                    print("Box: " + tempBoxID + " is not open for insertion")
+                else:
+                    return (boxFullResult)                
+                           
+        else:
+            print ("fridge: " + fridgeID + " Not open for sample insertion") 
+
+    return ("No place found for insertion for current temperature range")
+            
+         
+    
     
 
