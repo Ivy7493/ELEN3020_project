@@ -273,9 +273,9 @@ def FindEmptyFridge(_conn):
     results = c.fetchall()
     for result in results:
         tempID = result[0]
-        if IsFridgeFull(_conn, tempID) == "TRUE":
-            print("Fridge: " + tempID + " is not avaible")
-        elif IsFridgeFull(_conn, tempID) == "FALSE":
+        #if IsFridgeFull(_conn, tempID) == "TRUE":
+        #    print("Fridge: " + tempID + " is not avaible")
+        if IsFridgeFull(_conn, tempID) == "FALSE":
             return ("Fridge: " + tempID + " is open for box insertion")
     return ("No Fridge is open for insertion")
 
@@ -309,15 +309,13 @@ def FindEmptyBox(_conn, _tempMin, _tempMax):
             for result1 in results1:
                 tempBoxID = result1[0]
                 boxFullResult = IsBoxFull(_conn, tempBoxID)
-                if boxFullResult == "TRUE":
-                    print("Box: " + tempBoxID + " is not open for insertion")
-                else:
+                if boxFullResult != "TRUE":
                     return (boxFullResult)                
                            
-        else:
-            print ("fridge: " + fridgeID + " Not open for sample insertion") 
+        #else:
+        #    return ("fridge: " + fridgeID + " not open for sample insertion") 
 
-    return ("No place found for insertion for current temperature range")
+    return ("No place found for insertion")
             
          
     
