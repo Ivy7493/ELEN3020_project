@@ -106,11 +106,11 @@ def AddBox(_conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ):
     except sqlite3.Error as error:
         return(error)
 
-def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState):
+def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _phenotypeValue, _diseaseState):
     try:
         c = _conn.cursor()
         if IsPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ) == "TRUE":
-            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, donorPhone, authorisedPhone, returnType, returnDate, testResults, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _testResults, _phenotypeValue, _diseaseState))
+            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, donorPhone, authorisedPhone, returnType, returnDate, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _donorPhone, _authorisedPhone, _returnType, _returnDate, _phenotypeValue, _diseaseState))
             _conn.commit()
             
             _FridgeID = ReturnFridgeSampleIn(_conn,_sampleID)
@@ -125,6 +125,17 @@ def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _origi
            
     except sqlite3.Error as error:
         return error
+
+def AddSampleTest(_conn, _sampleID, _testType, _testResult):
+    try:
+        c = _conn.cursor()
+        c.execute("INSERT INTO SampleTestTable (sampleID, testType, testResult) VALUES (?, ?, ?)",(_sampleID, _testType, _testResult))
+        _conn.commit()
+        LoggingAPI.IndividualLog("Added new test: " + _testType + " to sample: " + _sampleID, _sampleID)
+        return("Successfully added Sample Test for " + _sampleID)
+
+    except sqlite3.Error as error:
+        return(error)
 
 def ReturnTempOfFridge(_conn, _fridgeID):
     c = _conn.cursor()
@@ -240,6 +251,7 @@ def DeleteFridge(_conn, _fridgeID):
 
 def DeleteSample(_conn, _sampleID):
     if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE":
+        DeleteSampleTest(_conn, _sampleID)
         c = _conn.cursor()
         c.execute("DELETE FROM SampleTable WHERE sampleID=?",(_sampleID,))
         _conn.commit()
@@ -249,6 +261,9 @@ def DeleteSample(_conn, _sampleID):
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
         return "Sample ID: " + _sampleID + " does not exist"  
          
-        
+def DeleteSampleTest(_conn, _sampleID):
+    c = _conn.cursor()
+    c.execute("DELETE FROM SampleTestTable WHERE sampleID=?",(_sampleID,))
+    _conn.commit()
     
 

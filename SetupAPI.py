@@ -19,7 +19,6 @@ def CreateSampleTable(_conn):
                                     authorisedPhone TEXT NOT NULL,
                                     returnType TEXT NOT NULL,
                                     returnDate TEXT NOT NULL,
-                                    testResults TEXT NOT NULL,
                                     phenotypeValue TEXT NOT NULL,
                                     diseaseState TEXT NOT NULL,
                                     FOREIGN KEY(boxID) REFERENCES BoxTable(boxID))""")
@@ -54,6 +53,14 @@ def CreateBoxTable(_conn):
                                     FOREIGN KEY(fridgeID) REFERENCES FridgeTable(fridgeID))""")
     _conn.commit()  
 
+def CreateSampleTestTable(_conn):
+    c = _conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS SampleTestTable(
+                                    sampleID TEXT NOT NULL PRIMARY KEY,
+                                    testType TEXT NOT NULL,
+                                    testResult TEXT NOT NULL,                                    
+                                    FOREIGN KEY(sampleID) REFERENCES SampleTable(sampleID))""")
+    _conn.commit()
 
 
 def CreateAllTables(_conn):
@@ -61,5 +68,6 @@ def CreateAllTables(_conn):
     CreateBoxTable(_conn)
     CreateSampleTable(_conn)
     CreateLoginTable(_conn)
+    CreateSampleTestTable(_conn)
 
 #JESSE'S COMMENT
