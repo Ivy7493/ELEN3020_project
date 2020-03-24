@@ -148,12 +148,12 @@ def AddSample_Window():
 
     tk.Button(window_AddSample, text = 'Print Sample to Console', 
                         command = console_PrintSample).grid(row = 17, column=1)
-    tk.Button(window_AddSample, text = 'Add Sample', command = CreateSample).grid(row = 19, column=1)
+    tk.Button(window_AddSample, text = 'Add Sample', command = CreateSample).grid(row = 18, column=1)
 
     tk.Button(window_AddSample, text = 'Suggest Box', command = Open_SuggestBox_Window).grid(row = 1, column=3)
 
     tk.Button(window_AddSample, text = 'Back to Sample Menu', 
-                        command = Open_MainSample_Window).grid(row = 18, column=1)
+                        command = Open_MainSample_Window).grid(row = 19, column=1)
 
     window_AddSample.mainloop()
 ##########---------->END: WINDOW FOR ADDING SAMPLE<----------##########
