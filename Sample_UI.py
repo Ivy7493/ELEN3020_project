@@ -49,7 +49,8 @@ def AddSample_Window():
     
     def Open_SuggestBox_Window():
         def SuggestBox():
-            messagebox.showinfo("Suggest Box", DataAPI.FindEmptyBox(conn, minTemp, maxTemp))
+            messagebox.showinfo("Suggest Box", "HELLO")#DataAPI.FindEmptyBox(conn, minTemp, maxTemp))
+            window_SuggestBox.destroy()
 
         window_SuggestBox = tk.Tk()
         #window_SuggestBox.geometry("300x300")
