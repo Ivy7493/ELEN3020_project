@@ -164,7 +164,7 @@ def AddSample_Window():
     boxZ.grid(row = 4, column = 1)
 
     tk.Label(window_AddSample, text = "Sample Type").grid(row = 5)
-    sampleType = ttk.Combobox(window_AddSample, values=["Blood", "Urine", "Skin cells", "Organ tissue"]) 
+    sampleType = ttk.Combobox(window_AddSample, state="readonly", values=["Blood", "Urine", "Skin cells", "Organ tissue"]) 
     sampleType.grid(row = 5, column = 1)
 
     tk.Label(window_AddSample, text = "Country of Origin").grid(row = 6)
@@ -190,7 +190,7 @@ def AddSample_Window():
 
     tk.Label(window_AddSample, text = "Collection Title").grid(row = 10)
     valuesList = GetCollectionTitles()
-    collectionTitle = ttk.Combobox(window_AddSample, values = valuesList) 
+    collectionTitle = ttk.Combobox(window_AddSample, state="readonly", values = valuesList) 
     collectionTitle.grid(row = 10, column = 1)
 
     tk.Label(window_AddSample, text = "Return or Destroy?").grid(row = 11)

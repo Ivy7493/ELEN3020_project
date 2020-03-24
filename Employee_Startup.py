@@ -11,6 +11,6 @@ SetupAPI.CreateAllTables(conn)
 
 DataAPI.LogoutAll(conn)
 
-Main_UI.Main_Window(conn)
+Main_UI.Main_Window()
 
 
