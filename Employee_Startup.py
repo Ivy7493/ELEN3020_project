@@ -1,6 +1,6 @@
 from tkinter import *
 import sqlite3
-import Main_UI
+import User_CredentialCheck
 import DataAPI
 import SetupAPI
 
@@ -11,6 +11,6 @@ SetupAPI.CreateAllTables(conn)
 
 DataAPI.LogoutAll(conn)
 
-Main_UI.Main_Window()
+User_CredentialCheck.Check_Window()
 
 

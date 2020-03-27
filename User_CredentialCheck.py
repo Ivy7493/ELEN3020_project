@@ -8,14 +8,13 @@ import Main_UI
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
-def Check_Window(operation):
+def Check_Window():
     window_check = Tk()
 
 
     def checkCreds(): #checks the user's credentials
         n1 = entry_name.get()
         p1 = entry_pass.get()
-        op = operation
         c = conn.cursor()
         c.execute("SELECT password FROM LoginTable WHERE username=?", (str(n1),))
         temp_result = c.fetchone()
@@ -25,22 +24,15 @@ def Check_Window(operation):
             if p1 == result:
                 c.execute("UPDATE LoginTable SET loggedIn =? WHERE username = ?", ("1",str(n1),))
                 conn.commit()
-                openMain(op)
+                openMain()
             else:
                 message['text'] = "Invalid Credentials"
         except:
             message['text'] = "Invalid Credentials"
 
-    def openMain(op):
-        if op == "Fridge":
+    def openMain():
             window_check.destroy()
-            Fridge_UI.MainFridge_Window()
-        elif op == "Box":
-            window_check.destroy()
-            Box_UI.MainBox_Window()
-        elif op == "Sample":
-            window_check.destroy()
-            Sample_UI.MainSample_Window()
+            Main_UI.Main_Window()
           
     
     def enterPress(event):
@@ -48,7 +40,6 @@ def Check_Window(operation):
 
     def Cancel():
         window_check.destroy()
-        Main_UI.Main_Window()
 
     name = Label(window_check, text = "Username")
     password = Label(window_check, text = "Password")

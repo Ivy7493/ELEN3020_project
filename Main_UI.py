@@ -18,15 +18,22 @@ def Main_Window():
 
     def Open_BoxMenu_Window():
         window_Main.destroy()
-        User_CredentialCheck.Check_Window("Box")
+        Box_UI.MainBox_Window()
 
     def Open_FridgeMenu_Window():
         window_Main.destroy()
-        User_CredentialCheck.Check_Window("Fridge")
+        Fridge_UI.MainFridge_Window()
 
     def Open_SampleMenu_Window():
         window_Main.destroy()
-        User_CredentialCheck.Check_Window("Sample")
+        Sample_UI.MainSample_Window()
+    
+    def Logout():
+        window_Main.destroy()
+        User_CredentialCheck.Check_Window()
+
+    def Exit():
+        window_Main.destroy()
 
 
     tk.Button(window_Main, text = 'Open Fridge Menu', 
@@ -37,6 +44,12 @@ def Main_Window():
 
     tk.Button(window_Main, text = 'Open Sample Menu', 
                         command = Open_SampleMenu_Window).grid(row = 2, column=0)
+
+    tk.Button(window_Main, text = 'Log Out', 
+                        command = Logout).grid(row = 3, column=0)
+
+    tk.Button(window_Main, text = 'Exit', 
+                        command = Exit).grid(row = 4, column=0)
 
     window_Main.mainloop()
 ##########---------->END: MAIN WINDOW<----------##########

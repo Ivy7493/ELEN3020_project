@@ -17,7 +17,7 @@ def LoginScreen():
         p1 = entry_pass.get()
         
         c = conn.cursor()
-        c.execute("SELECT * FROM SampleTable WHERE donorPhone=?", (str(p1),))
+        c.execute("SELECT collectionTitle FROM CollectionTable WHERE donorPhoneNumber=?", (str(p1),))
         temp_result = c.fetchall()
         count = 0
 
@@ -26,7 +26,9 @@ def LoginScreen():
         if count == 0:
             message['text'] = "No such name or phone number"
         elif count > 0:
-            openMain(p1)
+            c.execute("SELECT collectionTitle FROM CollectionTable WHERE donorPhoneNumber=?", (str(p1),))
+            result = c.fetchone()[0]
+            openMain(result)
 
     def openMain(p1):
         login_window.destroy()
@@ -34,6 +36,9 @@ def LoginScreen():
     
     def enterPress(event):
         checkCreds()
+
+    def Exit():
+        login_window.destroy()
 
 
     name = Label(login_window, text = "Name")
@@ -43,7 +48,7 @@ def LoginScreen():
     entry_pass = Entry(login_window, show = "*")
 
     loginButton = Button(login_window, text = "Login", command = checkCreds)
-    quitButton = Button(login_window, text = "Exit", command = login_window.quit)
+    quitButton = Button(login_window, text = "Exit", command = Exit)
     #check = Checkbutton(login_window, text = "Stay signed in")
 
     name.grid(row = 0, column = 0, sticky = E)
