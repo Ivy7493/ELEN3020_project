@@ -4,6 +4,7 @@ import Box_UI
 import Fridge_UI
 import Sample_UI
 import Main_UI
+import Startup
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -39,6 +40,7 @@ def Check_Window():
 
     def Cancel():
         window_check.destroy()
+        Startup.Start_Window()
 
     name = Label(window_check, text = "Username")
     password = Label(window_check, text = "Password")

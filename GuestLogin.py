@@ -1,6 +1,7 @@
 from tkinter import *
 import sqlite3
 import Display_Guest_Samples
+import Startup
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -39,6 +40,7 @@ def LoginScreen():
 
     def Exit():
         login_window.destroy()
+        Startup.Start_Window()
 
 
     name = Label(login_window, text = "Name")
@@ -48,7 +50,7 @@ def LoginScreen():
     entry_pass = Entry(login_window, show = "*")
 
     loginButton = Button(login_window, text = "Login", command = checkCreds)
-    quitButton = Button(login_window, text = "Exit", command = Exit)
+    quitButton = Button(login_window, text = "Cancel", command = Exit)
     #check = Checkbutton(login_window, text = "Stay signed in")
 
     name.grid(row = 0, column = 0, sticky = E)
