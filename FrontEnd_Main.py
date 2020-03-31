@@ -24,7 +24,6 @@ def LoginScreen():
     def enterPress(event):
         checkCreds()
 
-
     name = Label(login_window, text = "Name")
     password = Label(login_window, text = "Password")
     message = Label(login_window, text = "Enter name and password")

@@ -5,6 +5,7 @@ import Box_UI
 import Fridge_UI
 import Sample_UI
 import User_CredentialCheck
+import DataAPI
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -30,6 +31,7 @@ def Main_Window():
     
     def Logout():
         window_Main.destroy()
+        DataAPI.LogoutAll(conn)
         User_CredentialCheck.Check_Window()
 
     def Exit():
