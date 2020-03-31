@@ -14,7 +14,7 @@ def CreateSampleTable(_conn):
                                     sampleHistory TEXT NOT NULL,
                                     subjectAge INTEGER NOT NULL,
                                     tubeRating INTEGER NOT NULL,
-                                    collectionTitle TEXT NOT NULL UNIQUE,
+                                    collectionTitle TEXT NOT NULL,
                                     returnType TEXT NOT NULL,
                                     returnDate TEXT NOT NULL,
                                     phenotypeValue TEXT NOT NULL,

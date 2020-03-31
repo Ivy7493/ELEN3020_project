@@ -7,6 +7,10 @@ import time
 import datetime
 from tkinter import messagebox
 from tkinter import ttk
+from datetime import date
+from tkinter import *
+from tkcalendar import *
+
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -151,15 +155,15 @@ def AddSample_Window():
     boxID = tk.Entry(window_AddSample)
     boxID.grid(row = 1, column = 1)
 
-    tk.Label(window_AddSample, text = "Box X").grid(row = 2)
+    tk.Label(window_AddSample, text = "Box Width (X)").grid(row = 2)
     boxX = tk.Entry(window_AddSample)
     boxX.grid(row = 2, column = 1)
 
-    tk.Label(window_AddSample, text = "Box Y").grid(row = 3)
+    tk.Label(window_AddSample, text = "Box Length (Y)").grid(row = 3)
     boxY = tk.Entry(window_AddSample)
     boxY.grid(row = 3, column = 1)
 
-    tk.Label(window_AddSample, text = "Box Z").grid(row = 4)
+    tk.Label(window_AddSample, text = "Box Height (Z)").grid(row = 4)
     boxZ = tk.Entry(window_AddSample)
     boxZ.grid(row = 4, column = 1)
 
@@ -172,7 +176,7 @@ def AddSample_Window():
     originCountry.grid(row = 6, column = 1)
 
     tk.Label(window_AddSample, text = "Collection Date").grid(row = 7)
-    collectionDate = tk.Entry(window_AddSample)
+    collectionDate = DateEntry(window_AddSample)
     collectionDate.grid(row = 7, column = 1)
 
     todaysDate = time.time()
@@ -184,7 +188,7 @@ def AddSample_Window():
     subjectAge = tk.Entry(window_AddSample)
     subjectAge.grid(row = 8, column = 1)
 
-    tk.Label(window_AddSample, text = "Tube's Rating").grid(row = 9)
+    tk.Label(window_AddSample, text = "Tube Minimum Temperature").grid(row = 9)
     tubeRating = tk.Entry(window_AddSample)
     tubeRating.grid(row = 9, column = 1)
 
@@ -194,11 +198,11 @@ def AddSample_Window():
     collectionTitle.grid(row = 10, column = 1)
 
     tk.Label(window_AddSample, text = "Return or Destroy?").grid(row = 11)
-    returnType = tk.Entry(window_AddSample)
+    returnType = ttk.Combobox(window_AddSample, state="readonly", values=["Return", "Destroy"])
     returnType.grid(row = 11, column = 1)
 
     tk.Label(window_AddSample, text = "Date of Return/Destroy").grid(row = 12)
-    returnDate = tk.Entry(window_AddSample)
+    returnDate = DateEntry(window_AddSample)
     returnDate.grid(row = 12, column = 1)
 
     tk.Label(window_AddSample, text = "Phenotype Value").grid(row = 13)

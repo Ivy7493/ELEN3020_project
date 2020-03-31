@@ -331,7 +331,6 @@ def GetCollectionTitles(_conn):
     c = _conn.cursor()
     c.execute("SELECT collectionTitle FROM CollectionTable")
     collectionList = c.fetchall()
-    print(collectionList)
     return collectionList
 
 def LogoutAll(_conn):
