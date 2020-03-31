@@ -28,11 +28,11 @@ def CreateCollectionTable(_conn):
     c.execute("""CREATE TABLE IF NOT EXISTS CollectionTable(
                                     collectionTitle TEXT NOT NULL PRIMARY KEY,
                                     donorName TEXT NOT NULL,
-                                    donorPhoneNumber INTEGER NOT NULL,
+                                    donorPhoneNumber TEXT NOT NULL,
                                     donorEmail TEXT NOT NULL,
                                     donorOrganization TEXT NOT NULL,   
                                     authorisorName TEXT NOT NULL,
-                                    authorisorPhoneNumber INTEGER NOT NULL,
+                                    authorisorPhoneNumber TEXT NOT NULL,
                                     authorisorEmail TEXT NOT NULL,
                                     authorisorOrganization TEXT NOT NULL)""")
     _conn.commit()
