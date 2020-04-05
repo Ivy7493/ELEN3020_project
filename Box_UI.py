@@ -14,16 +14,18 @@ def AddBox_Window():
         try:
             _boxID = boxID.get()
             _fridgeID = fridgeID.get()
+            _fridgeX = int(fridgeX.get())
+            _fridgeY = int(fridgeY.get())
             _boxX = int(boxX.get())
             _boxY = int(boxY.get())
             _boxZ = int(boxZ.get())
-            messagebox.showinfo("Add Box", DataAPI.AddBox(conn, _boxID, _fridgeID, _boxX, _boxY, _boxZ))
+            messagebox.showinfo("Add Box", DataAPI.AddBox(conn, _boxID, _fridgeID, _fridgeX, _fridgeY, _boxX, _boxY, _boxZ))
         except:
             messagebox.showinfo("Add Box", "ERROR: Invalid data entered")
         
     def console_PrintBox():
-        print("Box ID: %s\nFridge ID: %s\nBox X: %s\nBox Y: %s\nBox Z: %s" % 
-                    (boxID.get(), fridgeID.get(), boxX.get(), boxY.get(), boxZ.get()))
+        print("Box ID: %s\nFridge ID: %s\nFridge X: %s\nFridgeY: %s\nBox X: %s\nBox Y: %s\nBox Z: %s" % 
+                    (boxID.get(), fridgeID.get(), fridgeX.get(), fridgeY.get(), boxX.get(), boxY.get(), boxZ.get()))
 
     def Open_MainBox_Window():
         window_AddBox.destroy()
@@ -45,17 +47,25 @@ def AddBox_Window():
     fridgeID = tk.Entry(window_AddBox)
     fridgeID.grid(row = 1, column = 1)
 
-    tk.Label(window_AddBox, text = "Box X").grid(row = 2)
+    tk.Label(window_AddBox, text = "Fridge X Position").grid(row = 2)
+    fridgeX = tk.Entry(window_AddBox)
+    fridgeX.grid(row = 2, column = 1)
+
+    tk.Label(window_AddBox, text = "Fridge Y Position").grid(row = 3)
+    fridgeY = tk.Entry(window_AddBox)
+    fridgeY.grid(row = 3, column = 1)
+
+    tk.Label(window_AddBox, text = "Box X").grid(row = 4)
     boxX = tk.Entry(window_AddBox)
-    boxX.grid(row = 2, column = 1)
+    boxX.grid(row = 4, column = 1)
 
-    tk.Label(window_AddBox, text = "Box Y").grid(row = 3)
+    tk.Label(window_AddBox, text = "Box Y").grid(row = 5)
     boxY = tk.Entry(window_AddBox)
-    boxY.grid(row = 3, column = 1)
+    boxY.grid(row = 5, column = 1)
 
-    tk.Label(window_AddBox, text = "Box Z").grid(row = 4)
+    tk.Label(window_AddBox, text = "Box Z").grid(row = 6)
     boxZ = tk.Entry(window_AddBox)
-    boxZ.grid(row = 4, column = 1)
+    boxZ.grid(row = 6, column = 1)
 
     tk.Button(window_AddBox, text = 'Print Box to Console', 
                         command = console_PrintBox).grid(row = 7, column=1)
@@ -75,13 +85,18 @@ def MoveBox_Window():
         try:
             _boxID = boxID.get()
             _fridgeID = fridgeID.get()
-            messagebox.showinfo("Move Box", DataAPI.MoveBox(conn, _boxID, _fridgeID))
+            _fridgeX = int(fridgeX.get())
+            _fridgeY = int(fridgeY.get())
+            messagebox.showinfo("Move Box", DataAPI.MoveBox(conn, _boxID, _fridgeID, _fridgeX, _fridgeY))
         except:
             messagebox.showinfo("Move Box", "ERROR: Invalid data entered")
 
     def Open_MainBox_Window():
         window_MoveBox.destroy()
         MainBox_Window()
+
+    def SuggestFridge():
+        messagebox.showinfo("Suggest Fridge", DataAPI.FindEmptyFridge(conn))
 
     window_MoveBox = tk.Tk()
     #window_MoveBox.geometry("300x300")
@@ -96,9 +111,18 @@ def MoveBox_Window():
     fridgeID = tk.Entry(window_MoveBox)
     fridgeID.grid(row = 1, column = 1)
 
+    tk.Label(window_MoveBox, text = "Fridge X Position:").grid(row = 2)
+    fridgeX = tk.Entry(window_MoveBox)
+    fridgeX.grid(row = 2, column = 1)
+
+    tk.Label(window_MoveBox, text = "Fridge Y Position:").grid(row = 3)
+    fridgeY = tk.Entry(window_MoveBox)
+    fridgeY.grid(row = 3, column = 1)
+
     tk.Button(window_MoveBox, text = 'Move Box', command = MoveBox).grid(row = 5, column=1)
     tk.Button(window_MoveBox, text = 'Back to Box Menu', 
                         command = Open_MainBox_Window).grid(row = 10, column=1)
+    tk.Button(window_MoveBox, text = 'Suggest Fridge', command = SuggestFridge).grid(row = 1, column=3)
 
     window_MoveBox.mainloop()
 ##########---------->END: WINDOW FOR MOVING BOXES<----------##########

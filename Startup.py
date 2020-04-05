@@ -2,8 +2,8 @@ from tkinter import *
 import sqlite3
 import DataAPI
 import SetupAPI
-import GuestLogin
 import User_CredentialCheck
+import GuestLogin
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")

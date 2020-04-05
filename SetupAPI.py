@@ -60,6 +60,8 @@ def CreateBoxTable(_conn):
     c.execute("""CREATE TABLE IF NOT EXISTS BoxTable(
                                     boxID TEXT NOT NULL PRIMARY KEY,
                                     fridgeID TEXT NOT NULL,
+                                    fridgeX INTEGER NOT NULL,
+                                    fridgeY INTEGER NOT NULL,
                                     boxX INTEGER NOT NULL,                                    
                                     boxY INTEGER NOT NULL,                                    
                                     boxZ INTEGER NOT NULL,

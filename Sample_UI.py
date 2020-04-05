@@ -15,6 +15,28 @@ from tkcalendar import *
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
+def Open_SuggestBox_Window():
+    def SuggestBox():
+        messagebox.showinfo("Suggest Box", DataAPI.FindEmptyBox(conn, int(minTemp.get()), int(maxTemp.get())))
+        window_SuggestBox.destroy()
+
+    window_SuggestBox = tk.Tk()
+    #window_SuggestBox.geometry("300x300")
+    window_SuggestBox.title("SUGGEST BOX")
+    window_SuggestBox["bg"] = 'red'
+
+    tk.Label(window_SuggestBox, text = "Minimum Temperature").grid(row = 0)
+    minTemp = tk.Entry(window_SuggestBox)
+    minTemp.grid(row = 0, column = 1)
+
+    tk.Label(window_SuggestBox, text = "Maximum Temperature").grid(row = 1)
+    maxTemp = tk.Entry(window_SuggestBox)
+    maxTemp.grid(row = 1, column = 1)
+
+    tk.Button(window_SuggestBox, text = 'Suggest Box', 
+                        command = SuggestBox).grid(row = 2, column=1)
+
+
 ##########---------->START: WINDOW FOR ADDING SAMPLE<----------##########
 def AddSample_Window():
     def CreateSample():
@@ -117,27 +139,6 @@ def AddSample_Window():
     def Open_MainSample_Window():
         window_AddSample.destroy()
         MainSample_Window()
-    
-    def Open_SuggestBox_Window():
-        def SuggestBox():
-            messagebox.showinfo("Suggest Box", DataAPI.FindEmptyBox(conn, int(minTemp.get()), int(maxTemp.get())))
-            window_SuggestBox.destroy()
-
-        window_SuggestBox = tk.Tk()
-        #window_SuggestBox.geometry("300x300")
-        window_SuggestBox.title("SUGGEST BOX")
-        window_SuggestBox["bg"] = 'red'
-    
-        tk.Label(window_SuggestBox, text = "Minimum Temperature").grid(row = 0)
-        minTemp = tk.Entry(window_SuggestBox)
-        minTemp.grid(row = 0, column = 1)
-
-        tk.Label(window_SuggestBox, text = "Maximum Temperature").grid(row = 1)
-        maxTemp = tk.Entry(window_SuggestBox)
-        maxTemp.grid(row = 1, column = 1)
-
-        tk.Button(window_SuggestBox, text = 'Suggest Box', 
-                            command = SuggestBox).grid(row = 2, column=1)
 
     def GetCollectionTitles():
         return(DataAPI.GetCollectionTitles(conn))
@@ -320,6 +321,8 @@ def MoveSample_Window():
     tk.Button(window_MoveSample, text = 'Move Sample', command = MoveSample).grid(row = 5, column=1)
     tk.Button(window_MoveSample, text = 'Back to Sample Menu', 
                         command = Open_MainSample_Window).grid(row = 10, column=1)
+
+    tk.Button(window_MoveSample, text = 'Suggest Box', command = Open_SuggestBox_Window).grid(row = 1, column=3)
 
     window_MoveSample.mainloop()
 ##########---------->END: WINDOW FOR MOVING SAMPLE<----------##########
