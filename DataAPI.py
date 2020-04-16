@@ -1,5 +1,6 @@
 import sqlite3
 import LoggingAPI
+from datetime import *
 
 def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves):
     try:
@@ -371,6 +372,42 @@ def LogoutAll(_conn):
     c = _conn.cursor()
     c.execute("UPDATE LoginTable SET loggedIn = ?", ("0",))
     _conn.commit()
-    
+
+def SampleDateCheck(_returnDate, _returnType):
+    date1 = _returnDate
+    date2 = str(datetime.now())
+    year1 = int(date1[0:4])
+    year2 = int(date2[0:4])
+    if year1 - year2 < 1:
+        month1 = int(date1[5:7])
+        month2 = int(date2[5:7])
+        if month1 - month2 < 1:
+            day1 = int(date1[8:10])
+            day2 = int(date2[8:10])
+            x = day1 - day2
+            if x <= 7 and x >= 0:
+                return(" needs to be " + _returnType + "ed in " + str(x) + " days")
+            elif x < 0:
+                return(" must already be " + _returnType + "ed")
+        elif month1 - month2 < 0:
+            return(" must already be " + _returnType + "ed")
+    elif year1 - year2 < 0:
+         return(" must already be " + _returnType + "ed") 
+    return ("FALSE")
+
+def CheckAllSampleDates(_conn):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM SampleTable")
+    results = c.fetchall()
+    output = ""
+    for result in results:
+        tempID = result[0]
+        tempDate = result[14]
+        tempType  = result[13]
+        if SampleDateCheck(tempDate,tempType) != "FALSE":
+            output = output + ("Sample " + tempID + SampleDateCheck(tempDate,tempType))
+            output = output + '\n'
+    print(output)
+    return(output)               
     
 
