@@ -6,11 +6,12 @@ import Fridge_UI
 import Sample_UI
 import User_CredentialCheck
 import DataAPI
+import Startup
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
-##########---------->START: MAIN WINDOW<----------##########
+##########---------->START: MAIN WINDOW<--------------------##########
 def Main_Window():
     window_Main = tk.Tk()
     window_Main.geometry("300x300")
@@ -32,27 +33,36 @@ def Main_Window():
     def Logout():
         window_Main.destroy()
         DataAPI.LogoutAll(conn)
-        User_CredentialCheck.Check_Window()
+        Startup.Start_Window()
 
     def Exit():
         window_Main.destroy()
 
-
-    tk.Button(window_Main, text = 'Open Fridge Menu', 
-                        command = Open_FridgeMenu_Window).grid(row = 0, column=0)
-
-    tk.Button(window_Main, text = 'Open Box Menu', 
-                        command = Open_BoxMenu_Window).grid(row = 1, column=0)
-
-    tk.Button(window_Main, text = 'Open Sample Menu', 
-                        command = Open_SampleMenu_Window).grid(row = 2, column=0)
-
-    tk.Button(window_Main, text = 'Log Out', 
-                        command = Logout).grid(row = 3, column=0)
-
-    tk.Button(window_Main, text = 'Exit', 
-                        command = Exit).grid(row = 4, column=0)
+    tk.Button(window_Main, text = 'Open Fridge Menu', command = Open_FridgeMenu_Window).grid(row = 0, column=0)
+    tk.Button(window_Main, text = 'Open Box Menu', command = Open_BoxMenu_Window).grid(row = 1, column=0)
+    tk.Button(window_Main, text = 'Open Sample Menu', command = Open_SampleMenu_Window).grid(row = 2, column=0)
+    tk.Button(window_Main, text = 'Log Out', command = Logout).grid(row = 3, column=0)
+    tk.Button(window_Main, text = 'Exit', command = Exit).grid(row = 4, column=0)
 
     window_Main.mainloop()
-##########---------->END: MAIN WINDOW<----------##########
+##########---------->END: MAIN WINDOW<----------------------##########
+
+##########---------->START: WARNING WINDOW WINDOW<----------##########
+def Warning_Window():
+
+    def CloseWarningWindow():
+        window_Warning.destroy()
+
+    sampleDateWarning = DataAPI.CheckAllSampleDates(conn)
+    if(sampleDateWarning != ""):
+        window_Warning = tk.Tk()
+        window_Warning.title("SAMPLE DATE WARNING")
+        window_Warning["bg"] = 'red'
+       
+        tk.Label(window_Warning, text = sampleDateWarning, bg="red").grid(row=0)
+
+        tk.Button(window_Warning, text = 'Continue', command = CloseWarningWindow).grid(column=0)
+
+        window_Warning.mainloop()
+##########---------->END: WARNING WINDOW<------------------##########    
 

@@ -2,8 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk
 import GuestLogin
-
-
+import Startup
 
 def FetchGuestSamples(searchField):
     conn = sqlite3.connect('Test.db')
@@ -14,7 +13,7 @@ def FetchGuestSamples(searchField):
 
     def Log_Out():
         window_Samples.destroy()
-        GuestLogin.LoginScreen()
+        Startup.Start_Window()
 
     tk.Button(window_Samples, text = 'Log Out', 
                         command = Log_Out).grid(row = 3, column=0)
@@ -28,8 +27,6 @@ def FetchGuestSamples(searchField):
 
     for row in c.fetchall():
         tree.insert("", "end", values = (row))
-        print(row)
-
 
     window_Samples.mainloop()
     c.close()

@@ -32,7 +32,9 @@ def Check_Window():
 
     def openMain():
             window_check.destroy()
+            Main_UI.Warning_Window()
             Main_UI.Main_Window()
+
           
     
     def enterPress(event):

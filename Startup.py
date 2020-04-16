@@ -2,16 +2,13 @@ from tkinter import *
 import sqlite3
 import DataAPI
 import SetupAPI
-import User_CredentialCheck
-import GuestLogin
+import User_CredentialCheck, GuestLogin
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
 SetupAPI.CreateAllTables(conn) 
-
 DataAPI.LogoutAll(conn)
-
 
 def Start_Window():
     start_window = Tk()  

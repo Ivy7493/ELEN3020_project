@@ -388,11 +388,11 @@ def SampleDateCheck(_returnDate, _returnType):
             if x <= 7 and x >= 0:
                 return(" needs to be " + _returnType + "ed in " + str(x) + " days")
             elif x < 0:
-                return(" must already be " + _returnType + "ed")
+                return(" should have been " + _returnType + "ed already")
         elif month1 - month2 < 0:
-            return(" must already be " + _returnType + "ed")
+            return(" should have been " + _returnType + "ed already")
     elif year1 - year2 < 0:
-         return(" must already be " + _returnType + "ed") 
+         return(" should have been " + _returnType + "ed already") 
     return ("FALSE")
 
 def CheckAllSampleDates(_conn):
@@ -407,7 +407,6 @@ def CheckAllSampleDates(_conn):
         if SampleDateCheck(tempDate,tempType) != "FALSE":
             output = output + ("Sample " + tempID + SampleDateCheck(tempDate,tempType))
             output = output + '\n'
-    print(output)
     return(output)               
     
 
