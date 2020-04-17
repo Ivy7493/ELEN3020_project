@@ -173,10 +173,10 @@ def DeleteBox_Window():
 def SearchBox_Window():
     window_SearchBox = tk.Tk()
     window_SearchBox.title("SEARCH BOX WINDOW")
-    window_SearchBox.geometry("300x300")
+    window_SearchBox.geometry("400x250")
     window_SearchBox["bg"] = 'magenta'
 
-    DisplayBoxesButton = tk.Button(window_SearchBox, text='Display All Fridges',
+    DisplayBoxesButton = tk.Button(window_SearchBox, text='Display All Boxes',
                                    command=DisplayBoxes.OpenAllBoxes).grid(row=0, column=1)
 
     searchField1 = tk.Entry(window_SearchBox)
@@ -186,7 +186,7 @@ def SearchBox_Window():
         DisplayBoxes.BoxSearch(searchField1.get())
         print(searchField1.get())
 
-    SearchButton1 = tk.Button(window_SearchBox, text='Search for BoxID',
+    SearchButton1 = tk.Button(window_SearchBox, text='Search for Box ID',
                               command=runDisplayBoxes).grid(row=1, column=1)
 #----------------------------------------------------------------------------------
     searchField2 = tk.Entry(window_SearchBox)
