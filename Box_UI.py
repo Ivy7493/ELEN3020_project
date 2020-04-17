@@ -177,14 +177,35 @@ def SearchBox_Window():
     window_SearchBox["bg"] = 'magenta'
 
     DisplayBoxesButton = tk.Button(window_SearchBox, text='Display All Fridges',
-                                   command=DisplayBoxes.OpenAllBoxes).grid(row=0, column=2)
+                                   command=DisplayBoxes.OpenAllBoxes).grid(row=0, column=1)
 
+    searchField1 = tk.Entry(window_SearchBox)
+    searchField1.grid(row=1, column=0)
+
+    def runDisplayBoxes():
+        DisplayBoxes.BoxSearch(searchField1.get())
+        print(searchField1.get())
+
+    SearchButton1 = tk.Button(window_SearchBox, text='Search for BoxID',
+                              command=runDisplayBoxes).grid(row=1, column=1)
+#----------------------------------------------------------------------------------
+    searchField2 = tk.Entry(window_SearchBox)
+    searchField2.grid(row=2, column=0)
+    
+    def runDisplayFridgeID():
+    	DisplayBoxes.OpenFridgeSearch(searchField2.get())
+    	print(searchField2.get())
+    
+    SearchButton2 = tk.Button(window_SearchBox, text = 'Search for Fridge ID', command=runDisplayFridgeID).grid(row=2, column=1)
+    
+    
+    
     def Open_MainMenu_Window():
         window_SearchBox.destroy()
         Main_UI.Main_Window()
 
     ReturnButton = tk.Button(window_SearchBox, text='Back to Main Menu',
-                             command=Open_MainMenu_Window).grid(row=2, column=2)
+                             command=Open_MainMenu_Window).grid(row=4, column=1)
 
 
 ##########---------->END: WINDOW FOR SEARCHING BOXES<------##########
