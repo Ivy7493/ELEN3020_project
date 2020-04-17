@@ -18,6 +18,7 @@ def OpenAllFridges(conn):
 
     for row in c.fetchall():
         tree.insert("", "end", values = (row))
+        print(row)
 
     def openFridgeSearchMenu():
         window_Fridges.destroy()
@@ -33,27 +34,41 @@ def OpenAllFridges(conn):
 def OpenFridgeSearch(conn, searchField):
     c = conn.cursor()
 
-    window_Fridges = tk.Tk()
-    window_Fridges.title("FRIDGES")
+    if searchField == "":
+        message_window = tk.Tk()
+        message_window.title("ERROR")
+        message = tk.Label(message_window, text = "That is not a valid fridge")
+        message.grid(row = 0, column = 0)
 
-    cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
-    tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
-    for col in cols:
-        tree.heading(col, text=col)
-    tree.grid(row=2, column=0, columnspan=7)
+        def openFridgeSearchMenu():
+            message_window.destroy()
+            #MainFridge_Window()
 
-    c.execute("SELECT * FROM FridgeTable WHERE fridgeID=?", (str(searchField),))
+        backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
-    for row in c.fetchall():
-        tree.insert("", "end", values = (row))
+    else:
+        window_Fridges = tk.Tk()
+        window_Fridges.title("FRIDGES")
 
-    def openFridgeSearchMenu():
-        window_Fridges.destroy()
-        MainFridge_Window()
+        cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
+        tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
+        for col in cols:
+            tree.heading(col, text=col)
+        tree.grid(row=2, column=0, columnspan=7)
 
-    backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
-    
-    window_Fridges.mainloop()
+        c.execute("SELECT * FROM FridgeTable WHERE fridgeID=?", (str(searchField),))
+
+        for row in c.fetchall():
+            tree.insert("", "end", values = (row))
+            print(row)
+
+        def openFridgeSearchMenu():
+            window_Fridges.destroy()
+            MainFridge_Window()
+
+        backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
+        
+        window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
 
 
@@ -61,27 +76,41 @@ def OpenFridgeSearch(conn, searchField):
 def OpenTemperatureSearch(conn, searchField):
     c = conn.cursor()
 
-    window_Fridges = tk.Tk()
-    window_Fridges.title("FRIDGES")
+    if searchField == "":
+        message_window = tk.Tk()
+        message_window.title("ERROR")
+        message = tk.Label(message_window, text = "That is not a valid temperature")
+        message.grid(row = 0, column = 0)
 
-    cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
-    tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
-    for col in cols:
-        tree.heading(col, text=col)
-    tree.grid(row=2, column=0, columnspan=7)
+        def openFridgeSearchMenu():
+            message_window.destroy()
+            #MainFridge_Window()
 
-    c.execute("SELECT * FROM FridgeTable WHERE temperature=?", (int(searchField),))
+        backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
-    for row in c.fetchall():
-        tree.insert("", "end", values = (row))
+    else:
+        window_Fridges = tk.Tk()
+        window_Fridges.title("FRIDGES")
 
-    def openFridgeSearchMenu():
-        window_Fridges.destroy()
-        MainFridge_Window()
+        cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
+        tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
+        for col in cols:
+            tree.heading(col, text=col)
+        tree.grid(row=2, column=0, columnspan=7)
 
-    backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(column=1)
+        c.execute("SELECT * FROM FridgeTable WHERE temperature=?", (int(searchField),))
 
-    window_Fridges.mainloop()
+        for row in c.fetchall():
+            tree.insert("", "end", values = (row))
+            print(row)
+
+        def openFridgeSearchMenu():
+            window_Fridges.destroy()
+            MainFridge_Window()
+
+        backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(column=1)
+
+        window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
 
 
@@ -89,26 +118,41 @@ def OpenTemperatureSearch(conn, searchField):
 def OpenNumShelvesSearch(conn, searchField):
     c = conn.cursor()
 
-    window_Fridges = tk.Tk()
-    window_Fridges.title("FRIDGES")
+    if searchField == "":
+        message_window = tk.Tk()
+        message_window.title("ERROR")
+        message = tk.Label(message_window, text = "That is not a valid number")
+        message.grid(row = 0, column = 0)
 
-    cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
-    tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
-    for col in cols:
-        tree.heading(col, text=col)
-    tree.grid(row=2, column=0, columnspan=7)
+        def openFridgeSearchMenu():
+            message_window.destroy()
+            #MainFridge_Window()
 
-    c.execute("SELECT * FROM FridgeTable WHERE numShelves=?", (int(searchField),))
+        backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
-    for row in c.fetchall():
-        tree.insert("", "end", values = (row))
 
-    def openFridgeSearchMenu():
-        window_Fridges.destroy()
-        MainFridge_Window()
+    else:
+        window_Fridges = tk.Tk()
+        window_Fridges.title("FRIDGES")
 
-    backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
+        cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
+        tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
+        for col in cols:
+            tree.heading(col, text=col)
+        tree.grid(row=2, column=0, columnspan=7)
 
-    window_Fridges.mainloop()
+        c.execute("SELECT * FROM FridgeTable WHERE numShelves=?", (int(searchField),))
+
+        for row in c.fetchall():
+            tree.insert("", "end", values = (row))
+            print(row)
+
+        def openFridgeSearchMenu():
+            window_Fridges.destroy()
+            MainFridge_Window()
+
+        backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
+
+        window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
 
