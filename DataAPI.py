@@ -410,7 +410,7 @@ def CheckAllSampleDates(_conn):
     return(output) 
 
 def GetInvoice(_conn, _sampleID, _price):
-    
+    #fixing maybe!!!
     c = _conn.cursor()
     TempID = _sampleID
     c.execute("SELECT * FROM SampleTable WHERE sampleID=?",(TempID,))
