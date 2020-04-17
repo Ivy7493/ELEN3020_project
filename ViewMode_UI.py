@@ -10,12 +10,11 @@ def ViewSamples(conn, _boxID, _fridgeID):
     window_ViewSamples = Tk()
     window_ViewSamples.title("VIEW SAMPLES")
     
-##########NB: HAVE TO UPDATE THIS TO REMOVE SAMPLE HISTORY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#########################
-    cols = ('Sample ID', 'Box ID', 'X', 'Y' , 'Z', 'Sample Type', 'Origin Country', 'Collection Date', 'Entry Date', 'Sample History', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
+    cols = ('Sample ID', 'Box ID', 'X', 'Y' , 'Z', 'Sample Type', 'Origin Country', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
     tree = ttk.Treeview(window_ViewSamples, columns=cols, show='headings')
     for col in cols:
         tree.heading(col, text=col)
-    tree.grid(row=2, column=0, columnspan=17, rowspan = 2)
+    tree.grid(row=2, column=0, columnspan=16, rowspan = 2)
 
     tree.column("Sample ID", minwidth=0, width=80, stretch=NO)
     tree.column("Box ID", minwidth=0, width=65, stretch=NO)
@@ -26,7 +25,6 @@ def ViewSamples(conn, _boxID, _fridgeID):
     tree.column("Origin Country", minwidth=0, width=100, stretch=NO)
     tree.column("Collection Date", minwidth=0, width=100, stretch=NO)
     tree.column("Entry Date", minwidth=0, width=100, stretch=NO)
-    tree.column("Sample History", minwidth=0, width=100, stretch=NO)
     tree.column("Subject Age", minwidth=0, width=100, stretch=NO)
     tree.column("Tube Rating", minwidth=0, width=75, stretch=NO)
     tree.column("Collection Title", minwidth=0, width=100, stretch=NO)
@@ -39,7 +37,6 @@ def ViewSamples(conn, _boxID, _fridgeID):
 
     for row in c.fetchall():
         tree.insert("", "end", values = row)
-        print(row)
 
     def OpenViewBoxes():
         window_ViewSamples.destroy()
@@ -66,28 +63,26 @@ def ViewBoxes(conn, _fridgeID):
         boxList.append(result)
     
     rowCol = math.sqrt(count)
-    print(rowCol)
     
     myRow = 0
     myCol = 0
 
-    def test(option):
+    def BoxClick(b):
         window_ViewBoxes.destroy()
-        print(option[0])
-        ViewSamples(conn, option[0], _fridgeID)
+        ViewSamples(conn, b[0], _fridgeID)
     
 
-    for indx, option in enumerate(boxList):
-        cmd = lambda opt=option: test(opt)
-        btn = Button(text=option[0], command=cmd)
+    for indx, b in enumerate(boxList):
+        cmd = lambda _b=b: BoxClick(_b)
+        boxButton = Button(text=b[0], command=cmd)
 
         if myCol < rowCol:
-            btn.grid(row = myRow, column = myCol)
+            boxButton.grid(row = myRow, column = myCol)
             myCol = myCol + 1
         else:
             myRow = myRow + 1
             myCol = 0
-            btn.grid(row = myRow, column = myCol)
+            boxButton.grid(row = myRow, column = myCol)
             myCol = myCol + 1
 
     def OpenViewFridges():
@@ -114,27 +109,25 @@ def ViewFridges(conn):
         fridgeList.append(result)
     
     rowCol = math.sqrt(count)
-    print(rowCol)
     
     myRow = 0
     myCol = 0
 
-    def test(option):
+    def FridgeClick(option):
         window_ViewFridges.destroy()
-        print(option[0])
         ViewBoxes(conn, option[0])
 
-    for indx, option in enumerate(fridgeList):
-        cmd = lambda opt=option: test(opt)
-        btn = Button(text=option[0], command=cmd)
+    for indx, f in enumerate(fridgeList):
+        cmd = lambda _f=f: FridgeClick(_f)
+        fridgeButton = Button(text=f[0], command=cmd)
 
         if myCol < rowCol:
-            btn.grid(row = myRow, column = myCol)
+            fridgeButton.grid(row = myRow, column = myCol)
             myCol = myCol + 1
         else:
             myRow = myRow + 1
             myCol = 0
-            btn.grid(row = myRow, column = myCol)
+            fridgeButton.grid(row = myRow, column = myCol)
             myCol = myCol + 1
 
     def Return():

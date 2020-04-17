@@ -11,7 +11,7 @@ conn.execute("PRAGMA foreign_keys = ON")
 
 def Check_Window():
     window_check = Tk()
-
+    window_check.title("Employee Login")
 
     def checkCreds(): #checks the user's credentials
         n1 = entry_name.get()

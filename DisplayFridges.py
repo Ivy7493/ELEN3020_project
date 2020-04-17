@@ -18,7 +18,6 @@ def OpenAllFridges(conn):
 
     for row in c.fetchall():
         tree.insert("", "end", values = (row))
-        print(row)
 
     def openFridgeSearchMenu():
         window_Fridges.destroy()
@@ -47,7 +46,6 @@ def OpenFridgeSearch(conn, searchField):
 
     for row in c.fetchall():
         tree.insert("", "end", values = (row))
-        print(row)
 
     def openFridgeSearchMenu():
         window_Fridges.destroy()
@@ -76,7 +74,6 @@ def OpenTemperatureSearch(conn, searchField):
 
     for row in c.fetchall():
         tree.insert("", "end", values = (row))
-        print(row)
 
     def openFridgeSearchMenu():
         window_Fridges.destroy()
@@ -105,7 +102,6 @@ def OpenNumShelvesSearch(conn, searchField):
 
     for row in c.fetchall():
         tree.insert("", "end", values = (row))
-        print(row)
 
     def openFridgeSearchMenu():
         window_Fridges.destroy()

@@ -98,18 +98,19 @@ def SearchFridge_Window():
 
     window_SearchFridge = tk.Tk()
     window_SearchFridge.title("SEARCH FRIDGE WINDOW")
-    window_SearchFridge.geometry("300x300")
     window_SearchFridge["bg"] = 'pink'
 
+    def OpenAllFridges():
+        DisplayFridges.OpenAllFridges(conn)
+
     searchButton = tk.Button(window_SearchFridge, text='Display All Fridges',
-                             command=DisplayFridges.OpenAllFridges).grid(row=1, column=2)
+                             command=OpenAllFridges).grid(row=1, column=2)
 
     searchField1 = tk.Entry(window_SearchFridge)
     searchField1.grid(row=2, column=1)
 
     def runDisplayFridges():
-        DisplayFridges.OpenFridgeSearch(searchField1.get())
-        print(searchField1.get())
+        DisplayFridges.OpenFridgeSearch(conn, searchField1.get())
 
     searchButton1 = tk.Button(window_SearchFridge, text='Search for FridgeID',
                               command=runDisplayFridges).grid(row=2, column=2)
@@ -119,8 +120,7 @@ def SearchFridge_Window():
     searchField2.grid(row=3, column=1)
 
     def runDisplayTemperatures():
-        DisplayFridges.OpenTemperatureSearch(searchField2.get())
-        print(searchField2.get())
+        DisplayFridges.OpenTemperatureSearch(conn, searchField2.get())
 
     searchButton2 = tk.Button(window_SearchFridge, text='Search for fridge temperature',
                               command=runDisplayTemperatures).grid(row=3, column=2)
@@ -134,8 +134,7 @@ def SearchFridge_Window():
         MainFridge_Window()
 
     def runDisplayShelves():
-        DisplayFridges.OpenNumShelvesSearch(searchField3.get())
-        print(searchField3.get())
+        DisplayFridges.OpenNumShelvesSearch(conn, searchField3.get())
 
     searchButton3 = tk.Button(window_SearchFridge, text='Search for number of shelves',
                               command=runDisplayShelves).grid(row=4, column=2)
