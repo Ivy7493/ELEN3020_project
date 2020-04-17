@@ -2,9 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk
 
-def OpenAllFridges():
-    conn = sqlite3.connect('Test.db')
-    conn.execute("PRAGMA foreign_keys = ON")
+def OpenAllFridges(conn):
     c = conn.cursor()
 
     window_Fridges = tk.Tk()
@@ -23,21 +21,17 @@ def OpenAllFridges():
         print(row)
 
     def openFridgeSearchMenu():
-    	window_Fridges.destroy()
-    	MainFridge_Window()
-    	
+        window_Fridges.destroy()
+        MainFridge_Window()
 
     backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
     
     window_Fridges.mainloop()
-    c.close()
-    conn.close()
 #----------------------------------------------------------------------------------------
     
 
 #----------------------------------------------------------------------------------------
-def OpenFridgeSearch(searchField):
-    conn = sqlite3.connect('Test.db')
+def OpenFridgeSearch(conn, searchField):
     c = conn.cursor()
 
     window_Fridges = tk.Tk()
@@ -62,62 +56,40 @@ def OpenFridgeSearch(searchField):
     backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
     
     window_Fridges.mainloop()
-    c.close()
-    conn.close()
 #----------------------------------------------------------------------------------------
 
 
 #----------------------------------------------------------------------------------------
-def OpenTemperatureSearch(searchField):
-    conn = sqlite3.connect('Test.db')
+def OpenTemperatureSearch(conn, searchField):
     c = conn.cursor()
 
-    if searchField == "":
-        message_window = tk.Tk()
-        message_window.title("ERROR")
-        message = tk.Label(message_window, text = "That is not a valid temperature")
-        message.grid(row = 0, column = 0)
+    window_Fridges = tk.Tk()
+    window_Fridges.title("FRIDGES")
 
-        def openFridgeSearchMenu():
-            message_window.destroy()
-            MainFridge_Window()
-            
-            
-        backButton = tk.Button(message_window, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=1)
+    cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
+    tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
+    for col in cols:
+        tree.heading(col, text=col)
+    tree.grid(row=2, column=0, columnspan=7)
 
-    else:
-        window_Fridges = tk.Tk()
-        window_Fridges.title("FRIDGES")
+    c.execute("SELECT * FROM FridgeTable WHERE temperature=?", (int(searchField),))
 
-        cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves')
-        tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
-        for col in cols:
-            tree.heading(col, text=col)
-        tree.grid(row=2, column=0, columnspan=7)
+    for row in c.fetchall():
+        tree.insert("", "end", values = (row))
+        print(row)
 
-        c.execute("SELECT * FROM FridgeTable WHERE temperature=?", (int(searchField),))
+    def openFridgeSearchMenu():
+        window_Fridges.destroy()
+        MainFridge_Window()
 
-        for row in c.fetchall():
-            tree.insert("", "end", values = (row))
-            print(row)
+    backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(column=1)
 
-        def openFridgeSearchMenu():
-            window_Fridges.destroy()
-            MainFridge_Window()
-
-
-        backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(column=1)
-
-        window_Fridges.mainloop()
-        c.close()
-        conn.close()
-	
+    window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
 
 
 #----------------------------------------------------------------------------------------
-def OpenNumShelvesSearch(searchField):
-    conn = sqlite3.connect('Test.db')
+def OpenNumShelvesSearch(conn, searchField):
     c = conn.cursor()
 
     window_Fridges = tk.Tk()
@@ -138,13 +110,9 @@ def OpenNumShelvesSearch(searchField):
     def openFridgeSearchMenu():
         window_Fridges.destroy()
         MainFridge_Window()
-        
 
     backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
 
     window_Fridges.mainloop()
-    c.close()
-    conn.close()
-
 #----------------------------------------------------------------------------------------
 

@@ -3,7 +3,7 @@ import sqlite3
 import tkinter as tk
 import DataAPI
 import Main_UI
-import DisplayBoxes
+#import DisplayBoxes
 from tkinter import messagebox
 
 conn = sqlite3.connect('Test.db')
@@ -202,9 +202,9 @@ def SearchBox_Window():
     
     def Open_MainMenu_Window():
         window_SearchBox.destroy()
-        Main_UI.Main_Window()
+        MainBox_Window()
 
-    ReturnButton = tk.Button(window_SearchBox, text='Back to Main Menu',
+    ReturnButton = tk.Button(window_SearchBox, text='Back to Box Menu',
                              command=Open_MainMenu_Window).grid(row=4, column=1)
 
 
@@ -235,7 +235,7 @@ def MainBox_Window():
 
     def Open_MainMenu_Window():
         window_MainBox.destroy()
-        Main_UI.Main_Window()
+        Main_UI.Edit_Window()
 
     tk.Button(window_MainBox, text='Add Box',
               command=Open_AddBox_Window).grid(row=0, column=0)

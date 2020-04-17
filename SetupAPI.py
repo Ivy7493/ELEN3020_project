@@ -11,7 +11,6 @@ def CreateSampleTable(_conn):
                                     originCountry TEXT NOT NULL,
                                     collectionDate TEXT NOT NULL,
                                     entryDate TEXT NOT NULL,
-                                    sampleHistory TEXT NOT NULL,
                                     subjectAge INTEGER NOT NULL,
                                     tubeRating INTEGER NOT NULL,
                                     collectionTitle TEXT NOT NULL,

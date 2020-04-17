@@ -11,7 +11,6 @@ from datetime import date
 from tkinter import *
 from tkcalendar import *
 
-
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
 
@@ -50,7 +49,6 @@ def AddSample_Window():
             _originCountry = originCountry.get()
             _collectionDate = collectionDate.get()
             _entryDate = entryDate
-            _sampleHistory = sampleHistory
             _subjectAge = int(subjectAge.get())
             _tubeRating = int(tubeRating.get())
             _collectionTitle = collectionTitle.get()
@@ -59,7 +57,7 @@ def AddSample_Window():
             _phenotypeValue = phenotypeValue.get()
             _diseaseState = diseaseState.get()
 
-            messagebox.showinfo("Add Sample", DataAPI.AddSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState))
+            messagebox.showinfo("Add Sample", DataAPI.AddSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState))
         except:
             messagebox.showinfo("Add Sample", "ERROR: Invalid data entered")
 
@@ -380,7 +378,7 @@ def MainSample_Window():
 
     def Open_MainMenu_Window():
         window_MainSample.destroy()
-        Main_UI.Main_Window()
+        Main_UI.Edit_Window()
 
     tk.Button(window_MainSample, text = 'Add Sample', 
                         command = Open_AddSample_Window).grid(row = 0, column=0)
@@ -399,10 +397,4 @@ def MainSample_Window():
 
     window_MainSample.mainloop()
 ##########---------->END: MAIN WINDOW FOR SAMPLES<----------##########
-
-
-
-#SetupAPI.CreateAllTables(conn)   
-#MainSample_Window()
-#AddSample_Window()
 

@@ -131,7 +131,7 @@ def SearchFridge_Window():
 
     def Open_MainMenu_Window():
         window_SearchFridge.destroy()
-        Main_UI.Main_Window()
+        MainFridge_Window()
 
     def runDisplayShelves():
         DisplayFridges.OpenNumShelvesSearch(searchField3.get())
@@ -140,7 +140,7 @@ def SearchFridge_Window():
     searchButton3 = tk.Button(window_SearchFridge, text='Search for number of shelves',
                               command=runDisplayShelves).grid(row=4, column=2)
 
-    ReturnButton = tk.Button(window_SearchFridge, text='Back to Main Menu',
+    ReturnButton = tk.Button(window_SearchFridge, text='Back to Fridge Menu',
                              command=Open_MainMenu_Window).grid(row=5, column=1)
 
 #---------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ def MainFridge_Window():
 
     def Open_MainMenu_Window():
         window_MainFridge.destroy()
-        Main_UI.Main_Window()
+        Main_UI.Edit_Window()
 
     tk.Button(window_MainFridge, text='Add Fridge',
               command=Open_AddFridge_Window).grid(row=0, column=0)

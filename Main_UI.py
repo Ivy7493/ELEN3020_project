@@ -7,6 +7,7 @@ import Sample_UI
 import User_CredentialCheck
 import DataAPI
 import Startup
+import ViewMode_UI
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -18,17 +19,13 @@ def Main_Window():
     window_Main.title("MAIN MENU")
     window_Main["bg"] = 'cyan'
 
-    def Open_BoxMenu_Window():
+    def Open_Edit_Window():
         window_Main.destroy()
-        Box_UI.MainBox_Window()
+        Edit_Window()
 
-    def Open_FridgeMenu_Window():
+    def Open_View_Window():
         window_Main.destroy()
-        Fridge_UI.MainFridge_Window()
-
-    def Open_SampleMenu_Window():
-        window_Main.destroy()
-        Sample_UI.MainSample_Window()
+        ViewMode_UI.ViewFridges(conn)
     
     def Logout():
         window_Main.destroy()
@@ -38,13 +35,44 @@ def Main_Window():
     def Exit():
         window_Main.destroy()
 
-    tk.Button(window_Main, text = 'Open Fridge Menu', command = Open_FridgeMenu_Window).grid(row = 0, column=0)
-    tk.Button(window_Main, text = 'Open Box Menu', command = Open_BoxMenu_Window).grid(row = 1, column=0)
-    tk.Button(window_Main, text = 'Open Sample Menu', command = Open_SampleMenu_Window).grid(row = 2, column=0)
+    tk.Button(window_Main, text = 'Edit Mode', command = Open_Edit_Window).grid(row = 0, column=0)
+    tk.Button(window_Main, text = 'View Mode', command = Open_View_Window).grid(row = 1, column=0)
     tk.Button(window_Main, text = 'Log Out', command = Logout).grid(row = 3, column=0)
     tk.Button(window_Main, text = 'Exit', command = Exit).grid(row = 4, column=0)
 
     window_Main.mainloop()
+
+
+
+def Edit_Window():
+    window_Edit = tk.Tk()
+    window_Edit.geometry("300x300")
+    window_Edit.title("MAIN MENU")
+    window_Edit["bg"] = 'cyan'
+
+    def Open_BoxMenu_Window():
+        window_Edit.destroy()
+        Box_UI.MainBox_Window()
+
+    def Open_FridgeMenu_Window():
+        window_Edit.destroy()
+        Fridge_UI.MainFridge_Window()
+
+    def Open_SampleMenu_Window():
+        window_Edit.destroy()
+        Sample_UI.MainSample_Window()
+    
+    def Return():
+        window_Edit.destroy()
+        Main_Window()
+
+    tk.Button(window_Edit, text = 'Open Fridge Menu', command = Open_FridgeMenu_Window).grid(row = 0, column=0)
+    tk.Button(window_Edit, text = 'Open Box Menu', command = Open_BoxMenu_Window).grid(row = 1, column=0)
+    tk.Button(window_Edit, text = 'Open Sample Menu', command = Open_SampleMenu_Window).grid(row = 2, column=0)
+    tk.Button(window_Edit, text = 'Return', command = Return).grid(row = 3, column=0)
+
+
+    window_Edit.mainloop()
 ##########---------->END: MAIN WINDOW<----------------------##########
 
 ##########---------->START: WARNING WINDOW WINDOW<----------##########

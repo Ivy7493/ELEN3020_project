@@ -112,12 +112,12 @@ def AddBox(_conn, _boxID, _fridgeID, _fridgeX, _fridgeY, _boxX, _boxY, _boxZ):
     except sqlite3.Error as error:
         return(error)
 
-def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState):
+def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState):
     try:
         c = _conn.cursor()
         boxPosFree = IsBoxPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ)
         if boxPosFree == "TRUE":
-            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, sampleHistory, subjectAge, tubeRating, collectionTitle, returnType, returnDate, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _sampleHistory, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState))
+            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, subjectAge, tubeRating, collectionTitle, returnType, returnDate, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState))
             _conn.commit()
             
             _FridgeID = ReturnFridgeSampleIn(_conn,_sampleID)
@@ -402,8 +402,8 @@ def CheckAllSampleDates(_conn):
     output = ""
     for result in results:
         tempID = result[0]
-        tempDate = result[14]
-        tempType  = result[13]
+        tempDate = result[13]
+        tempType  = result[12]
         if SampleDateCheck(tempDate,tempType) != "FALSE":
             output = output + ("Sample " + tempID + SampleDateCheck(tempDate,tempType))
             output = output + '\n'
