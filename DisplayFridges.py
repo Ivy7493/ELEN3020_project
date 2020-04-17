@@ -2,7 +2,9 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk
 
-def OpenAllFridges(conn):
+def OpenAllFridges():
+    conn = sqlite3.connect('Test.db')
+    conn.execute("PRAGMA foreign_keys = ON")
     c = conn.cursor()
 
     window_Fridges = tk.Tk()
@@ -21,17 +23,21 @@ def OpenAllFridges(conn):
         print(row)
 
     def openFridgeSearchMenu():
-        window_Fridges.destroy()
-        MainFridge_Window()
+    	window_Fridges.destroy()
+    	MainFridge_Window()
+    	
 
     backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
     
     window_Fridges.mainloop()
+    c.close()
+    conn.close()
 #----------------------------------------------------------------------------------------
     
 
 #----------------------------------------------------------------------------------------
-def OpenFridgeSearch(conn, searchField):
+def OpenFridgeSearch(searchField):
+    conn = sqlite3.connect('Test.db')
     c = conn.cursor()
 
     window_Fridges = tk.Tk()
@@ -56,11 +62,14 @@ def OpenFridgeSearch(conn, searchField):
     backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
     
     window_Fridges.mainloop()
+    c.close()
+    conn.close()
 #----------------------------------------------------------------------------------------
 
 
 #----------------------------------------------------------------------------------------
-def OpenTemperatureSearch(conn, searchField):
+def OpenTemperatureSearch(searchField):
+    conn = sqlite3.connect('Test.db')
     c = conn.cursor()
 
     if searchField == "":
@@ -71,8 +80,9 @@ def OpenTemperatureSearch(conn, searchField):
 
         def openFridgeSearchMenu():
             message_window.destroy()
-            #MainFridge_Window()
-
+            MainFridge_Window()
+            
+            
         backButton = tk.Button(message_window, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=1)
 
     else:
@@ -95,14 +105,19 @@ def OpenTemperatureSearch(conn, searchField):
             window_Fridges.destroy()
             MainFridge_Window()
 
+
         backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(column=1)
 
         window_Fridges.mainloop()
+        c.close()
+        conn.close()
+	
 #----------------------------------------------------------------------------------------
 
 
 #----------------------------------------------------------------------------------------
-def OpenNumShelvesSearch(conn, searchField):
+def OpenNumShelvesSearch(searchField):
+    conn = sqlite3.connect('Test.db')
     c = conn.cursor()
 
     window_Fridges = tk.Tk()
@@ -123,9 +138,13 @@ def OpenNumShelvesSearch(conn, searchField):
     def openFridgeSearchMenu():
         window_Fridges.destroy()
         MainFridge_Window()
+        
 
     backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
 
     window_Fridges.mainloop()
+    c.close()
+    conn.close()
+
 #----------------------------------------------------------------------------------------
 

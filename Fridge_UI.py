@@ -98,20 +98,18 @@ def SearchFridge_Window():
 
     window_SearchFridge = tk.Tk()
     window_SearchFridge.title("SEARCH FRIDGE WINDOW")
-    #window_SearchFridge.geometry("300x300")
+    window_SearchFridge.geometry("300x300")
     window_SearchFridge["bg"] = 'pink'
 
-    def openAllFridges():
-        DisplayFridges.OpenAllFridges(conn)
-
     searchButton = tk.Button(window_SearchFridge, text='Display All Fridges',
-                             command=openAllFridges).grid(row=1, column=2)
+                             command=DisplayFridges.OpenAllFridges).grid(row=1, column=2)
 
     searchField1 = tk.Entry(window_SearchFridge)
     searchField1.grid(row=2, column=1)
 
     def runDisplayFridges():
-        DisplayFridges.OpenFridgeSearch(conn, searchField1.get())
+        DisplayFridges.OpenFridgeSearch(searchField1.get())
+        print(searchField1.get())
 
     searchButton1 = tk.Button(window_SearchFridge, text='Search for FridgeID',
                               command=runDisplayFridges).grid(row=2, column=2)
@@ -121,7 +119,8 @@ def SearchFridge_Window():
     searchField2.grid(row=3, column=1)
 
     def runDisplayTemperatures():
-        DisplayFridges.OpenTemperatureSearch(conn, searchField2.get())
+        DisplayFridges.OpenTemperatureSearch(searchField2.get())
+        print(searchField2.get())
 
     searchButton2 = tk.Button(window_SearchFridge, text='Search for fridge temperature',
                               command=runDisplayTemperatures).grid(row=3, column=2)
@@ -130,19 +129,22 @@ def SearchFridge_Window():
     searchField3 = tk.Entry(window_SearchFridge)
     searchField3.grid(row=4, column=1)
 
+    def Open_MainMenu_Window():
+        window_SearchFridge.destroy()
+        Main_UI.Main_Window()
+
     def runDisplayShelves():
-        DisplayFridges.OpenNumShelvesSearch(conn, searchField3.get())
+        DisplayFridges.OpenNumShelvesSearch(searchField3.get())
+        print(searchField3.get())
 
     searchButton3 = tk.Button(window_SearchFridge, text='Search for number of shelves',
                               command=runDisplayShelves).grid(row=4, column=2)
-    #---------------------------------------------------------------------------------
-    
-    def openFridgeMenu():
-        window_SearchFridge.destroy()
-        MainFridge_Window()
 
-    backButton = tk.Button(window_SearchFridge, text = 'Back to Fridge Menu', command = openFridgeMenu).grid(row=5, column=1)
-    
+    ReturnButton = tk.Button(window_SearchFridge, text='Back to Main Menu',
+                             command=Open_MainMenu_Window).grid(row=5, column=1)
+
+#---------------------------------------------------------------------------------
+
     window_SearchFridge.mainloop()
 ##########---------->END: WINDOW FOR SEARCHING FRIDGES<-------##########
 
@@ -178,7 +180,7 @@ def MainFridge_Window():
               command=Open_SearchFridge_Window).grid(row=3, column=0)
 
     tk.Button(window_MainFridge, text='Back to Main Menu',
-                  command=Open_MainMenu_Window).grid(row=4, column=0)
+              command=Open_MainMenu_Window).grid(row=4, column=0)
 
     window_MainFridge.mainloop()
 ##########---------->END: MAIN WINDOW FOR FRIDGES<----------##########
