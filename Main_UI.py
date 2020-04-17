@@ -8,6 +8,7 @@ import User_CredentialCheck
 import DataAPI
 import Startup
 import ViewMode_UI
+import LoggingAPI
 
 conn = sqlite3.connect('Test.db')
 conn.execute("PRAGMA foreign_keys = ON")
@@ -20,8 +21,21 @@ def Main_Window():
     window_Main["bg"] = 'cyan'
 
     def Open_Edit_Window():
-        window_Main.destroy()
-        Edit_Window()
+        temp = LoggingAPI.GetCurrentAccess()
+        if temp == 0:
+            message_window = tk.Tk()
+            message_window.title("ERROR")
+            message = tk.Label(message_window, text = "INVALID ACCESS LEVEL")
+            message.grid(row = 0, column = 0)
+
+            def Close():
+                message_window.destroy()          
+
+            backButton = tk.Button(message_window, text = 'Close', command =Close).grid(row=1)
+
+        else:
+            window_Main.destroy()
+            Edit_Window()
 
     def Open_View_Window():
         window_Main.destroy()

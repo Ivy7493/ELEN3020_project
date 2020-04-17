@@ -29,6 +29,14 @@ def GetCurrentLogin():
     result = c.fetchone()
     conn.close()
     return result[0]
+
+def GetCurrentAccess():
+    conn = sqlite3.connect("Test.db") #check database reference later if we change
+    c = conn.cursor()
+    c.execute("SELECT * FROM LoginTable WHERE loggedIn=?",("1",))
+    result = c.fetchone()
+    conn.close()
+    return result[2]
     
 
     
