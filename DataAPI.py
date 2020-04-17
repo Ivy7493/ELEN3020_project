@@ -407,6 +407,26 @@ def CheckAllSampleDates(_conn):
         if SampleDateCheck(tempDate,tempType) != "FALSE":
             output = output + ("Sample " + tempID + SampleDateCheck(tempDate,tempType))
             output = output + '\n'
-    return(output)               
+    return(output) 
+
+def GetInvoice(_conn, _sampleID, _price):
+    
+    c = _conn.cursor()
+    TempID = _sampleID
+    c.execute("SELECT * FROM SampleTable WHERE sampleID=?",(TempID,))
+    result = c.fetchone()
+    startDate = result[8]
+    years = int(startDate[0:4])
+    months = int(startDate[5:7])
+    days = int(startDate[8:10])
+    startDate = datetime.date(years,months,days)
+    print(startDate)
+    currentDate = datetime.date.today()
+    print(currentDate)
+    delta = currentDate - startDate
+    delta = delta.days
+    print("Days: " + str(delta))
+    price = delta * _price
+    return "R" + str(price)              
     
 
