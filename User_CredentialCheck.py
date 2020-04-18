@@ -50,8 +50,8 @@ def Check_Window():
     entry_name = Entry(window_check)
     entry_pass = Entry(window_check, show = "*")
 
-    checkButton = Button(window_check, text = "Validate", command = checkCreds)
-    cancelButton = Button(window_check, text = "Cancel", command = Cancel)
+    checkButton = Button(window_check, text = "Validate", command = checkCreds, height = 1, width = 8)
+    cancelButton = Button(window_check, text = "Cancel", command = Cancel, height = 1, width = 8)
 
     name.grid(row = 0, column = 0, sticky = E)
     password.grid(row = 1, column = 0, sticky = E)

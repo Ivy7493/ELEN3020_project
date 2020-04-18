@@ -26,10 +26,10 @@ def Start_Window():
     def Exit():
         start_window.destroy()
 
-    employeeButton = Button(start_window, text = "Employee", command = Employee_Window)
-    guestButton = Button(start_window, text = "Guest", command = Guest_Window)
+    employeeButton = Button(start_window, text = "Employee", command = Employee_Window, height = 1, width = 8)
+    guestButton = Button(start_window, text = "    Guest   ", command = Guest_Window, height = 1, width = 8)
     info = Label(start_window, text = "Please select Employee or Guest to go to login")
-    exitButton = Button(start_window, text = "Exit", command = Exit)
+    exitButton = Button(start_window, text = "     Exit     ", command = Exit, height = 1, width = 8)
 
     info.grid(row = 0, column = 0)
     employeeButton.grid(row = 1, column = 0)

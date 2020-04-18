@@ -16,7 +16,7 @@ conn.execute("PRAGMA foreign_keys = ON")
 ##########---------->START: MAIN WINDOW<--------------------##########
 def Main_Window():
     window_Main = tk.Tk()
-    window_Main.geometry("300x300")
+    window_Main.geometry("250x250")
     window_Main.title("MAIN MENU")
     window_Main["bg"] = 'cyan'
 
@@ -49,10 +49,13 @@ def Main_Window():
     def Exit():
         window_Main.destroy()
 
-    tk.Button(window_Main, text = 'Edit Mode', command = Open_Edit_Window).grid(row = 0, column=0)
-    tk.Button(window_Main, text = 'View Mode', command = Open_View_Window).grid(row = 1, column=0)
-    tk.Button(window_Main, text = 'Log Out', command = Logout).grid(row = 3, column=0)
-    tk.Button(window_Main, text = 'Exit', command = Exit).grid(row = 4, column=0)
+    tk.Button(window_Main, text = 'Edit Mode', command = Open_Edit_Window).grid(row = 0, column=1, sticky = "ew")
+    tk.Label(window_Main, bg="cyan", text = '                ').grid(row=1, column=0)
+    tk.Button(window_Main, text = 'View Mode', command = Open_View_Window).grid(row = 2, column=1, sticky = "ew")
+    tk.Label(window_Main, bg="cyan", text = '                 ').grid(row=3, column=0)
+    tk.Button(window_Main, text = 'Log Out', command = Logout).grid(row = 4, column=1, sticky = "ew")
+    tk.Label(window_Main, bg="cyan", text = '                 ').grid(row=5, column=0)
+    tk.Button(window_Main, text = 'Exit', command = Exit).grid(row = 6, column=1, sticky = "ew")
 
     window_Main.mainloop()
 
@@ -60,7 +63,7 @@ def Main_Window():
 
 def Edit_Window():
     window_Edit = tk.Tk()
-    window_Edit.geometry("300x300")
+    window_Edit.geometry("300x250")
     window_Edit.title("MAIN MENU")
     #window_Edit["bg"] = 'cyan'
 
@@ -80,14 +83,14 @@ def Edit_Window():
         window_Edit.destroy()
         Main_Window()
 
-    tk.Button(window_Edit, text = 'Open Fridge Menu', command = Open_FridgeMenu_Window).grid(row = 1, column=1)
+    tk.Button(window_Edit, text = 'Open Fridge Menu', command = Open_FridgeMenu_Window).grid(row = 1, column=1, sticky = "ew")
     tk.Label(window_Edit, text = '                 ').grid(row=2, column=0)
-    tk.Button(window_Edit, text = 'Open Box Menu', command = Open_BoxMenu_Window).grid(row = 3, column=1)
+    tk.Button(window_Edit, text = 'Open Box Menu', command = Open_BoxMenu_Window).grid(row = 3, column=1, sticky = "ew")
     tk.Label(window_Edit, text = '                 ').grid(row=4, column=0)
-    tk.Button(window_Edit, text = 'Open Sample Menu', command = Open_SampleMenu_Window).grid(row = 5, column=1)
+    tk.Button(window_Edit, text = 'Open Sample Menu', command = Open_SampleMenu_Window).grid(row = 5, column=1, sticky = "ew")
     tk.Label(window_Edit, text = '                 ').grid(row=6, column=0)
-    tk.Button(window_Edit, text = 'Return', command = Return).grid(row = 7, column=1)
-    tk.Label(window_Edit, text = 'MAIN MENU').grid(row=0, column=1)
+    tk.Button(window_Edit, text = 'Return', command = Return).grid(row = 7, column=1, sticky = "ew")
+    #tk.Label(window_Edit, text = '').grid(row=0, column=1)
 
 
     window_Edit.mainloop()
