@@ -1,3 +1,14 @@
+import os
+
+
+def CreateLogs():
+    try:
+        os.mkdir('Logs')
+        print("Logs folder was not found and was created automatically")
+    except:
+        print("Folder creation failed, either the folder exists or failed to create")
+
+
 
 def CreateSampleTable(_conn):
     c = _conn.cursor()
@@ -84,5 +95,6 @@ def CreateAllTables(_conn):
     CreateLoginTable(_conn)
     CreateSampleTestTable(_conn)
     CreateCollectionTable(_conn)
+    CreateLogs()
 
 #JESSE'S COMMENT
