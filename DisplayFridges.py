@@ -37,12 +37,12 @@ def OpenFridgeSearch(conn, searchField):
     if searchField == "":
         message_window = tk.Tk()
         message_window.title("ERROR")
-        message = tk.Label(message_window, text = "That is not a valid fridge")
+        message = tk.Label(message_window, text = "That is not a valid Fridge ID")
         message.grid(row = 0, column = 0)
 
         def openFridgeSearchMenu():
             message_window.destroy()
-            #MainFridge_Window()
+            MainFridge_Window()
 
         backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
@@ -84,7 +84,7 @@ def OpenTemperatureSearch(conn, searchField):
 
         def openFridgeSearchMenu():
             message_window.destroy()
-            #MainFridge_Window()
+            MainFridge_Window()
 
         backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
@@ -126,7 +126,7 @@ def OpenNumShelvesSearch(conn, searchField):
 
         def openFridgeSearchMenu():
             message_window.destroy()
-            #MainFridge_Window()
+            MainFridge_Window()
 
         backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 

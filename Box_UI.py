@@ -3,7 +3,7 @@ import sqlite3
 import tkinter as tk
 import DataAPI
 import Main_UI
-#import DisplayBoxes
+import DisplayBoxes
 from tkinter import messagebox
 
 conn = sqlite3.connect('Test.db')
@@ -173,7 +173,7 @@ def DeleteBox_Window():
 def SearchBox_Window():
     window_SearchBox = tk.Tk()
     window_SearchBox.title("SEARCH BOX WINDOW")
-    window_SearchBox.geometry("400x250")
+    #window_SearchBox.geometry("400x250")
     window_SearchBox["bg"] = 'magenta'
 
     DisplayBoxesButton = tk.Button(window_SearchBox, text='Display All Boxes',
@@ -187,7 +187,7 @@ def SearchBox_Window():
         print(searchField1.get())
 
     SearchButton1 = tk.Button(window_SearchBox, text='Search for Box ID',
-                              command=runDisplayBoxes).grid(row=1, column=1)
+                              command=DisplayBoxes.OpenBoxIDSearch).grid(row=1, column=1)
 #----------------------------------------------------------------------------------
     searchField2 = tk.Entry(window_SearchBox)
     searchField2.grid(row=2, column=0)
@@ -196,7 +196,7 @@ def SearchBox_Window():
     	DisplayBoxes.OpenFridgeSearch(searchField2.get())
     	print(searchField2.get())
     
-    SearchButton2 = tk.Button(window_SearchBox, text = 'Search for Fridge ID', command=runDisplayFridgeID).grid(row=2, column=1)
+    SearchButton2 = tk.Button(window_SearchBox, text = 'Search for Fridge ID', command=DisplayBoxes.OpenFridgeIDSearch).grid(row=2, column=1)
     
     
     

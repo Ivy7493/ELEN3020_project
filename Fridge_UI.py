@@ -33,7 +33,7 @@ def AddFridge_Window():
         MainFridge_Window()
 
     window_AddFridge = tk.Tk()
-    window_AddFridge.geometry("300x300")
+    #window_AddFridge.geometry("300x300")
     window_AddFridge.title("ADD FRIDGE")
 
     tk.Label(window_AddFridge, text="Fridge ID").grid(row=0)
@@ -152,7 +152,7 @@ def SearchFridge_Window():
 
 def MainFridge_Window():
     window_MainFridge = tk.Tk()
-    window_MainFridge.geometry("300x300")
+    #window_MainFridge.geometry("300x300")
     window_MainFridge.title("FRIDGE MENU")
 
     def Open_SearchFridge_Window():
