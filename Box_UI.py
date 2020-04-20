@@ -6,13 +6,11 @@ import Main_UI
 import DisplayBoxes
 from tkinter import messagebox
 
-conn = sqlite3.connect('Test.db')
-conn.execute("PRAGMA foreign_keys = ON")
 
 ##########---------->START: WINDOW FOR ADDING BOXES<----------##########
 
 
-def AddBox_Window():
+def AddBox_Window(conn):
     def CreateBox():
         try:
             _boxID = boxID.get()
@@ -33,7 +31,7 @@ def AddBox_Window():
 
     def Open_MainBox_Window():
         window_AddBox.destroy()
-        MainBox_Window()
+        MainBox_Window(conn)
 
     def SuggestFridge():
         messagebox.showinfo("Suggest Fridge", DataAPI.FindEmptyFridge(conn))
@@ -88,7 +86,7 @@ def AddBox_Window():
 ##########---------->START: WINDOW FOR MOVING BOXES<----------##########
 
 
-def MoveBox_Window():
+def MoveBox_Window(conn):
     def MoveBox():
         try:
             _boxID = boxID.get()
@@ -102,7 +100,7 @@ def MoveBox_Window():
 
     def Open_MainBox_Window():
         window_MoveBox.destroy()
-        MainBox_Window()
+        MainBox_Window(conn)
 
     def SuggestFridge():
         messagebox.showinfo("Suggest Fridge", DataAPI.FindEmptyFridge(conn))
@@ -141,14 +139,14 @@ def MoveBox_Window():
 ##########---------->START: WINDOW FOR DELETING BOXES<----------##########
 
 
-def DeleteBox_Window():
+def DeleteBox_Window(conn):
     def DeleteBox():
         _boxID = boxID.get()
         messagebox.showinfo("Delete Box", (DataAPI.DeleteBox(conn, _boxID)))
 
     def Open_MainBox_Window():
         window_DeleteBox.destroy()
-        MainBox_Window()
+        MainBox_Window(conn)
 
     window_DeleteBox = tk.Tk()
     # window_DeleteBox.geometry("300x300")
@@ -170,7 +168,7 @@ def DeleteBox_Window():
 ##########---------->START: WINDOW FOR SEARCHING BOXES<------##########
 
 
-def SearchBox_Window():
+def SearchBox_Window(conn):
     window_SearchBox = tk.Tk()
     window_SearchBox.title("SEARCH BOX WINDOW")
     #window_SearchBox.geometry("400x250")
@@ -184,7 +182,6 @@ def SearchBox_Window():
 
     def runDisplayBoxes():
         DisplayBoxes.BoxSearch(searchField1.get())
-        print(searchField1.get())
 
     SearchButton1 = tk.Button(window_SearchBox, text='Search for Box ID',
                               command=DisplayBoxes.OpenBoxIDSearch).grid(row=1, column=1)
@@ -194,7 +191,6 @@ def SearchBox_Window():
     
     def runDisplayFridgeID():
     	DisplayBoxes.OpenFridgeSearch(searchField2.get())
-    	print(searchField2.get())
     
     SearchButton2 = tk.Button(window_SearchBox, text = 'Search for Fridge ID', command=DisplayBoxes.OpenFridgeIDSearch).grid(row=2, column=1)
     
@@ -202,7 +198,7 @@ def SearchBox_Window():
     
     def Open_MainMenu_Window():
         window_SearchBox.destroy()
-        MainBox_Window()
+        MainBox_Window(conn)
 
     ReturnButton = tk.Button(window_SearchBox, text='Back to Box Menu',
                              command=Open_MainMenu_Window).grid(row=4, column=1)
@@ -211,7 +207,7 @@ def SearchBox_Window():
 ##########---------->END: WINDOW FOR SEARCHING BOXES<------##########
 
 ##########---------->START: MAIN WINDOW FOR BOXES<----------##########
-def MainBox_Window():
+def MainBox_Window(conn):
     window_MainBox = tk.Tk()
     window_MainBox.geometry("300x300")
     window_MainBox.title("BOX MENU")
@@ -219,23 +215,23 @@ def MainBox_Window():
 
     def Open_SearchBox_Window():
         window_MainBox.destroy()
-        SearchBox_Window()
+        SearchBox_Window(conn)
 
     def Open_AddBox_Window():
         window_MainBox.destroy()
-        AddBox_Window()
+        AddBox_Window(conn)
 
     def Open_MoveBox_Window():
         window_MainBox.destroy()
-        MoveBox_Window()
+        MoveBox_Window(conn)
 
     def Open_DeleteBox_Window():
         window_MainBox.destroy()
-        DeleteBox_Window()
+        DeleteBox_Window(conn)
 
     def Open_MainMenu_Window():
         window_MainBox.destroy()
-        Main_UI.Edit_Window()
+        Main_UI.Edit_Window(conn)
 
     tk.Button(window_MainBox, text='Add Box',
               command=Open_AddBox_Window).grid(row=0, column=0)
@@ -251,6 +247,3 @@ def MainBox_Window():
     window_MainBox.mainloop()
 ##########---------->END: MAIN WINDOW FOR BOXES<----------##########
 
-
-# SetupAPI.CreateAllTables(conn)
-# MainBox_Window()
