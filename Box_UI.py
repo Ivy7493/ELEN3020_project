@@ -215,7 +215,7 @@ def MainBox_Window():
     window_MainBox = tk.Tk()
     window_MainBox.geometry("300x300")
     window_MainBox.title("BOX MENU")
-    window_MainBox["bg"] = 'red'
+    window_MainBox["bg"] = 'light steel blue'
 
     def Open_SearchBox_Window():
         window_MainBox.destroy()

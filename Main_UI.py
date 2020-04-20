@@ -1,3 +1,4 @@
+from tkinter.font import Font
 import SetupAPI
 import sqlite3
 import tkinter as tk
@@ -18,7 +19,11 @@ def Main_Window():
     window_Main = tk.Tk()
     window_Main.geometry("250x250")
     window_Main.title("MAIN MENU")
-    window_Main["bg"] = 'cyan'
+    window_Main["bg"] = 'cadet blue'
+    
+    text = tk.Text(window_Main)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
 
     def Open_Edit_Window():
         temp = LoggingAPI.GetCurrentAccess()
@@ -31,7 +36,7 @@ def Main_Window():
             def Close():
                 message_window.destroy()          
 
-            backButton = tk.Button(message_window, text = 'Close', command =Close).grid(row=1)
+            backButton = tk.Button(message_window, text = 'Close', command =Close, bg = "mint cream").grid(row=1)
 
         else:
             window_Main.destroy()
@@ -49,13 +54,13 @@ def Main_Window():
     def Exit():
         window_Main.destroy()
 
-    tk.Button(window_Main, text = 'Edit Mode', command = Open_Edit_Window).grid(row = 0, column=1, sticky = "ew")
-    tk.Label(window_Main, bg="cyan", text = '                ').grid(row=1, column=0)
-    tk.Button(window_Main, text = 'View Mode', command = Open_View_Window).grid(row = 2, column=1, sticky = "ew")
-    tk.Label(window_Main, bg="cyan", text = '                 ').grid(row=3, column=0)
-    tk.Button(window_Main, text = 'Log Out', command = Logout).grid(row = 4, column=1, sticky = "ew")
-    tk.Label(window_Main, bg="cyan", text = '                 ').grid(row=5, column=0)
-    tk.Button(window_Main, text = 'Exit', command = Exit).grid(row = 6, column=1, sticky = "ew")
+    tk.Button(window_Main, text = 'Edit Mode', font=myFont, command = Open_Edit_Window).grid(row = 0, column=1, sticky = "ew")
+    tk.Label(window_Main, bg="cadet blue", text = '                ').grid(row=1, column=0)
+    tk.Button(window_Main, text = 'View Mode', font=myFont, command = Open_View_Window).grid(row = 2, column=1, sticky = "ew")
+    tk.Label(window_Main, bg="cadet blue", text = '                 ').grid(row=3, column=0)
+    tk.Button(window_Main, text = 'Log Out', font=myFont, command = Logout).grid(row = 4, column=1, sticky = "ew")
+    tk.Label(window_Main, bg="cadet blue", text = '                 ').grid(row=5, column=0)
+    tk.Button(window_Main, text = 'Exit', font=myFont, command = Exit).grid(row = 6, column=1, sticky = "ew")
 
     window_Main.mainloop()
 
