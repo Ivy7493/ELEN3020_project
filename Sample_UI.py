@@ -11,10 +11,8 @@ from datetime import date
 from tkinter import *
 from tkcalendar import *
 
-conn = sqlite3.connect('Test.db')
-conn.execute("PRAGMA foreign_keys = ON")
 
-def Open_SuggestBox_Window():
+def Open_SuggestBox_Window(conn):
     def SuggestBox():
         messagebox.showinfo("Suggest Box", DataAPI.FindEmptyBox(conn, int(minTemp.get()), int(maxTemp.get())))
         window_SuggestBox.destroy()
@@ -37,7 +35,7 @@ def Open_SuggestBox_Window():
 
 
 ##########---------->START: WINDOW FOR ADDING SAMPLE<----------##########
-def AddSample_Window():
+def AddSample_Window(conn):
     def CreateSample():
         try:
             _sampleID = sampleID.get()
@@ -136,7 +134,7 @@ def AddSample_Window():
 
     def Open_MainSample_Window():
         window_AddSample.destroy()
-        MainSample_Window()
+        MainSample_Window(conn)
 
     def GetCollectionTitles():
         return(DataAPI.GetCollectionTitles(conn))
@@ -167,7 +165,7 @@ def AddSample_Window():
     boxZ.grid(row = 4, column = 1)
 
     tk.Label(window_AddSample, text = "Sample Type").grid(row = 5)
-    sampleType = ttk.Combobox(window_AddSample, state="readonly", values=["Blood", "Urine", "Skin cells", "Organ tissue"]) 
+    sampleType = ttk.Combobox(window_AddSample, state="readonly", values=DataAPI.GetSampleTypes()) 
     sampleType.grid(row = 5, column = 1)
 
     tk.Label(window_AddSample, text = "Country of Origin").grid(row = 6)
@@ -228,7 +226,7 @@ def AddSample_Window():
 ##########---------->END: WINDOW FOR ADDING SAMPLE<----------##########
 
 ##########---------->START: WINDOW FOR ADDING SAMPLE TEST<----------##########
-def AddSampleTest_Window():
+def AddSampleTest_Window(conn):
     def CreateSampleTest():
         try:
             _sampleID = sampleID.get()
@@ -245,7 +243,7 @@ def AddSampleTest_Window():
 
     def Open_MainSample_Window():
         window_AddSampleTest.destroy()
-        MainSample_Window()
+        MainSample_Window(conn)
       
     window_AddSampleTest = tk.Tk()
     #window_AddSampleTest.geometry("300x300")
@@ -275,7 +273,7 @@ def AddSampleTest_Window():
 ##########---------->END: WINDOW FOR ADDING SAMPLE<----------##########
 
 ##########---------->START: WINDOW FOR MOVING SAMPLE<----------##########
-def MoveSample_Window():
+def MoveSample_Window(conn):
     def MoveSample():
         try:
             _sampleID = sampleID.get()
@@ -289,7 +287,7 @@ def MoveSample_Window():
 
     def Open_MainSample_Window():
         window_MoveSample.destroy()
-        MainSample_Window()
+        MainSample_Window(conn)
 
     window_MoveSample = tk.Tk()
     #window_MoveSample.geometry("300x300")
@@ -327,14 +325,14 @@ def MoveSample_Window():
 
 
 ##########---------->START: WINDOW FOR DELETING SAMPLE<----------##########
-def DeleteSample_Window():
+def DeleteSample_Window(conn):
     def deleteSample():
         _sampleID = sampleID.get()
         messagebox.showinfo("Delete Sample", DataAPI.DeleteSample(conn, _sampleID))
         
     def Open_MainSample_Window():
         window_DeleteSample.destroy()
-        MainSample_Window()
+        MainSample_Window(conn)
 
     window_DeleteSample = tk.Tk()
     #window_DeleteSample.geometry("300x300")
@@ -355,30 +353,30 @@ def DeleteSample_Window():
 
 
 ##########---------->START: MAIN WINDOW FOR SAMPLES<----------##########
-def MainSample_Window():
+def MainSample_Window(conn):
     window_MainSample = tk.Tk()
     window_MainSample.geometry("300x300")
     window_MainSample.title("SAMPLE MENU")
 
     def Open_AddSample_Window():
         window_MainSample.destroy()
-        AddSample_Window()
+        AddSample_Window(conn)
 
     def Open_MoveSample_Window():
         window_MainSample.destroy()
-        MoveSample_Window()
+        MoveSample_Window(conn)
 
     def Open_DeleteSample_Window():
         window_MainSample.destroy()
-        DeleteSample_Window()
+        DeleteSample_Window(conn)
 
     def Open_SampleTest_Window():
         window_MainSample.destroy()
-        AddSampleTest_Window()
+        AddSampleTest_Window(conn)
 
     def Open_MainMenu_Window():
         window_MainSample.destroy()
-        Main_UI.Edit_Window()
+        Main_UI.Edit_Window(conn)
 
     tk.Button(window_MainSample, text = 'Add Sample', 
                         command = Open_AddSample_Window).grid(row = 0, column=0)

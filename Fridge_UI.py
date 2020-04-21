@@ -6,13 +6,11 @@ import Main_UI
 import DisplayFridges
 from tkinter import messagebox
 
-conn = sqlite3.connect('Test.db')
-conn.execute("PRAGMA foreign_keys = ON")
 
 ##########---------->START: WINDOW FOR ADDING FRIDGES<----------##########
 
 
-def AddFridge_Window():
+def AddFridge_Window(conn):
     def CreateFridge():
         try:
             _fridgeID = fridgeID.get()
@@ -30,7 +28,7 @@ def AddFridge_Window():
 
     def Open_MainFridge_Window():
         window_AddFridge.destroy()
-        MainFridge_Window()
+        MainFridge_Window(conn)
 
     window_AddFridge = tk.Tk()
     window_AddFridge.geometry("300x250")
@@ -64,7 +62,7 @@ def AddFridge_Window():
 
 
 ##########---------->START: WINDOW FOR DELETING FRIDGES<----------##########
-def DeleteFridge_Window():
+def DeleteFridge_Window(conn):
     def DeleteFridge():
         _fridgeID = fridgeID.get()
         messagebox.showinfo(
@@ -72,7 +70,7 @@ def DeleteFridge_Window():
 
     def Open_MainFridge_Window():
         window_DeleteFridge.destroy()
-        MainFridge_Window()
+        MainFridge_Window(conn)
 
     window_DeleteFridge = tk.Tk()
     # window_DeleteFridge.geometry("300x300")
@@ -94,7 +92,7 @@ def DeleteFridge_Window():
 ##########---------->START: WINDOW FOR SEARCHING FRIDGES<-------##########
 
 
-def SearchFridge_Window():
+def SearchFridge_Window(conn):
 
     window_SearchFridge = tk.Tk()
     window_SearchFridge.title("SEARCH FRIDGE WINDOW")
@@ -131,7 +129,7 @@ def SearchFridge_Window():
 
     def Open_MainMenu_Window():
         window_SearchFridge.destroy()
-        MainFridge_Window()
+        MainFridge_Window(conn)
 
     def runDisplayShelves():
         DisplayFridges.OpenNumShelvesSearch(conn, searchField3.get())
@@ -150,26 +148,26 @@ def SearchFridge_Window():
 ##########---------->START: MAIN WINDOW FOR FRIDGES<----------##########
 
 
-def MainFridge_Window():
+def MainFridge_Window(conn):
     window_MainFridge = tk.Tk()
     window_MainFridge.geometry("250x250")
     window_MainFridge.title("FRIDGE MENU")
 
     def Open_SearchFridge_Window():
         window_MainFridge.destroy()
-        SearchFridge_Window()
+        SearchFridge_Window(conn)
 
     def Open_AddFridge_Window():
         window_MainFridge.destroy()
-        AddFridge_Window()
+        AddFridge_Window(conn)
 
     def Open_DeleteFridge_Window():
         window_MainFridge.destroy()
-        DeleteFridge_Window()
+        DeleteFridge_Window(conn)
 
     def Open_MainMenu_Window():
         window_MainFridge.destroy()
-        Main_UI.Edit_Window()
+        Main_UI.Edit_Window(conn)
 
     tk.Button(window_MainFridge, text='Add Fridge',
               command=Open_AddFridge_Window).grid(row=0, column=1, sticky="ew")
@@ -188,6 +186,3 @@ def MainFridge_Window():
     window_MainFridge.mainloop()
 ##########---------->END: MAIN WINDOW FOR FRIDGES<----------##########
 
-
-# SetupAPI.CreateAllTables(conn)
-# MainFridge_Window()

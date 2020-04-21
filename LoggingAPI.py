@@ -4,38 +4,34 @@ import sqlite3
 
 mainlog = 'Logs/Mainlog.txt'
 
-def Log(LogInfo):
+def Log(conn, LogInfo):
     f = open(mainlog,"a")
     now = datetime.now()
     now = now.strftime("%Y-%M-%D %H:%M:%S")
-    logMes = now + " - " + " user: " + GetCurrentLogin() + " "  + LogInfo + '\n'
+    logMes = now + " - " + " user: " + GetCurrentLogin(conn) + " "  + LogInfo + '\n'
     f.write(logMes)
     f.close()
 
 
-def IndividualLog(_logInfo, _fileName):
+def IndividualLog(conn, _logInfo, _fileName):
     fullName = 'Logs/'+_fileName + '.txt'
     f = open(fullName,"a")
     now = datetime.now()
     now = now.strftime("%Y-%M-%D %H:%M:%S")
-    logMes = now + " - " + " user: " + GetCurrentLogin() + " " + _logInfo + '\n'
+    logMes = now + " - " + " user: " + GetCurrentLogin(conn) + " " + _logInfo + '\n'
     f.write(logMes)
     f.close()
 
-def GetCurrentLogin():
-    conn = sqlite3.connect("Test.db") #check database reference later if we change
+def GetCurrentLogin(conn):
     c = conn.cursor()
     c.execute("SELECT * FROM LoginTable WHERE loggedIn=?",("1",))
     result = c.fetchone()
-    conn.close()
     return result[0]
 
-def GetCurrentAccess():
-    conn = sqlite3.connect("Test.db") #check database reference later if we change
+def GetCurrentAccess(conn):
     c = conn.cursor()
     c.execute("SELECT * FROM LoginTable WHERE loggedIn=?",("1",))
     result = c.fetchone()
-    conn.close()
     return result[2]
     
 

@@ -2,12 +2,13 @@ import sqlite3
 import LoggingAPI
 from datetime import *
 
+
 def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves):
     try:
         c = _conn.cursor()
         c.execute("INSERT INTO FridgeTable (fridgeID, temperature, numShelves, widthShelves) VALUES (?, ?, ?, ?)",(_fridgeID,int(_temperature), int(_numShelves), int(_widthShelves)))
         _conn.commit()
-        LoggingAPI.Log("Added new fridge: " + _fridgeID) #logging
+        LoggingAPI.Log(_conn, "Added new fridge: " + _fridgeID)
         return("Successfully added Fridge " + _fridgeID)
 
     except sqlite3.Error as error:
@@ -72,7 +73,7 @@ def BoxLog(_conn, _boxID, _fridgeID):
         currentSample = result[0]
         count = count + 1
         stringMessage = "Sample: " + currentSample + " was moved to box: " + _boxID + " in fridge: " + _fridgeID + " with temperature of: " + temp
-        LoggingAPI.IndividualLog(stringMessage ,currentSample)
+        LoggingAPI.IndividualLog(_conn, stringMessage ,currentSample)
 
 
 def MoveBox(_conn, _boxID, _fridgeID, _fridgeX, _fridgeY):
@@ -85,7 +86,7 @@ def MoveBox(_conn, _boxID, _fridgeID, _fridgeX, _fridgeY):
             c.execute("UPDATE BoxTable SET fridgeID =?, fridgeX =?, fridgeY =? WHERE boxID =?",(_fridgeID, _fridgeX, _fridgeY, _boxID,))
             _conn.commit()
             stringMessage = "Box: " + _boxID + " was moved to fridge: " + _fridgeID + " (" + str(_fridgeX) + "," + str(_fridgeY) + ")"
-            LoggingAPI.Log(stringMessage)
+            LoggingAPI.Log(_conn, stringMessage)
             BoxLog(_conn, _boxID, _fridgeID)
             return (stringMessage)
     elif DoesIDExist(_conn, "FRIDGE", _fridgeID) == "FALSE":
@@ -104,7 +105,7 @@ def AddBox(_conn, _boxID, _fridgeID, _fridgeX, _fridgeY, _boxX, _boxY, _boxZ):
             c.execute("INSERT INTO BoxTable (boxID, fridgeID, fridgeX, fridgeY, boxX, boxY, boxZ) VALUES (?, ?, ?, ?, ?, ?, ?)",(_boxID, _fridgeID, int(_fridgeX), int(_fridgeY), int(_boxX), int(_boxY), int(_boxZ)))
             _conn.commit()
             stringMessage = ("Added new box: " + _boxID + " to fridge: " + _fridgeID + " at position (" + str(_fridgeX) + "," + str(_fridgeY) + ")")
-            LoggingAPI.Log(stringMessage)
+            LoggingAPI.Log(_conn, stringMessage)
             return("Successfully added Box " + _boxID)
         else:
             return (fridgePosFree + " in fridge: " + _fridgeID)
@@ -124,8 +125,8 @@ def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _origi
             fridgeTemp = ReturnTempOfFridge(_conn,_FridgeID) 
             stringMessage = ("Added new sample: " + _sampleID + " to box " + _boxID + "(" + str(_boxX) + "," + str(_boxY) + "," + str(_boxZ) + ") in fridge: " + _FridgeID + " (temperature = " + fridgeTemp + ")")
 
-            LoggingAPI.IndividualLog(stringMessage, _sampleID)
-            LoggingAPI.Log(stringMessage) #logging
+            LoggingAPI.IndividualLog(_conn, stringMessage, _sampleID)
+            LoggingAPI.Log(_conn, stringMessage) 
             return ("Successfully added sample " + _sampleID)             
         else:
             return (boxPosFree + " in box: " + _boxID)
@@ -138,7 +139,7 @@ def AddSampleTest(_conn, _sampleID, _testType, _testResult):
         c = _conn.cursor()
         c.execute("INSERT INTO SampleTestTable (sampleID, testType, testResult) VALUES (?, ?, ?)",(_sampleID, _testType, _testResult))
         _conn.commit()
-        LoggingAPI.IndividualLog("Added new test: " + _testType + " to sample: " + _sampleID, _sampleID)
+        LoggingAPI.IndividualLog(_conn, "Added new test: " + _testType + " to sample: " + _sampleID, _sampleID)
         return("Successfully added Sample Test for " + _sampleID)
 
     except sqlite3.Error as error:
@@ -222,8 +223,8 @@ def MoveSample(_conn, _sampleID, _boxID, _posX , _posY, _posZ):
             _fridgeTemp = ReturnTempOfFridge(_conn, _fridgeID)
             stringMessage = ("Sample: " + _sampleID + " was moved into box: " + _boxID + " in fridge: " + _fridgeID + " with temperature of: " + _fridgeTemp)
 
-            LoggingAPI.IndividualLog(stringMessage, _sampleID)
-            LoggingAPI.Log(stringMessage)
+            LoggingAPI.IndividualLog(_conn, stringMessage, _sampleID)
+            LoggingAPI.Log(_conn, stringMessage)
             return ("Successfully moved sample: " + _sampleID + " into box: " + _boxID)
         elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
             return "Sample ID: " + _sampleID + " does not exist!"
@@ -253,7 +254,7 @@ def DeleteBox(_conn , _boxID):
         c = _conn.cursor()
         c.execute("DELETE FROM BoxTable WHERE boxID=?",(_boxID,))
         _conn.commit()
-        LoggingAPI.Log("Box: " + _boxID +  " deleted!")#logging
+        LoggingAPI.Log(_conn, "Box: " + _boxID +  " deleted!")
         return "Box: " + _boxID +  " succesfully deleted!"
     elif IsBoxEmpty(_conn, _boxID) == "FALSE":
         return "Box doesn't exist or is not empty! Cannot be deleted"
@@ -278,7 +279,7 @@ def DeleteFridge(_conn, _fridgeID):
         c = _conn.cursor()
         c.execute("DELETE FROM FridgeTable WHERE fridgeID=?",(_fridgeID,))
         _conn.commit()
-        LoggingAPI.Log("Fridge: " + _fridgeID +  " deleted!")#logging
+        LoggingAPI.Log(_conn, "Fridge: " + _fridgeID +  " deleted!")
         return "Fridge: " + _fridgeID +  " succesfully deleted!"
     elif IsFridgeEmpty(_conn, _fridgeID) == "FALSE":
         return "Fridge doesn't exist or is not empty! Cannot be deleted"    
@@ -289,8 +290,8 @@ def DeleteSample(_conn, _sampleID):
         c = _conn.cursor()
         c.execute("DELETE FROM SampleTable WHERE sampleID=?",(_sampleID,))
         _conn.commit()
-        LoggingAPI.Log("Sample: " + _sampleID +  " deleted!")#logging
-        LoggingAPI.IndividualLog("Sample: " + _sampleID +  " deleted!", _sampleID)
+        LoggingAPI.Log(_conn, "Sample: " + _sampleID +  " deleted!")
+        LoggingAPI.IndividualLog(_conn, "Sample: " + _sampleID +  " deleted!", _sampleID)
         return "Sample: " + _sampleID + " successfully deleted!"
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
         return "Sample ID: " + _sampleID + " does not exist"  
@@ -409,8 +410,19 @@ def CheckAllSampleDates(_conn):
             output = output + '\n'
     return(output) 
 
-def GetInvoice(_conn, _sampleID, _price):
-    #fixing maybe!!!
+def GetSampleTypes():
+    return["Urine", "Blood", "Platelets", "Skin cells", "Organ tissue"]
+
+def GetAmountOfTypes(_conn, _sampleType):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM SampleTable WHERE sampleType = ?", (_sampleType,))
+    results = c.fetchall()
+    count = 0    
+    for result in results:
+        count = count + 1
+    return count
+
+def GetSampleDays(_conn, _sampleID):
     c = _conn.cursor()
     TempID = _sampleID
     c.execute("SELECT * FROM SampleTable WHERE sampleID=?",(TempID,))
@@ -419,14 +431,10 @@ def GetInvoice(_conn, _sampleID, _price):
     years = int(startDate[0:4])
     months = int(startDate[5:7])
     days = int(startDate[8:10])
-    startDate = datetime.date(years,months,days)
-    print(startDate)
-    currentDate = datetime.date.today()
-    print(currentDate)
+    startDate = datetime(years,months,days)
+    currentDate = datetime.today()
     delta = currentDate - startDate
     delta = delta.days
-    print("Days: " + str(delta))
-    price = delta * _price
-    return "R" + str(price)              
+    return delta              
     
 

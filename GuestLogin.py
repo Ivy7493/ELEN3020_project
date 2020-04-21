@@ -3,15 +3,13 @@ import sqlite3
 import Display_Guest_Samples
 import Startup
 
-conn = sqlite3.connect('Test.db')
-conn.execute("PRAGMA foreign_keys = ON")
 
 #***** MAIN WINDOW *****
 #Currently bypasses TestUI_MAIN in favour of the drop down menu script
 #works with TestUI_MAIN as well, but need to comment out the window instatiation
-def LoginScreen():
+def LoginScreen(conn):
     login_window = Tk()
-    login_window.title("Login as Guest")
+    login_window.title("Donor Login")
     
     def checkCreds(): #checks the user's credentials
         n1 = entry_name.get()
@@ -33,14 +31,14 @@ def LoginScreen():
 
     def openMain(p1):
         login_window.destroy()
-        Display_Guest_Samples.FetchGuestSamples(p1)  
+        Display_Guest_Samples.FetchGuestSamples(conn, p1)  
     
     def enterPress(event):
         checkCreds()
 
     def Exit():
         login_window.destroy()
-        Startup.Start_Window()
+        Startup.Start_Window(conn)
 
 
     name = Label(login_window, text = "Name")
@@ -51,14 +49,12 @@ def LoginScreen():
 
     loginButton = Button(login_window, text = "Login", command = checkCreds)
     quitButton = Button(login_window, text = "Cancel", command = Exit)
-    #check = Checkbutton(login_window, text = "Stay signed in")
 
     name.grid(row = 0, column = 0, sticky = E)
     password.grid(row = 1, column = 0, sticky = E)
     entry_name.grid(row = 0, column = 1)
     entry_pass.grid(row = 1, column = 1)
     message.grid(row = 2, columnspan = 2)
-    #check.grid(row = 3, columnspan = 2)
     loginButton.grid(row = 4, columnspan = 2)
     quitButton.grid(row = 5, columnspan = 2)
 
@@ -66,5 +62,3 @@ def LoginScreen():
     
     login_window.mainloop()
 
-
-#LoginScreen()

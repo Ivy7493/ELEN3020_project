@@ -1,14 +1,21 @@
 import os
 
 
-def CreateLogs():
+def CreateLogsFolder():
     try:
         os.mkdir('Logs')
         print("Logs folder was not found and was created automatically")
     except:
         print("Folder creation failed, either the folder exists or failed to create")
 
-
+def CreateInvoicesFolder():
+    try:
+        os.mkdir('Invoices')
+        print("Invoices folder was not found and was created automatically")
+    except:
+        print("Folder creation failed, either the folder exists or failed to create")
+    f = open("Invoices/InvoiceIndex", "a+")
+    f.close()
 
 def CreateSampleTable(_conn):
     c = _conn.cursor()
@@ -95,6 +102,7 @@ def CreateAllTables(_conn):
     CreateLoginTable(_conn)
     CreateSampleTestTable(_conn)
     CreateCollectionTable(_conn)
-    CreateLogs()
+    CreateLogsFolder()
+    CreateInvoicesFolder()
 
 #JESSE'S COMMENT

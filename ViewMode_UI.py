@@ -132,7 +132,7 @@ def ViewFridges(conn):
 
     def Return():
         window_ViewFridges.destroy()
-        Main_UI.Main_Window()
+        Main_UI.Main_Window(conn)
 
     backButton = Button(window_ViewFridges, text="Return", command=Return).grid(column=0)
     

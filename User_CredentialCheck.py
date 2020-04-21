@@ -6,10 +6,8 @@ import Sample_UI
 import Main_UI
 import Startup
 
-conn = sqlite3.connect('Test.db')
-conn.execute("PRAGMA foreign_keys = ON")
 
-def Check_Window():
+def Check_Window(conn):
     window_check = Tk()
     window_check.title("Employee Login")
 
@@ -32,8 +30,8 @@ def Check_Window():
 
     def openMain():
             window_check.destroy()
-            Main_UI.Warning_Window()
-            Main_UI.Main_Window()
+            Main_UI.Warning_Window(conn)
+            Main_UI.Main_Window(conn)
 
           
     
@@ -42,7 +40,7 @@ def Check_Window():
 
     def Cancel():
         window_check.destroy()
-        Startup.Start_Window()
+        Startup.Start_Window(conn)
 
     name = Label(window_check, text = "Username")
     password = Label(window_check, text = "Password")
