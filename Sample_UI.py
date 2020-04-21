@@ -139,6 +139,9 @@ def AddSample_Window(conn):
     def GetCollectionTitles():
         return(DataAPI.GetCollectionTitles(conn))
 
+    def Open_SuggestBox():
+        Open_SuggestBox_Window(conn)
+
     window_AddSample = tk.Tk()
     #window_AddSample.geometry("300x300")
     window_AddSample.title("ADD SAMPLE")
@@ -215,7 +218,7 @@ def AddSample_Window(conn):
 
     tk.Button(window_AddSample, text = 'Add Sample', command = CreateSample).grid(row = 16, column=1)
 
-    tk.Button(window_AddSample, text = 'Suggest Box', command = Open_SuggestBox_Window).grid(row = 1, column=3)
+    tk.Button(window_AddSample, text = 'Suggest Box', command = Open_SuggestBox).grid(row = 1, column=3)
 
     tk.Button(window_AddSample, text = 'Add New Collection', command = Open_AddNewCollection_Window).grid(row = 10, column=3)
 
@@ -288,6 +291,9 @@ def MoveSample_Window(conn):
     def Open_MainSample_Window():
         window_MoveSample.destroy()
         MainSample_Window(conn)
+
+    def Open_SuggestBox():
+        Open_SuggestBox_Window(conn)
 
     window_MoveSample = tk.Tk()
     #window_MoveSample.geometry("300x300")
@@ -390,7 +396,7 @@ def MainSample_Window(conn):
     tk.Button(window_MainSample, text = 'Add Sample Test', 
                         command = Open_SampleTest_Window).grid(row = 4, column=0)
 
-    tk.Button(window_MainSample, text = 'Back to Main Menu', 
+    tk.Button(window_MainSample, text = 'Back to Edit Menu', 
                         command = Open_MainMenu_Window).grid(row = 5, column=0)
 
     window_MainSample.mainloop()

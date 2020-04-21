@@ -18,13 +18,11 @@ def OpenAllFridges(conn):
 
     for row in c.fetchall():
         tree.insert("", "end", values = (row))
-        print(row)
 
     def openFridgeSearchMenu():
         window_Fridges.destroy()
-        MainFridge_Window()
 
-    backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
+    backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu).grid(row=5, column=1)
     
     window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
@@ -42,7 +40,6 @@ def OpenFridgeSearch(conn, searchField):
 
         def openFridgeSearchMenu():
             message_window.destroy()
-            MainFridge_Window()
 
         backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
@@ -60,13 +57,12 @@ def OpenFridgeSearch(conn, searchField):
 
         for row in c.fetchall():
             tree.insert("", "end", values = (row))
-            print(row)
 
         def openFridgeSearchMenu():
             window_Fridges.destroy()
-            MainFridge_Window()
+            
 
-        backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
+        backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu).grid(row=5, column=1)
         
         window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
@@ -84,7 +80,6 @@ def OpenTemperatureSearch(conn, searchField):
 
         def openFridgeSearchMenu():
             message_window.destroy()
-            MainFridge_Window()
 
         backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
@@ -102,13 +97,11 @@ def OpenTemperatureSearch(conn, searchField):
 
         for row in c.fetchall():
             tree.insert("", "end", values = (row))
-            print(row)
 
         def openFridgeSearchMenu():
             window_Fridges.destroy()
-            MainFridge_Window()
 
-        backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(column=1)
+        backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu).grid(column=1)
 
         window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
@@ -126,7 +119,6 @@ def OpenNumShelvesSearch(conn, searchField):
 
         def openFridgeSearchMenu():
             message_window.destroy()
-            MainFridge_Window()
 
         backButton = tk.Button(message_window, text = 'Close', command = openFridgeSearchMenu).grid(row=1)
 
@@ -145,13 +137,11 @@ def OpenNumShelvesSearch(conn, searchField):
 
         for row in c.fetchall():
             tree.insert("", "end", values = (row))
-            print(row)
 
         def openFridgeSearchMenu():
             window_Fridges.destroy()
-            MainFridge_Window()
 
-        backButton = tk.Button(window_Fridges, text = 'Back to Search Menu', command = openFridgeSearchMenu).grid(row=5, column=1)
+        backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu).grid(row=5, column=1)
 
         window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------

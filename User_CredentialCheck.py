@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter.font import Font
+import tkinter as tk
 import sqlite3
 import Box_UI
 import Fridge_UI
@@ -10,6 +12,11 @@ import Startup
 def Check_Window(conn):
     window_check = Tk()
     window_check.title("Employee Login")
+    window_check["bg"] = 'cadet blue'
+    
+    text = tk.Text(window_check)
+    myFont = Font(family = "fixedsys", size=12)
+    text.configure(font=myFont)
 
     def checkCreds(): #checks the user's credentials
         n1 = entry_name.get()
@@ -42,14 +49,14 @@ def Check_Window(conn):
         window_check.destroy()
         Startup.Start_Window(conn)
 
-    name = Label(window_check, text = "Username")
-    password = Label(window_check, text = "Password")
-    message = Label(window_check, text = "Enter username and password")
+    name = Label(window_check, text = "Username", font = myFont, bg ='cadet blue')
+    password = Label(window_check, text = "Password", font = myFont, bg ='cadet blue')
+    message = Label(window_check, text = "Enter username and password", font = myFont, bg ='cadet blue')
     entry_name = Entry(window_check)
     entry_pass = Entry(window_check, show = "*")
 
-    checkButton = Button(window_check, text = "Validate", command = checkCreds, height = 1, width = 8)
-    cancelButton = Button(window_check, text = "Cancel", command = Cancel, height = 1, width = 8)
+    checkButton = Button(window_check, text = "Validate", command = checkCreds, height = 1, width = 8, font = myFont)
+    cancelButton = Button(window_check, text = "Cancel", command = Cancel, height = 1, width = 8, font = myFont)
 
     name.grid(row = 0, column = 0, sticky = E)
     password.grid(row = 1, column = 0, sticky = E)
