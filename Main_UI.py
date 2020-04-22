@@ -7,7 +7,6 @@ import Fridge_UI
 import Sample_UI
 import User_CredentialCheck
 import DataAPI
-import Startup
 import ViewMode_UI
 import LoggingAPI
 import Billing_UI
@@ -28,7 +27,7 @@ def Main_Window(conn):
 
     def Open_Edit_Window():
         temp = LoggingAPI.GetCurrentAccess(conn)
-        if temp == 0:
+        if temp == 1:
             message_window = tk.Tk()
             message_window.title("ERROR")
             message = tk.Label(message_window, text = "INVALID ACCESS LEVEL")
@@ -39,7 +38,7 @@ def Main_Window(conn):
 
             backButton = tk.Button(message_window, text = 'Close', command =Close, bg = "mint cream").grid(row=1)
 
-        else:
+        elif temp == 2:
             window_Main.destroy()
             Edit_Window(conn)
 
@@ -54,7 +53,7 @@ def Main_Window(conn):
     def Logout():
         window_Main.destroy()
         DataAPI.LogoutAll(conn)
-        Startup.Start_Window(conn)
+        User_CredentialCheck.Check_Window(conn)
 
     def Exit():
         window_Main.destroy()

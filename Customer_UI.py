@@ -1,6 +1,6 @@
 from tkinter import *
 import sqlite3
-import Startup
+import User_CredentialCheck
 
 
 def ShowSampleTypes(conn):
@@ -12,7 +12,7 @@ def ShowSampleTypes(conn):
 
     def LogOut():
         customer_window.destroy()
-        Startup.Start_Window(conn)
+        User_CredentialCheck.Check_Window(conn)
 
     backButton = Button(customer_window, text = "Return", command = LogOut, height = 1, width = 8)
 
@@ -41,5 +41,3 @@ def ShowSampleTypes(conn):
     backButton.grid(row = 5) 
 
     customer_window.mainloop()
-    c.close()
-    conn.close()

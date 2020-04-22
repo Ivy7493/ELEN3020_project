@@ -1,7 +1,0 @@
- - Test Jesse connection to Github *WORKING* - confirmed by ivan
- - Test David connection to Github *WORKING* - confirmed by ivan
- - Test Matthew connection to Github
-
-BACKEND COMMANDS TESTED AND WORKING
-- CheckFridgeID() - working , command returns false if the FridgeID is already inuse
-- ReturnNumberOfFridges() - working, command returns number of fridges in Database
