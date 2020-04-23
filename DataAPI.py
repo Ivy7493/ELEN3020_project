@@ -435,6 +435,24 @@ def GetSampleDays(_conn, _sampleID):
     currentDate = datetime.today()
     delta = currentDate - startDate
     delta = delta.days
-    return delta              
+    return delta 
+
+def AddUser(_conn, _username, _password, _accessLevelTemp):
+    try:
+        if _accessLevelTemp == "Customer":
+            _accessLevel = 0
+        elif _accessLevelTemp == "Employee":
+            _accessLevel = 1
+        elif _accessLevelTemp == "Supervisor":
+            _accessLevel = 2
+
+        c = _conn.cursor()
+        c.execute("INSERT INTO LoginTable (username, password, accessLevel, loggedIn) VALUES (?, ?, ?, ?)",(_username,_password, int(_accessLevel), 0))
+        _conn.commit()
+        LoggingAPI.Log(_conn, "Added new user: " + _username + " with access level of " + _accessLevelTemp)
+        return("Successfully added user " + _username)
+
+    except sqlite3.Error as error:
+        return(error)             
     
 

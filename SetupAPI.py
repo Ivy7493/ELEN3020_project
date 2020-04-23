@@ -66,7 +66,7 @@ def CreateFridgeTable(_conn):
 def CreateLoginTable(_conn):
     c = _conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS LoginTable(
-                                    username TEXT NOT NULL,
+                                    username TEXT NOT NULL PRIMARY KEY,
                                     password TEXT NOT NULL,
                                     accessLevel INTEGER NOT NULL,
                                     loggedIn INTEGER NOT NULL)""")
