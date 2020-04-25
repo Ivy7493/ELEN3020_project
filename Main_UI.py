@@ -8,6 +8,7 @@ import Sample_UI
 import User_CredentialCheck
 import DataAPI
 import ViewMode_UI
+import Search_UI
 import LoggingAPI
 import Register_UI
 import Billing_UI
@@ -50,6 +51,10 @@ def Main_Window(conn):
     def Open_Billing_Window():
         window_Main.destroy()
         Billing_UI.MainBilling_Window(conn)
+    
+    def Open_Search_Window():
+        window_Main.destroy()
+        Search_UI.MainSearch_Window(conn)
 
     def Logout():
         window_Main.destroy()
@@ -66,6 +71,8 @@ def Main_Window(conn):
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=4, column=0)
     tk.Button(window_Main, text = 'Invoice Mode', font=myFont, command = Open_Billing_Window).grid(row = 5, column=1, sticky = "ew")
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=6, column=0)
+    tk.Button(window_Main, text = 'Search Mode', font=myFont, command = Open_Search_Window).grid(row=7, column=1, sticky = "ew")
+    tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=8, column=0)
     tk.Button(window_Main, text = 'Log Out', font=myFont, command = Logout).grid(row = 9, column=1, sticky = "ew")
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=10, column=0)
     tk.Button(window_Main, text = 'Exit', font=myFont, command = Exit).grid(row = 11, column=1, sticky = "ew")
