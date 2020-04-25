@@ -11,7 +11,7 @@ def OpenAllSamples(conn):
 	cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 	tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 	for col in cols:
-		tree.hading(col, text = col)
+		tree.heading(col, text = col)
 	tree.grid(row=2, column = 0, columnspan=7)
 
 	c.execute("SELECT * FROM SampleTable")
@@ -49,7 +49,7 @@ def OpenSampleSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE sampleID=?", (str(searchField),))
@@ -87,7 +87,7 @@ def OpenBoxIDSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE boxID=?", (str(searchField),))
@@ -123,7 +123,7 @@ def OpenSampleTypeSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE sampleType=?", (str(searchField),))
@@ -161,7 +161,7 @@ def OpenOriginCountrySearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE originCountry=?", (str(searchField),))
@@ -197,7 +197,7 @@ def OpenCollectionDateSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE collectionDate=?", (str(searchField),))
@@ -233,7 +233,7 @@ def OpenEntryDateSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE entryDate=?", (str(searchField),))
@@ -271,7 +271,7 @@ def OpenSubjectAgeSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE subjectAge=?", (str(searchField),))
@@ -309,7 +309,7 @@ def OpenTubeRatingSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE tubeRating=?", (str(searchField),))
@@ -347,7 +347,7 @@ def OpenCollectionTitleSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE collectionTitle=?", (str(searchField),))
@@ -385,7 +385,7 @@ def OpenReturnTypeSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE returnType=?", (str(searchField),))
@@ -423,7 +423,7 @@ def OpenReturnDateSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE returnDate=?", (str(searchField),))
@@ -461,7 +461,7 @@ def OpenPhenoTypeValueSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE phenotypeValue=?", (str(searchField),))
@@ -499,7 +499,7 @@ def OpenDiseaseStateSearch(conn, searchField):
 		cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
 		tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
 		for col in cols:
-			tree.hading(col, text = col)
+			tree.heading(col, text = col)
 		tree.grid(row=2, column = 0, columnspan=7)
 
 		c.execute("SELECT * FROM SampleTable WHERE diseaseState=?", (str(searchField),))

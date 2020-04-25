@@ -132,8 +132,27 @@ def SearchBox_Window(conn):
 def SearchSample_Window(conn):
 	window_SampleSearch = tk.Tk()
 	window_SampleSearch.title("SAMPLE SEARCH MENU")
-	window_MainSearch.geometry("300x300")
-	window_MainSearch["bg"] = 'cadet blue'
+	window_SampleSearch.geometry("300x300")
+	window_SampleSearch["bg"] = 'cadet blue'
+
+	text = tk.Text(window_SampleSearch)
+	myFont = Font(family='fixedsys', size=12)
+	text.configure(font=myFont)
+
+	def OpenAllSamples():
+		DisplaySamples.OpenAllSamples(conn)
+
+	DisplayButton = tk.Button(window_SampleSearch, text = 'Display All Samples', command=OpenAllSamples, font=myFont).grid(row=0, column=2, sticky = "ew")
+	
+	#--------------------
+	def Open_MainMenu_Window():
+		window_SampleSearch.destroy()
+		MainSearch_Window(conn)
+
+	ReturnButton = tk.Button(window_SampleSearch, text='Back to Box Menu', command=Open_MainMenu_Window, font = myFont).grid(row=6, column=2)
+	#--------------------
+
+	window_SampleSearch.mainloop()
 
 ##########---------->END: WINDOW FOR SEARCHING SAMPLES<-----##########
 
@@ -170,14 +189,14 @@ def MainSearch_Window(conn):
 
 	tk.Button(window_MainSearch, text='Search Fridges', command = Open_SearchFridge_Window, font=myFont).grid(row=1, column=1, sticky = "ew")
 	tk.Button(window_MainSearch, text='Search Boxes', command = Open_SearchBox_Window, font=myFont).grid(row=3, column=1, sticky = "ew")
-	#tk.Button(window_MainSearch, text='Search Samples', command = Open_SearchSample_Window, font=myFont).grid(row=5, coumn=1, sticky = "ew")
+	tk.Button(window_MainSearch, text='Search Samples', command = Open_SearchSample_Window, font=myFont).grid(row=5, column=1, sticky = "ew")
 	tk.Button(window_MainSearch, text='Back to Main Menu', command = Open_MainMenu_Window, font=myFont).grid(row=7, column=1, sticky = "ew")
 	
 	tk.Label(window_MainSearch, height = 1, width = 6, bg="cadet blue").grid(row =0, column =0)
 	tk.Label(window_MainSearch, height = 1, width = 6, bg="cadet blue").grid(row =2, column =0)
 	tk.Label(window_MainSearch, height = 1, width = 6, bg="cadet blue").grid(row =4, column =0)
 	tk.Label(window_MainSearch, height = 1, width = 6, bg="cadet blue").grid(row =6, column =0) 
-	#tk.Label(window_MainSearch, height = 1, width = 6, bg="cadet blue").grid(row =8, column =0) 
+	tk.Label(window_MainSearch, height = 1, width = 6, bg="cadet blue").grid(row =8, column =0) 
 
 	window_MainSearch.mainloop()
 
