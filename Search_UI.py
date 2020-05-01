@@ -132,7 +132,7 @@ def SearchBox_Window(conn):
 def SearchSample_Window(conn):
 	window_SampleSearch = tk.Tk()
 	window_SampleSearch.title("SAMPLE SEARCH MENU")
-	window_SampleSearch.geometry("300x300")
+	#window_SampleSearch.geometry("300x300")
 	window_SampleSearch["bg"] = 'cadet blue'
 
 	text = tk.Text(window_SampleSearch)
@@ -144,12 +144,194 @@ def SearchSample_Window(conn):
 
 	DisplayButton = tk.Button(window_SampleSearch, text = 'Display All Samples', command=OpenAllSamples, font=myFont).grid(row=0, column=2, sticky = "ew")
 	
+
+
+	#--------------------------------
+	searchLabel1 = tk.Label(window_SampleSearch, text = 'Sample ID:', anchor = "w", font=myFont, bg='cadet blue').grid(row=3, column =1)
+	searchField1 = tk.Entry(window_SampleSearch).grid(row = 3, column = 2, sticky = "ew")
+
+	def runDisplaySamples():
+		DisplaySamples.OpenSampleSearch(conn, searchField1.get())
+
+	searchButton1 = tk.Button(window_SampleSearch, text='Search', command = runDisplaySamples, font = myFont).grid(row=3, column=3, sticky = "ew")
+	#-------------------------------
+
+
+
+
+
+	#--------------------------------
+	searchLabel2 = tk.Label(window_SampleSearch, text = 'Box ID:', anchor = "w", font=myFont, bg='cadet blue').grid(row=4, column =1)
+	searchField2 = tk.Entry(window_SampleSearch).grid(row = 4, column = 2, sticky = "ew")
+
+	def runDisplayBoxID():
+		DisplaySamples.OpenBoxIDSearch(conn, searchField2.get())
+
+	searchButton2 = tk.Button(window_SampleSearch, text='Search', command = runDisplayBoxID, font = myFont).grid(row=4, column=3, sticky = "ew")
+	#-------------------------------
+
+
+		
+
+
+	#--------------------------------
+	searchLabel3 = tk.Label(window_SampleSearch, text = 'Sample Type:', anchor = "w", font=myFont, bg='cadet blue').grid(row=5, column =1)
+	searchField3 = tk.Entry(window_SampleSearch).grid(row = 5, column = 2, sticky = "ew")
+
+	def runDisplaySampleType():
+		DisplaySamples.OpenSampleTypeSearch(conn, searchField3.get())
+
+	searchButton3 = tk.Button(window_SampleSearch, text='Search', command = runDisplaySampleType, font = myFont).grid(row=5, column=3, sticky = "ew")
+	#-------------------------------
+
+
+		
+
+
+	#--------------------------------
+	searchLabel4 = tk.Label(window_SampleSearch, text = 'Country of Origin:', anchor = "w", font=myFont, bg='cadet blue').grid(row=6, column =1)
+	searchField4 = tk.Entry(window_SampleSearch).grid(row = 6, column = 2, sticky = "ew")
+
+	def runOriginCountrySearch():
+		DisplaySamples.OpenOriginCountrySearch(conn, searchField4.get())
+
+	searchButton4 = tk.Button(window_SampleSearch, text='Search', command = runOriginCountrySearch, font = myFont).grid(row=6, column=3, sticky = "ew")
+	#-------------------------------
+
+
+		
+
+
+	#--------------------------------
+	searchLabel5 = tk.Label(window_SampleSearch, text = 'Collection Date:', anchor = "w", font=myFont, bg='cadet blue').grid(row=7, column =1)
+	searchField5 = tk.Entry(window_SampleSearch).grid(row = 7, column = 2, sticky = "ew")
+
+	def runCollectionDateSearch():
+		DisplaySamples.OpenCollectionDateSearch(conn, searchField5.get())
+
+	searchButton5 = tk.Button(window_SampleSearch, text='Search', command = runCollectionDateSearch, font = myFont).grid(row=7, column=3, sticky = "ew")
+	#-------------------------------
+
+	
+
+
+	#--------------------------------
+	searchLabel6 = tk.Label(window_SampleSearch, text = 'Entry Date:', anchor = "w", font=myFont, bg='cadet blue').grid(row=8, column =1)
+	searchField6 = tk.Entry(window_SampleSearch).grid(row = 8, column = 2, sticky = "ew")
+
+	def runEntryDateSearch():
+		DisplaySamples.OpenEntryDateSearch(conn, searchField6.get())
+
+	searchButton6 = tk.Button(window_SampleSearch, text='Search', command = runEntryDateSearch, font = myFont).grid(row=8, column=3, sticky = "ew")
+	#-------------------------------
+
+
+	
+
+
+	#--------------------------------
+	searchLabel7 = tk.Label(window_SampleSearch, text = 'Subject Age:', anchor = "w", font=myFont, bg='cadet blue').grid(row=9, column =1)
+	searchField7 = tk.Entry(window_SampleSearch).grid(row = 9, column = 2, sticky = "ew")
+
+	def runDisplaySubjectAge():
+		DisplaySamples.OpenSubjectAgeSearch(conn, searchField7.get())
+
+	searchButton7 = tk.Button(window_SampleSearch, text='Search', command = runDisplaySubjectAge, font = myFont).grid(row=9, column=3, sticky = "ew")
+	#-------------------------------
+
+
+	
+
+
+	#--------------------------------
+	searchLabel8 = tk.Label(window_SampleSearch, text = 'Tube Rating:', anchor = "w", font=myFont, bg='cadet blue').grid(row=10, column =1)
+	searchField8 = tk.Entry(window_SampleSearch).grid(row = 10, column = 2, sticky = "ew")
+
+	def runDisplayTubeRating():
+		DisplaySamples.OpenTubeRatingSearch(conn, searchField8.get())
+
+	searchButton8 = tk.Button(window_SampleSearch, text='Search', command = runDisplayTubeRating, font = myFont).grid(row=10, column=3, sticky = "ew")
+	#-------------------------------
+
+	
+
+
+	#--------------------------------
+	searchLabel9 = tk.Label(window_SampleSearch, text = 'Collection Title:', anchor = "w", font=myFont, bg='cadet blue').grid(row=11, column =1)
+	searchField9 = tk.Entry(window_SampleSearch).grid(row = 11, column = 2, sticky = "ew")
+
+	def runDisplayCollectionTitle():
+		DisplaySamples.OpenCollectionTitleSearch(conn, searchField9.get())
+
+	searchButton9 = tk.Button(window_SampleSearch, text='Search', command = runDisplayCollectionTitle, font = myFont).grid(row=11, column=3, sticky = "ew")
+	#-------------------------------
+
+
+		
+
+
+	#--------------------------------
+	searchLabel10 = tk.Label(window_SampleSearch, text = 'Return Type:', anchor = "w", font=myFont, bg='cadet blue').grid(row=12, column =1)
+	searchField10 = tk.Entry(window_SampleSearch).grid(row = 12, column = 2, sticky = "ew")
+
+	def runDisplayReturnType():
+		DisplaySamples.OpenReturnTypeSearch(conn, searchField10.get())
+
+	searchButton10 = tk.Button(window_SampleSearch, text='Search', command = runDisplayReturnType, font = myFont).grid(row=12, column=3, sticky = "ew")
+	#-------------------------------
+
+
+	
+
+
+	#--------------------------------
+	searchLabel11 = tk.Label(window_SampleSearch, text = 'Return Date:', anchor = "w", font=myFont, bg='cadet blue').grid(row=13, column =1)
+	searchField11 = tk.Entry(window_SampleSearch).grid(row = 13, column = 2, sticky = "ew")
+
+	def runDisplayReturnDate():
+		DisplaySamples.OpenReturnDateSearch(conn, searchField11.get())
+
+	searchButton11 = tk.Button(window_SampleSearch, text='Search', command = runDisplayReturnDate, font = myFont).grid(row=13, column=3, sticky = "ew")
+	#-------------------------------
+
+
+		
+		
+
+
+	#--------------------------------
+	searchLabel12 = tk.Label(window_SampleSearch, text = 'Phenotype Value:', anchor = "w", font=myFont, bg='cadet blue').grid(row=14, column =1)
+	searchField12 = tk.Entry(window_SampleSearch).grid(row = 14, column = 2, sticky = "ew")
+
+	def runDisplayPhenotypeValue():
+		DisplaySamples.OpenPhenotypeValueSearch(conn, searchField12.get())
+
+	searchButton12 = tk.Button(window_SampleSearch, text='Search', command = runDisplayPhenotypeValue, font = myFont).grid(row=14, column=3, sticky = "ew")
+	#-------------------------------
+
+
+			
+		
+
+
+	#--------------------------------
+	searchLabel13 = tk.Label(window_SampleSearch, text = 'Disease State:', anchor = "w", font=myFont, bg='cadet blue').grid(row=15, column =1)
+	searchField13 = tk.Entry(window_SampleSearch).grid(row = 15, column = 2, sticky = "ew")
+
+	def runDisplayDiseaseState():
+		DisplaySamples.OpenDiseaseStateSearch(conn, searchField13.get())
+
+	searchButton13 = tk.Button(window_SampleSearch, text='Search', command = runDisplaySamples, font = myFont).grid(row=15, column=3, sticky = "ew")
+	#-------------------------------
+
+
+	
 	#--------------------
 	def Open_MainMenu_Window():
 		window_SampleSearch.destroy()
 		MainSearch_Window(conn)
 
-	ReturnButton = tk.Button(window_SampleSearch, text='Back to Box Menu', command=Open_MainMenu_Window, font = myFont).grid(row=6, column=2)
+	ReturnButton = tk.Button(window_SampleSearch, text='Back to Box Menu', command=Open_MainMenu_Window, font = myFont).grid(row=16, column=2)
 	#--------------------
 
 	window_SampleSearch.mainloop()
