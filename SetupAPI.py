@@ -17,6 +17,14 @@ def CreateInvoicesFolder():
     f = open("Invoices/InvoiceIndex", "a+")
     f.close()
 
+def CreateToAddFolder():
+    try:
+        os.mkdir('ToAdd')
+        print("ToAdd folder was not found and was created automatically")
+    except:
+        pass
+    
+
 def CreateSampleTable(_conn):
     c = _conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS SampleTable(
@@ -104,5 +112,6 @@ def CreateAllTables(_conn):
     CreateCollectionTable(_conn)
     CreateLogsFolder()
     CreateInvoicesFolder()
+    CreateToAddFolder()
 
 #JESSE'S COMMENT

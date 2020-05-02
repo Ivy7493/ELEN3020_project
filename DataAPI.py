@@ -1,6 +1,9 @@
 import sqlite3
 import LoggingAPI
 from datetime import *
+import datetime
+import time
+from datetime import date
 
 
 def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves):
@@ -453,6 +456,113 @@ def AddUser(_conn, _username, _password, _accessLevelTemp):
         return("Successfully added user " + _username)
 
     except sqlite3.Error as error:
-        return(error)             
+        return(error)   
+
+def CheckFridge(_conn, _fridgeID):
+    result = DoesIDExist(_conn, "FRIDGE", _fridgeID)
+    if result == "FALSE":
+        return ("Fridge " + _fridgeID + " does not exist")
+    else:
+        return "TRUE"
+
+def CheckBox(_conn , _boxID, _boxX, _boxY, _boxZ):
+    result = DoesIDExist(_conn,"BOX",_boxID)
+    if result == "FALSE":
+        return ("Box " + _boxID + " does not exist")
+    result = IsBoxPositionFree(_conn, _boxID,_boxX, _boxY, _boxZ)
+    if result != "TRUE":
+        return ("Box Position already taken " + str(_boxX) + "," + str(_boxY) + "," + str(_boxZ))
+    return "TRUE"
+
+def CheckSampleID(_conn, _sampleID):
+    result = DoesIDExist(_conn, "SAMPLE", _sampleID)
+    if result == "TRUE":
+        return ("Sample " + _sampleID + " already exists")
+    else:
+        return "TRUE"
+
+def CheckCollection(_conn, _collectionID):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM CollectionTable WHERE collectionTitle =?",(_collectionID,))
+    result = c.fetchone()
+    if result is None:
+        return ("Collection " + _collectionID + " does not exist")
+    else:
+        return "TRUE"
+        
+        
+
+def CheckValidEntry(_conn, _fileName):
+    f = open(_fileName, 'r')
+    lines = f.readlines()
+    count = 0
+    for line in lines:
+        count = count + 1
+        info = line.split(",")
+        tempSampleID = info[0]
+        sampleIDResult = CheckSampleID(_conn, tempSampleID)
+        if sampleIDResult != "TRUE":
+            return ("Failed at line " + str(count) + ": " + sampleIDResult)  
+        tempFridgeID = info[1]
+        fridgeResult = CheckFridge(_conn, tempFridgeID)
+        if fridgeResult != "TRUE":
+            return ("Failed at line " + str(count) + ": " + fridgeResult)
+        tempBoxID = info[2]
+        tempBoxX = int(info[3])
+        tempBoxY = int(info[4])
+        tempBoxZ = int(info[5])
+        boxResult = CheckBox(_conn, tempBoxID, tempBoxX, tempBoxY, tempBoxZ)
+        if boxResult != "TRUE":
+            return ("Failed at line " + str(count) + ": " + boxResult)
+        tempCollection = info[6]
+        collectionResult = CheckCollection(_conn, tempCollection)
+        if collectionResult != "TRUE":
+            return ("Failed at line " + str(count) + ": " + collectionResult)
+    f.close()   
+    return "TRUE"
+
+
+def AutoAddSamples(_conn, _fileName):
+    f = open(_fileName, 'r')
+    lines = f.readlines()
+    count = 0
+    error = ""
+    for line in lines:
+        count = count + 1
+        info = line.split(",")
+        try:
+            sampleID = info[0]
+            boxID = info[2]
+            boxX = int(info[3])
+            boxY = int(info[4])
+            boxZ  = int(info[5])
+            collectionTitle = info[6]
+            sampleType = info[7]
+            originCountry = info[8]
+            collectionDate = info[9]
+            entryDate = str(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M%S'))
+            subjectAge = int(info[10])
+            tubeRating = int(info[11])
+            returnType = info[12]
+            returnDate = info[13]
+            phenotypeValue = info[14]
+            diseaseState = info[15]
+            AddSample(_conn, sampleID, boxID, boxX, boxY, boxZ, sampleType, originCountry,collectionDate,entryDate,subjectAge,tubeRating,collectionTitle,returnType,returnDate,phenotypeValue,diseaseState)       
+        except:
+            error = error + "Failed to add sample at line: " + str(count) + '\n'
+
+    if error == "":
+        return "Successfully added all samples!"
+    else:
+        return error
+
+
+def CommitAuto(_conn, _fileName):
+    fileName = "ToAdd/" + _fileName
+    result = CheckValidEntry(_conn, fileName) 
+    if result == "TRUE":
+        return AutoAddSamples(_conn, fileName)    
+    else:
+        return result      
     
 
