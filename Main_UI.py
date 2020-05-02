@@ -12,6 +12,7 @@ import Search_UI
 import LoggingAPI
 import Register_UI
 import Billing_UI
+import Auto_UI
 import datetime
 from datetime import date
 from datetime import datetime
@@ -104,6 +105,10 @@ def Edit_Window(conn):
         window_Edit.destroy()
         Sample_UI.MainSample_Window(conn)
 
+    def Open_AutoAddSamples_Window():
+        window_Edit.destroy()
+        Auto_UI.Main_Window(conn)
+
     def Open_Register_Window():
         window_Edit.destroy()
         Register_UI.Register_Window(conn)
@@ -115,16 +120,21 @@ def Edit_Window(conn):
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=0, column=2)
     tk.Button(window_Edit, text = 'Open Fridge Menu', command = Open_FridgeMenu_Window, font=myFont).grid(row = 1, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=2, column=0)
+
     tk.Button(window_Edit, text = 'Open Box Menu', command = Open_BoxMenu_Window, font=myFont).grid(row = 3, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=4, column=0)
+
     tk.Button(window_Edit, text = 'Open Sample Menu', command = Open_SampleMenu_Window, font=myFont).grid(row = 5, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=6, column=0)
-    tk.Button(window_Edit, text = 'Register', font=myFont, command = Open_Register_Window).grid(row = 7, column=1, sticky = "ew")
-    tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=8, column=0)
-    tk.Button(window_Edit, text = 'Return', command = Return, font=myFont).grid(row = 9, column=1, sticky = "ew")
-    tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=10, column=0)
-    #tk.Label(window_Edit, text = '').grid(row=0, column=1)
 
+    tk.Button(window_Edit, text = 'Open Auto Add Menu', font=myFont, command = Open_AutoAddSamples_Window).grid(row = 7, column=1, sticky = "ew")
+    tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=8, column=0)
+
+    tk.Button(window_Edit, text = 'Register', font=myFont, command = Open_Register_Window).grid(row = 9, column=1, sticky = "ew")
+    tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=10, column=0)
+
+    tk.Button(window_Edit, text = 'Return', command = Return, font=myFont).grid(row = 11, column=1, sticky = "ew")
+    tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=12, column=0)
 
     window_Edit.mainloop()
 ##########---------->END: EDIT WINDOW<----------------------##########

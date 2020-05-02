@@ -190,9 +190,9 @@ def IsBoxPositionFree(_conn, _boxID, _posX, _posY, _posZ):
     c = _conn.cursor()
     c.execute("SELECT * FROM BoxTable WHERE boxID=?",(_boxID,))
     result = c.fetchone()
-    boxX = result[2]
-    boxY = result[3]
-    boxZ = result[4]
+    boxX = result[4]
+    boxY = result[5]
+    boxZ = result[6]
     if _posX <= boxX and _posY <= boxY and _posZ <= boxZ and _posX >= 1 and _posY >= 1 and _posZ >= 1:
         c.execute("SELECT * FROM SampleTable WHERE boxID=? AND boxX=? AND boxY=? AND boxZ=?",(_boxID,_posX, _posY, _posZ,))
         LocResults = c.fetchall()
@@ -530,29 +530,29 @@ def AutoAddSamples(_conn, _fileName):
     for line in lines:
         count = count + 1
         info = line.split(",")
-        try:
-            sampleID = info[0]
-            boxID = info[2]
-            boxX = int(info[3])
-            boxY = int(info[4])
-            boxZ  = int(info[5])
-            collectionTitle = info[6]
-            sampleType = info[7]
-            originCountry = info[8]
-            collectionDate = info[9]
-            entryDate = str(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M%S'))
-            subjectAge = int(info[10])
-            tubeRating = int(info[11])
-            returnType = info[12]
-            returnDate = info[13]
-            phenotypeValue = info[14]
-            diseaseState = info[15]
-            AddSample(_conn, sampleID, boxID, boxX, boxY, boxZ, sampleType, originCountry,collectionDate,entryDate,subjectAge,tubeRating,collectionTitle,returnType,returnDate,phenotypeValue,diseaseState)       
-        except:
-            error = error + "Failed to add sample at line: " + str(count) + '\n'
+        #try:
+        sampleID = info[0]
+        boxID = info[2]
+        boxX = int(info[3])
+        boxY = int(info[4])
+        boxZ  = int(info[5])
+        collectionTitle = info[6]
+        sampleType = info[7]
+        originCountry = info[8]
+        collectionDate = info[9]
+        entryDate = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M%S'))
+        subjectAge = int(info[10])
+        tubeRating = int(info[11])
+        returnType = info[12]
+        returnDate = info[13]
+        phenotypeValue = info[14]
+        diseaseState = info[15]
+        AddSample(_conn, sampleID, boxID, boxX, boxY, boxZ, sampleType, originCountry,collectionDate,entryDate,subjectAge,tubeRating,collectionTitle,returnType,returnDate,phenotypeValue,diseaseState)       
+        #except:
+        #    error = error + "Failed to add sample at line: " + str(count) + '\n'
 
     if error == "":
-        return "Successfully added all samples!"
+        return "TRUE"
     else:
         return error
 
