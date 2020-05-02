@@ -1,7 +1,7 @@
 import sqlite3
 import LoggingAPI
-from datetime import *
 import datetime
+from datetime import *
 import time
 from datetime import date
 
