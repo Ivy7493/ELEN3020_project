@@ -6,14 +6,16 @@ def CreateLogsFolder():
         os.mkdir('Logs')
         print("Logs folder was not found and was created automatically")
     except:
-        print("Folder creation failed, either the folder exists or failed to create")
+        #print("Folder creation failed, either the folder exists or failed to create")
+        pass
 
 def CreateInvoicesFolder():
     try:
         os.mkdir('Invoices')
         print("Invoices folder was not found and was created automatically")
     except:
-        print("Folder creation failed, either the folder exists or failed to create")
+        #print("Folder creation failed, either the folder exists or failed to create")
+        pass
     f = open("Invoices/InvoiceIndex", "a+")
     f.close()
 
@@ -52,14 +54,15 @@ def CreateCollectionTable(_conn):
     c = _conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS CollectionTable(
                                     collectionTitle TEXT NOT NULL PRIMARY KEY,
-                                    donorName TEXT NOT NULL,
-                                    donorPhoneNumber TEXT NOT NULL,
-                                    donorEmail TEXT NOT NULL,
-                                    donorOrganization TEXT NOT NULL,   
-                                    authorisorName TEXT NOT NULL,
-                                    authorisorPhoneNumber TEXT NOT NULL,
-                                    authorisorEmail TEXT NOT NULL,
-                                    authorisorOrganization TEXT NOT NULL)""")
+                                    donorID TEXT NOT NULL,
+                                    clientName TEXT NOT NULL,
+                                    clientPhoneNumber TEXT NOT NULL,
+                                    clientEmail TEXT NOT NULL,
+                                    clientOrganization TEXT NOT NULL,
+                                    clientStreet TEXT NOT NULL,
+                                    clientCity TEXT NOT NULL,
+                                    clientCountry TEXT NOT NULL,
+                                    clientPostalCode TEXT NOT NULL)""")
     _conn.commit()
 
 def CreateFridgeTable(_conn):
@@ -68,7 +71,8 @@ def CreateFridgeTable(_conn):
                                     fridgeID TEXT NOT NULL PRIMARY KEY,
                                     temperature INTEGER NOT NULL,
                                     numShelves INTEGER NOT NULL,
-                                    widthShelves INTEGER NOT NULL)""")
+                                    widthShelves INTEGER NOT NULL,
+                                    rate FLOAT NOT NULL)""")
     _conn.commit()
 
 def CreateLoginTable(_conn):

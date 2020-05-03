@@ -8,7 +8,6 @@ import Main_UI
 import Display_Guest_Samples
 import Customer_UI
 
-
 def Check_Window(conn):
     window_check = Tk()
     window_check.title("Employee Login")
@@ -18,6 +17,7 @@ def Check_Window(conn):
     myFont = Font(family = "fixedsys", size=12)
     text.configure(font=myFont)
     message = Label(window_check, text = "Enter username and password", font = myFont, bg ='cadet blue')
+    message.grid(row = 3, column = 1)
 
     def checkCreds(): #checks the user's credentials
         n1 = entry_name.get()
@@ -25,7 +25,7 @@ def Check_Window(conn):
         c = conn.cursor()
         c.execute("SELECT password FROM LoginTable WHERE username=?", (str(n1),))
         temp_password = c.fetchall()
-        c.execute("SELECT donorPhoneNumber FROM CollectionTable WHERE donorName=?", (str(n1),))
+        c.execute("SELECT clientPhoneNumber FROM CollectionTable WHERE clientName=?", (str(n1),))
         temp_number = c.fetchall()
         count = 0
         count2 = 0
@@ -59,15 +59,14 @@ def Check_Window(conn):
             if count2 == 0:
                 message['text'] = "No such username or password"
             elif count2 > 0:
-                c.execute("SELECT donorPhoneNumber FROM CollectionTable WHERE donorName=?", (str(n1),))
+                c.execute("SELECT clientPhoneNumber FROM CollectionTable WHERE clientName=?", (str(n1),))
                 result2 = c.fetchone()[0]      
                 if p1 == result2:
-                    c.execute("SELECT collectionTitle FROM CollectionTable WHERE donorPhoneNumber=?", (str(p1),))
+                    c.execute("SELECT collectionTitle FROM CollectionTable WHERE clientPhoneNumber=?", (str(p1),))
                     collTitle = c.fetchone()[0]
                     openDonorMain(collTitle)
                 else:
                     message['text'] = "Invalid Credentials"
-        
 
     def openMain():
             window_check.destroy()
@@ -81,8 +80,7 @@ def Check_Window(conn):
     def openCustomerMain():
         window_check.destroy()
         Customer_UI.ShowSampleTypes(conn) 
-          
-    
+
     def enterPress(event):
         checkCreds()
 
@@ -90,24 +88,28 @@ def Check_Window(conn):
         window_check.destroy()
 
     name = Label(window_check, text = "Username", font = myFont, bg ='cadet blue')
+    name.grid(row = 1, column = 1, sticky = E)
+
     password = Label(window_check, text = "Password", font = myFont, bg ='cadet blue')
-    
+    password.grid(row = 2, column = 1, sticky = E)
+
     entry_name = Entry(window_check)
+    entry_name.grid(row = 1, column = 2)
+
     entry_pass = Entry(window_check, show = "*")
+    entry_pass.grid(row = 2, column = 2)
 
-    
-
-    name.grid(row = 0, column = 0, sticky = E)
-    password.grid(row = 1, column = 0, sticky = E)
-    entry_name.grid(row = 0, column = 1)
-    entry_pass.grid(row = 1, column = 1)
-    message.grid(row = 2, columnspan = 2)
+    message.grid(row = 3, columnspan = 2)
 
     window_check.bind("<Return>", enterPress) #user can press enter instead of clicking Login
 
     checkButton = Button(window_check, text = "Login", command = checkCreds, height = 1, width = 8, font = myFont)
+    checkButton.grid(row = 4, columnspan = 2, column = 1)
+
     cancelButton = Button(window_check, text = "Exit", command = Cancel, height = 1, width = 8, font = myFont)
-    checkButton.grid(row = 4, columnspan = 2)
-    cancelButton.grid(row = 5, columnspan = 2)
+    cancelButton.grid(row = 5, columnspan = 2, column = 1)
+
+    empty1 = Label(window_check, height = 1, width = 2, bg ='cadet blue').grid(row = 0, column = 0)
+    empty2 = Label(window_check, height = 1, width = 2, bg ='cadet blue').grid(row = 6, column = 3)
     
     window_check.mainloop()

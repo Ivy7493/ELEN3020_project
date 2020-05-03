@@ -6,10 +6,10 @@ import time
 from datetime import date
 
 
-def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves):
+def AddFridge(_conn, _fridgeID, _temperature, _numShelves, _widthShelves, _rate):
     try:
         c = _conn.cursor()
-        c.execute("INSERT INTO FridgeTable (fridgeID, temperature, numShelves, widthShelves) VALUES (?, ?, ?, ?)",(_fridgeID,int(_temperature), int(_numShelves), int(_widthShelves)))
+        c.execute("INSERT INTO FridgeTable (fridgeID, temperature, numShelves, widthShelves, rate) VALUES (?, ?, ?, ?, ?)",(_fridgeID,int(_temperature), int(_numShelves), int(_widthShelves), float(_rate)))
         _conn.commit()
         LoggingAPI.Log(_conn, "Added new fridge: " + _fridgeID)
         return("Successfully added Fridge " + _fridgeID)
@@ -356,10 +356,10 @@ def FindEmptyBox(_conn, _tempMin, _tempMax):
     return ("No place found for insertion")
 
 
-def AddCollection(_conn, _collectionTitle, _donorName, _donorPhone, _donorEmail, _donorOrganization, _authorisorName, _authorisorPhone, _authorisorEmail, _authorisorOrganization):
+def AddCollection(_conn, _collectionTitle, _donorID, _clientName, _clientPhone, _clientEmail, _clientOrganization, _clientStreet, _clientCity, _clientCountry, _clientPostalCode):
     try:
         c = _conn.cursor()
-        c.execute("INSERT INTO CollectionTable (collectionTitle, donorName, donorPhoneNumber, donorEmail, donorOrganization, authorisorName, authorisorPhoneNumber, authorisorEmail, authorisorOrganization) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",(_collectionTitle, _donorName, _donorPhone, _donorEmail, _donorOrganization, _authorisorName, _authorisorPhone, _authorisorEmail, _authorisorOrganization,))
+        c.execute("INSERT INTO CollectionTable (collectionTitle, donorID, clientName, clientPhoneNumber, clientEmail, clientOrganization, clientStreet, clientCity, clientCountry, clientPostalCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(_collectionTitle, _donorID, _clientName, _clientPhone, _clientEmail, _clientOrganization, _clientStreet, _clientCity, _clientCountry, _clientPostalCode,))
         _conn.commit()
         return("Successfully added Collection " + _collectionTitle)
 
@@ -493,7 +493,10 @@ def CheckCollection(_conn, _collectionID):
         
 
 def CheckValidEntry(_conn, _fileName):
-    f = open(_fileName, 'r')
+    try:
+        f = open(_fileName, 'r')
+    except:
+        return "That file does not exist"    
     lines = f.readlines()
     count = 0
     for line in lines:
@@ -523,7 +526,10 @@ def CheckValidEntry(_conn, _fileName):
 
 
 def AutoAddSamples(_conn, _fileName):
-    f = open(_fileName, 'r')
+    try:
+        f = open(_fileName, 'r')
+    except:
+        return("That file does not exist")
     lines = f.readlines()
     count = 0
     error = ""

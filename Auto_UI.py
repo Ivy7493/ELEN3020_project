@@ -10,62 +10,78 @@ from datetime import datetime
 from tkinter import messagebox
 
 
+def MessagePopup(messageText, messageTitle):
+    message_window = tk.Tk()
+    message_window.title(messageTitle)
+
+    text = tk.Text(message_window)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    message_window["bg"] = 'cadet blue'
+    message = tk.Label(message_window, text = messageText, font = myFont, bg = 'cadet blue')
+    message.grid(row = 0, column = 0)
+
+    def CloseMessage():
+        message_window.destroy()
+
+    backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+
+
 ##########---------->START: ADD SAMPLES AUTO WINDOW<--------------------##########
 def AddSamples(conn):
     window_Check = tk.Tk()
     window_Check.title("CONFIRM")
     window_Check["bg"] = 'cadet blue'
+
     text = tk.Text(window_Check)
     myFont = Font(family="fixedsys", size=12)
     text.configure(font=myFont)
-    
-    space0 = tk.Label(window_Check, height = 1, bg = 'cadet blue').grid(row = 0, column = 0)
-    space2 = tk.Label(window_Check, height = 1, bg = 'cadet blue').grid(row=2, column=0)
-    space4 = tk.Label(window_Check, height = 1, bg = 'cadet blue').grid(row=4, column=0)
-    space6 = tk.Label(window_Check, height = 1, bg = 'cadet blue').grid(row=6, column=0)
 
-
-    lbl1 = tk.Label(window_Check, height = 1, bg = 'cadet blue', text = "Have you added the CSV file to the ToAdd folder?")
-    lbl1.grid(row = 1, column = 0)
+    lbl1 = tk.Label(window_Check, bg = 'cadet blue', text = "Have you added the CSV file to the ToAdd folder?", font = myFont, wraplength = 200, justify = "center")
+    lbl1.grid(row = 1, column = 1)
 
     btn1 = tk.Button()
     btn2 = tk.Button()
 
+    tk.Label(window_Check, height = 1, width = 2, bg = 'cadet blue').grid(row=0, column=0)
+    tk.Label(window_Check, height = 1, width = 2, bg = 'cadet blue').grid(row=2, column=0)
+    tk.Label(window_Check, height = 1, width = 2, bg = 'cadet blue').grid(row=4, column=0)
+    tk.Label(window_Check, height = 1, width = 2, bg = 'cadet blue').grid(row=6, column=2)
+
     def Confirm():
         lbl1.config(text = "Please enter the name of the CSV file:")
-        lbl3 = tk.Label(window_Check, height = 1, bg = 'cadet blue', text = ".txt").grid(row = 1, column = 2)
+        lbl3 = tk.Label(window_Check, height = 1, bg = 'cadet blue', text = ".txt").grid(row = 2, column = 2)
         fileName = tk.Entry(window_Check)
-        fileName.grid(row = 1, column = 1)
-
+        fileName.grid(row = 2, column = 1)
 
         def Return():
             window_Check.destroy()
             Main_Window(conn)
 
         def AutoAdd():
-            result = DataAPI.CommitAuto(conn, fileName.get())
-            if result == "TRUE":
-                messagebox.showinfo("Success", "Successfully added all samples!")
-                Return()
-
+            _fileName = fileName.get()
+            if _fileName == "":
+                MessagePopup("Please enter valid file", "ERROR")
             else:
-                messagebox.showinfo("Error", result)
-                Return()
+                result = DataAPI.CommitAuto(conn, _fileName)
+                if result == "TRUE":
+                    MessagePopup("Successfully added all samples!","Success")
+                else:
+                    MessagePopup(result, "ERROR")
                 
         btn1.config(text = "Confirm", command = AutoAdd)
         btn2.config(text = "Return", command = Return)
-       
-
 
     def Cancel():
         window_Check.destroy()
         Main_Window(conn)
 
     btn1 = tk.Button(window_Check, text = 'Yes', command = Confirm, font=myFont)
-    btn1.grid(row = 3, column=0)
+    btn1.grid(row = 3, column=1, sticky = "ew")
 
     btn2 = tk.Button(window_Check, text = 'No', command = Cancel, font=myFont)
-    btn2.grid(row = 5, column=0)
+    btn2.grid(row = 5, column=1, sticky = "ew")
     window_Check.mainloop()
 ##########---------->END: ADD SAMPLES AUTO WINDOW<--------------------##########
 
