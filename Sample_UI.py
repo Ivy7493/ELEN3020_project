@@ -6,6 +6,7 @@ import Main_UI
 import time
 import datetime
 from tkinter import messagebox
+from tkinter.font import Font
 from tkinter import ttk
 from datetime import date
 from tkinter import *
@@ -20,18 +21,22 @@ def Open_SuggestBox_Window(conn):
     window_SuggestBox = tk.Tk()
     #window_SuggestBox.geometry("300x300")
     window_SuggestBox.title("SUGGEST BOX")
-    window_SuggestBox["bg"] = 'red'
+    window_SuggestBox["bg"] = 'cadet blue'
 
-    tk.Label(window_SuggestBox, text = "Minimum Temperature").grid(row = 0)
+    text = tk.Text(window_SuggestBox)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    tk.Label(window_SuggestBox, text = "Minimum Temperature", font=myFont, bg = 'cadet blue').grid(row = 0)
     minTemp = tk.Entry(window_SuggestBox)
     minTemp.grid(row = 0, column = 1)
 
-    tk.Label(window_SuggestBox, text = "Maximum Temperature").grid(row = 1)
+    tk.Label(window_SuggestBox, text = "Maximum Temperature", font=myFont, bg = 'cadet blue').grid(row = 1)
     maxTemp = tk.Entry(window_SuggestBox)
     maxTemp.grid(row = 1, column = 1)
 
     tk.Button(window_SuggestBox, text = 'Suggest Box', 
-                        command = SuggestBox).grid(row = 2, column=1)
+                        command = SuggestBox, font=myFOnt).grid(row = 2, column=1)
 
 
 ##########---------->START: WINDOW FOR ADDING SAMPLE<----------##########
@@ -87,46 +92,50 @@ def AddSample_Window(conn):
         window_Collection = tk.Tk()
         #window_Collection.geometry("300x300")
         window_Collection.title("COLLECTION")
-        window_Collection["bg"] = 'red'
+        window_Collection["bg"] = 'cadet blue'
 
-        tk.Label(window_Collection, text = "Collection Title").grid(row = 0)
+        text = tk.Text(window_SuggestBox)
+    	myFont = Font(family="fixedsys", size=12)
+    	text.configure(font=myFont)
+
+        tk.Label(window_Collection, text = "Collection Title", font = myFont, bg = 'cadet blue').grid(row = 0)
         newCollectionTitle = tk.Entry(window_Collection)
         newCollectionTitle.grid(row = 0, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Name").grid(row = 1)
+        tk.Label(window_Collection, text = "Donor Name", font = myFont, bg = 'cadet blue').grid(row = 1)
         donorName = tk.Entry(window_Collection)
         donorName.grid(row = 1, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Phone").grid(row = 2)
+        tk.Label(window_Collection, text = "Donor Phone", font = myFont, bg = 'cadet blue').grid(row = 2)
         donorPhone = tk.Entry(window_Collection)
         donorPhone.grid(row = 2, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Email").grid(row = 3)
+        tk.Label(window_Collection, text = "Donor Email", font = myFont, bg = 'cadet blue').grid(row = 3)
         donorEmail = tk.Entry(window_Collection)
         donorEmail.grid(row = 3, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Organization").grid(row = 4)
+        tk.Label(window_Collection, text = "Donor Organization", font = myFont, bg = 'cadet blue').grid(row = 4)
         donorOrganization = tk.Entry(window_Collection)
         donorOrganization.grid(row = 4, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Name").grid(row = 5)
+        tk.Label(window_Collection, text = "Authorisor Name", font = myFont, bg = 'cadet blue').grid(row = 5)
         authorisorName = tk.Entry(window_Collection)
         authorisorName.grid(row = 5, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Phone").grid(row = 6)
+        tk.Label(window_Collection, text = "Authorisor Phone", font = myFont, bg = 'cadet blue').grid(row = 6)
         authorisorPhone = tk.Entry(window_Collection)
         authorisorPhone.grid(row = 6, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Email").grid(row = 7)
+        tk.Label(window_Collection, text = "Authorisor Email", font = myFont, bg = 'cadet blue').grid(row = 7)
         authorisorEmail = tk.Entry(window_Collection)
         authorisorEmail.grid(row = 7, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Organization").grid(row = 8)
+        tk.Label(window_Collection, text = "Authorisor Organization", font = myFont, bg = 'cadet blue').grid(row = 8)
         authorisorOrganization = tk.Entry(window_Collection)
         authorisorOrganization.grid(row = 8, column = 1)
 
         tk.Button(window_Collection, text = 'Add New Collection', 
-                            command = AddCollection).grid(row = 9, column=1)
+                            command = AddCollection, font = myFont).grid(row = 9, column=1)
 
     def console_PrintSample():
         print("Sample ID: %s\nBox ID: %s\nBox X: %s\nBox Y: %s\nBox Z: %s\nSample Type: %s\nCountry of Origin: %s\nCollection Date: %s\nSubject Age: %s\nTube Rating: %s\nCollection Title: %s\nReturn or Destroy?: %s\nReturn or Destroy Date: %s\nPhenotype Value: %s\nDisease State Value: %s" % 
@@ -145,7 +154,7 @@ def AddSample_Window(conn):
     window_AddSample = tk.Tk()
     #window_AddSample.geometry("300x300")
     window_AddSample.title("ADD SAMPLE")
-    window_AddSample["bg"] = 'red'
+    window_AddSample["bg"] = 'cadet blue'
 
     tk.Label(window_AddSample, text = "Sample ID").grid(row = 0)
     sampleID = tk.Entry(window_AddSample)

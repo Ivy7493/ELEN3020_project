@@ -96,70 +96,6 @@ def DeleteFridge_Window(conn):
     window_DeleteFridge.mainloop()
 ##########---------->END: WINDOW FOR DELETING FRIDGES<----------##########
 
-##########---------->START: WINDOW FOR SEARCHING FRIDGES<-------##########
-
-
-def SearchFridge_Window(conn):
-    window_SearchFridge = tk.Tk()
-    window_SearchFridge.title("SEARCH FRIDGE WINDOW")
-    window_SearchFridge["bg"] = 'cadet blue'
-    
-    text = tk.Text(window_SearchFridge)
-    myFont = Font(family="fixedsys", size=12)
-    text.configure(font=myFont)
-
-    #--------------------
-    def OpenAllFridges():
-        DisplayFridges.OpenAllFridges(conn)
-
-    searchButton = tk.Button(window_SearchFridge, text='Display All Fridges', command=OpenAllFridges, font=myFont)
-    searchButton.grid(row=1, column=2, sticky = "ew")
-    #--------------------
-    searchLabel1 = tk.Label(window_SearchFridge, text = 'Fridge ID:', anchor = "w", font=myFont, bg = 'cadet blue').grid(row=3, column = 1)
-    searchField1 = tk.Entry(window_SearchFridge)
-    searchField1.grid(row=3, column=2, sticky = "ew")
-
-    def runDisplayFridges():
-        DisplayFridges.OpenFridgeSearch(conn, searchField1.get())
-
-    searchButton1 = tk.Button(window_SearchFridge, text='Search', command=runDisplayFridges, font=myFont)
-    searchButton1.grid(row=3, column=3, sticky = "ew")
-    #--------------------
-    searchLabel2 = tk.Label(window_SearchFridge, text = 'Fridge Temperature:', anchor = "w", font=myFont, bg = 'cadet blue').grid(row=4, column = 1)
-    searchField2 = tk.Entry(window_SearchFridge)
-    searchField2.grid(row=4, column=2, sticky = "ew")
-
-    def runDisplayTemperatures():
-        DisplayFridges.OpenTemperatureSearch(conn, searchField2.get())
-
-    searchButton2 = tk.Button(window_SearchFridge, text='Search', command=runDisplayTemperatures, font=myFont)
-    searchButton2.grid(row=4, column=3, sticky = "ew")
-    #--------------------
-    searchLabel3 = tk.Label(window_SearchFridge, text = 'Number of Shelves:', font=myFont, bg = 'cadet blue', anchor = "w").grid(row=5, column = 1)
-    searchField3 = tk.Entry(window_SearchFridge)
-    searchField3.grid(row=5, column=2, sticky = "ew")
-
-    def runDisplayShelves():
-        DisplayFridges.OpenNumShelvesSearch(conn, searchField3.get())
-
-    searchButton3 = tk.Button(window_SearchFridge, text='Search', command=runDisplayShelves, font=myFont)
-    searchButton3.grid(row=5, column=3, sticky = "ew")
-    #--------------------
-    def Open_MainMenu_Window():
-        window_SearchFridge.destroy()
-        MainFridge_Window(conn)
-
-    returnButton = tk.Button(window_SearchFridge, text='Back to Fridge Menu', command=Open_MainMenu_Window, font=myFont)
-    returnButton.grid(row=7, column=2, sticky = "ew")
-    #--------------------
-
-    tk.Label(window_SearchFridge, height = 1, width = 2, bg="cadet blue").grid(row =0, column =0)
-    tk.Label(window_SearchFridge, height = 1, width = 2, bg="cadet blue").grid(row =2, column =0)
-    tk.Label(window_SearchFridge, height = 1, width = 2, bg="cadet blue").grid(row =6, column =0)
-    tk.Label(window_SearchFridge, height = 1, width = 2, bg="cadet blue").grid(row =8, column =4)
-
-    window_SearchFridge.mainloop()
-##########---------->END: WINDOW FOR SEARCHING FRIDGES<-------##########
 
 ##########---------->START: MAIN WINDOW FOR FRIDGES<----------##########
 def MainFridge_Window(conn):
@@ -173,9 +109,7 @@ def MainFridge_Window(conn):
     text.configure(font=myFont)
 
 
-    def Open_SearchFridge_Window():
-        window_MainFridge.destroy()
-        SearchFridge_Window(conn)
+    
 
     def Open_AddFridge_Window():
         window_MainFridge.destroy()
@@ -191,14 +125,12 @@ def MainFridge_Window(conn):
 
     tk.Button(window_MainFridge, text='Add Fridge', command=Open_AddFridge_Window, font=myFont).grid(row=1, column=1, sticky="ew")
     tk.Button(window_MainFridge, text='Delete Fridge', command=Open_DeleteFridge_Window, font=myFont).grid(row=3, column=1, sticky="ew")
-    tk.Button(window_MainFridge, text='Search Fridge', command=Open_SearchFridge_Window, font=myFont).grid(row=5, column=1, sticky="ew")
-    tk.Button(window_MainFridge, text='Back to Edit Menu', command=Open_MainMenu_Window, font=myFont).grid(row=7, column=1, sticky="ew")
+    tk.Button(window_MainFridge, text='Back to Edit Menu', command=Open_MainMenu_Window, font=myFont).grid(row=5, column=1, sticky="ew")
 
     tk.Label(window_MainFridge, height = 1, width = 6, bg="cadet blue").grid(row =0, column =2)
     tk.Label(window_MainFridge, height = 1, width = 6, bg="cadet blue").grid(row =2, column =0)
     tk.Label(window_MainFridge, height = 1, width = 6, bg="cadet blue").grid(row =4, column =0)
     tk.Label(window_MainFridge, height = 1, width = 6, bg="cadet blue").grid(row =6, column =0) 
-    tk.Label(window_MainFridge, height = 1, width = 6, bg="cadet blue").grid(row =8, column =0) 
 
     window_MainFridge.mainloop()
 ##########---------->END: MAIN WINDOW FOR FRIDGES<----------##########
