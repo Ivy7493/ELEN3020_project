@@ -27,11 +27,11 @@ def Open_SuggestBox_Window(conn):
     myFont = Font(family="fixedsys", size=12)
     text.configure(font=myFont)
 
-    tk.Label(window_SuggestBox, text = "Minimum Temperature", font=myFont, bg = 'cadet blue').grid(row = 0)
+    tk.Label(window_SuggestBox, text = "Minimum Temperature", font=myFont, bg = "cadet blue").grid(row = 0)
     minTemp = tk.Entry(window_SuggestBox)
     minTemp.grid(row = 0, column = 1)
 
-    tk.Label(window_SuggestBox, text = "Maximum Temperature", font=myFont, bg = 'cadet blue').grid(row = 1)
+    tk.Label(window_SuggestBox, text = "Maximum Temperature", font=myFont, bg = "cadet blue").grid(row = 1)
     maxTemp = tk.Entry(window_SuggestBox)
     maxTemp.grid(row = 1, column = 1)
 
@@ -94,43 +94,43 @@ def AddSample_Window(conn):
         window_Collection.title("COLLECTION")
         window_Collection["bg"] = 'cadet blue'
 
-        text = tk.Text(window_SuggestBox)
+        text = tk.Text(window_Collection)
         myFont = Font(family="fixedsys", size=12)
         text.configure(font=myFont)
 
-        tk.Label(window_Collection, text = "Collection Title", font = myFont, bg = 'cadet blue').grid(row = 0)
+        tk.Label(window_Collection, text = "Collection Title", font = myFont, bg = "cadet blue").grid(row = 0)
         newCollectionTitle = tk.Entry(window_Collection)
         newCollectionTitle.grid(row = 0, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Name", font = myFont, bg = 'cadet blue').grid(row = 1)
+        tk.Label(window_Collection, text = "Donor Name", font = myFont, bg = "cadet blue").grid(row = 1)
         donorName = tk.Entry(window_Collection)
         donorName.grid(row = 1, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Phone", font = myFont, bg = 'cadet blue').grid(row = 2)
+        tk.Label(window_Collection, text = "Donor Phone", font = myFont, bg = "cadet blue").grid(row = 2)
         donorPhone = tk.Entry(window_Collection)
         donorPhone.grid(row = 2, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Email", font = myFont, bg = 'cadet blue').grid(row = 3)
+        tk.Label(window_Collection, text = "Donor Email", font = myFont, bg = "cadet blue").grid(row = 3)
         donorEmail = tk.Entry(window_Collection)
         donorEmail.grid(row = 3, column = 1)
 
-        tk.Label(window_Collection, text = "Donor Organization", font = myFont, bg = 'cadet blue').grid(row = 4)
+        tk.Label(window_Collection, text = "Donor Organization", font = myFont, bg = "cadet blue").grid(row = 4)
         donorOrganization = tk.Entry(window_Collection)
         donorOrganization.grid(row = 4, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Name", font = myFont, bg = 'cadet blue').grid(row = 5)
+        tk.Label(window_Collection, text = "Authorisor Name", font = myFont, bg = "cadet blue").grid(row = 5)
         authorisorName = tk.Entry(window_Collection)
         authorisorName.grid(row = 5, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Phone", font = myFont, bg = 'cadet blue').grid(row = 6)
+        tk.Label(window_Collection, text = "Authorisor Phone", font = myFont, bg = "cadet blue").grid(row = 6)
         authorisorPhone = tk.Entry(window_Collection)
         authorisorPhone.grid(row = 6, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Email", font = myFont, bg = 'cadet blue').grid(row = 7)
+        tk.Label(window_Collection, text = "Authorisor Email", font = myFont, bg = "cadet blue").grid(row = 7)
         authorisorEmail = tk.Entry(window_Collection)
         authorisorEmail.grid(row = 7, column = 1)
 
-        tk.Label(window_Collection, text = "Authorisor Organization", font = myFont, bg = 'cadet blue').grid(row = 8)
+        tk.Label(window_Collection, text = "Authorisor Organization", font = myFont, bg = "cadet blue").grid(row = 8)
         authorisorOrganization = tk.Entry(window_Collection)
         authorisorOrganization.grid(row = 8, column = 1)
 
@@ -156,35 +156,39 @@ def AddSample_Window(conn):
     window_AddSample.title("ADD SAMPLE")
     window_AddSample["bg"] = 'cadet blue'
 
-    tk.Label(window_AddSample, text = "Sample ID").grid(row = 0)
+    text = tk.Text(window_AddSample)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    tk.Label(window_AddSample, text = "Sample ID", font = myFont, bg = "cadet blue").grid(row = 0)
     sampleID = tk.Entry(window_AddSample)
     sampleID.grid(row = 0, column = 1)
 
-    tk.Label(window_AddSample, text = "Box ID").grid(row = 1)
+    tk.Label(window_AddSample, text = "Box ID", font = myFont, bg = "cadet blue").grid(row = 1)
     boxID = tk.Entry(window_AddSample)
     boxID.grid(row = 1, column = 1)
 
-    tk.Label(window_AddSample, text = "Box Width (X)").grid(row = 2)
+    tk.Label(window_AddSample, text = "Box Width (X)", font = myFont, bg = "cadet blue").grid(row = 2)
     boxX = tk.Entry(window_AddSample)
     boxX.grid(row = 2, column = 1)
 
-    tk.Label(window_AddSample, text = "Box Length (Y)").grid(row = 3)
+    tk.Label(window_AddSample, text = "Box Length (Y)", font = myFont, bg = "cadet blue").grid(row = 3)
     boxY = tk.Entry(window_AddSample)
     boxY.grid(row = 3, column = 1)
 
-    tk.Label(window_AddSample, text = "Box Height (Z)").grid(row = 4)
+    tk.Label(window_AddSample, text = "Box Height (Z)", font = myFont, bg = "cadet blue").grid(row = 4)
     boxZ = tk.Entry(window_AddSample)
     boxZ.grid(row = 4, column = 1)
 
-    tk.Label(window_AddSample, text = "Sample Type").grid(row = 5)
+    tk.Label(window_AddSample, text = "Sample Type", font = myFont, bg = "cadet blue").grid(row = 5)
     sampleType = ttk.Combobox(window_AddSample, state="readonly", values=DataAPI.GetSampleTypes()) 
     sampleType.grid(row = 5, column = 1)
 
-    tk.Label(window_AddSample, text = "Country of Origin").grid(row = 6)
+    tk.Label(window_AddSample, text = "Country of Origin", font = myFont, bg = "cadet blue").grid(row = 6)
     originCountry = tk.Entry(window_AddSample)
     originCountry.grid(row = 6, column = 1)
 
-    tk.Label(window_AddSample, text = "Collection Date").grid(row = 7)
+    tk.Label(window_AddSample, text = "Collection Date", font = myFont, bg = "cadet blue").grid(row = 7)
     collectionDate = DateEntry(window_AddSample)
     collectionDate.grid(row = 7, column = 1)
 
@@ -193,46 +197,46 @@ def AddSample_Window(conn):
 
     sampleHistory = "INSERT REFERENCE HERE"
 
-    tk.Label(window_AddSample, text = "Age of Subject").grid(row = 8)
+    tk.Label(window_AddSample, text = "Age of Subject", font = myFont, bg = "cadet blue").grid(row = 8)
     subjectAge = tk.Entry(window_AddSample)
     subjectAge.grid(row = 8, column = 1)
 
-    tk.Label(window_AddSample, text = "Tube Minimum Temperature").grid(row = 9)
+    tk.Label(window_AddSample, text = "Tube Minimum Temperature", font = myFont, bg = "cadet blue").grid(row = 9)
     tubeRating = tk.Entry(window_AddSample)
     tubeRating.grid(row = 9, column = 1)
 
-    tk.Label(window_AddSample, text = "Collection Title").grid(row = 10)
+    tk.Label(window_AddSample, text = "Collection Title", font = myFont, bg = "cadet blue").grid(row = 10)
     valuesList = GetCollectionTitles()
     collectionTitle = ttk.Combobox(window_AddSample, state="readonly", values = valuesList) 
     collectionTitle.grid(row = 10, column = 1)
 
-    tk.Label(window_AddSample, text = "Return or Destroy?").grid(row = 11)
+    tk.Label(window_AddSample, text = "Return or Destroy?", font = myFont, bg = "cadet blue").grid(row = 11)
     returnType = ttk.Combobox(window_AddSample, state="readonly", values=["Return", "Destroy"])
     returnType.grid(row = 11, column = 1)
 
-    tk.Label(window_AddSample, text = "Date of Return/Destroy").grid(row = 12)
+    tk.Label(window_AddSample, text = "Date of Return/Destroy", font = myFont, bg = "cadet blue").grid(row = 12)
     returnDate = DateEntry(window_AddSample)
     returnDate.grid(row = 12, column = 1)
 
-    tk.Label(window_AddSample, text = "Phenotype Value").grid(row = 13)
+    tk.Label(window_AddSample, text = "Phenotype Value", font = myFont, bg = "cadet blue").grid(row = 13)
     phenotypeValue = tk.Entry(window_AddSample)
     phenotypeValue.grid(row = 13, column = 1)
 
-    tk.Label(window_AddSample, text = "Disease State Value").grid(row = 14)
+    tk.Label(window_AddSample, text = "Disease State Value", font = myFont, bg = "cadet blue").grid(row = 14)
     diseaseState = tk.Entry(window_AddSample)
     diseaseState.grid(row = 14, column = 1)
 
     tk.Button(window_AddSample, text = 'Print Sample to Console', 
                         command = console_PrintSample).grid(row = 15, column=1)
 
-    tk.Button(window_AddSample, text = 'Add Sample', command = CreateSample).grid(row = 16, column=1)
+    tk.Button(window_AddSample, text = 'Add Sample', command = CreateSample, font=myFont).grid(row = 16, column=1)
 
-    tk.Button(window_AddSample, text = 'Suggest Box', command = Open_SuggestBox).grid(row = 1, column=3)
+    tk.Button(window_AddSample, text = 'Suggest Box', command = Open_SuggestBox, font=myFont).grid(row = 1, column=3)
 
-    tk.Button(window_AddSample, text = 'Add New Collection', command = Open_AddNewCollection_Window).grid(row = 10, column=3)
+    tk.Button(window_AddSample, text = 'Add New Collection', command = Open_AddNewCollection_Window, font=myFont).grid(row = 10, column=3)
 
     tk.Button(window_AddSample, text = 'Back to Sample Menu', 
-                        command = Open_MainSample_Window).grid(row = 17, column=1)
+                        command = Open_MainSample_Window, font=myFont).grid(row = 17, column=1)
 
     window_AddSample.mainloop()
 ##########---------->END: WINDOW FOR ADDING SAMPLE<----------##########
@@ -260,26 +264,30 @@ def AddSampleTest_Window(conn):
     window_AddSampleTest = tk.Tk()
     #window_AddSampleTest.geometry("300x300")
     window_AddSampleTest.title("ADD SAMPLE TEST")
-    window_AddSampleTest["bg"] = 'yellow'
+    window_AddSampleTest["bg"] = 'cadet blue'
 
-    tk.Label(window_AddSampleTest, text = "Sample ID").grid(row = 0)
+    text = tk.Text(window_AddSampleTest)
+    myFont = Font(family="fixedsys", size = 12)
+    text.configure(font=myFont)
+
+    tk.Label(window_AddSampleTest, text = "Sample ID", font=myFont, bg="cadet blue").grid(row = 0)
     sampleID = tk.Entry(window_AddSampleTest)
     sampleID.grid(row = 0, column = 1)
 
-    tk.Label(window_AddSampleTest, text = "Test Type").grid(row = 1)
+    tk.Label(window_AddSampleTest, text = "Test Type", font=myFont, bg="cadet blue").grid(row = 1)
     testType = tk.Entry(window_AddSampleTest)
     testType.grid(row = 1, column = 1)
 
-    tk.Label(window_AddSampleTest, text = "Test Result").grid(row = 2)
+    tk.Label(window_AddSampleTest, text = "Test Result", font=myFont, bg="cadet blue").grid(row = 2)
     testResult = tk.Entry(window_AddSampleTest)
     testResult.grid(row = 2, column = 1)
 
     tk.Button(window_AddSampleTest, text = 'Print Sample Test to Console', 
-                        command = console_PrintSampleTest).grid(row = 3, column=1)
-    tk.Button(window_AddSampleTest, text = 'Add Sample Test', command = CreateSampleTest).grid(row = 4, column=1)
+                        command = console_PrintSampleTest, font=myFont).grid(row = 3, column=1)
+    tk.Button(window_AddSampleTest, text = 'Add Sample Test', command = CreateSampleTest, font=myFont).grid(row = 4, column=1)
 
     tk.Button(window_AddSampleTest, text = 'Back to Sample Menu', 
-                        command = Open_MainSample_Window).grid(row = 5, column=1)
+                        command = Open_MainSample_Window, font=myFont).grid(row = 5, column=1)
 
     window_AddSampleTest.mainloop()
 ##########---------->END: WINDOW FOR ADDING SAMPLE<----------##########
@@ -307,33 +315,37 @@ def MoveSample_Window(conn):
     window_MoveSample = tk.Tk()
     #window_MoveSample.geometry("300x300")
     window_MoveSample.title("MOVE SAMPLE")
-    window_MoveSample["bg"] = 'red'
+    window_MoveSample["bg"] = 'cadet blue'
 
-    tk.Label(window_MoveSample, text = "Move sample with SampleID:").grid(row = 0)
+    text = tk.Text(window_MoveSample)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    tk.Label(window_MoveSample, text = "Move sample with SampleID:", font=myFont, bg="cadet blue").grid(row = 0)
     sampleID = tk.Entry(window_MoveSample)
     sampleID.grid(row = 0, column = 1)
 
-    tk.Label(window_MoveSample, text = "To box with BoxID:").grid(row = 1)
+    tk.Label(window_MoveSample, text = "To box with BoxID:", font=myFont, bg="cadet blue").grid(row = 1)
     boxID = tk.Entry(window_MoveSample)
     boxID.grid(row = 1, column = 1)
 
-    tk.Label(window_MoveSample, text = "Box X position:").grid(row = 2)
+    tk.Label(window_MoveSample, text = "Box X position:", font=myFont, bg="cadet blue").grid(row = 2)
     boxX = tk.Entry(window_MoveSample)
     boxX.grid(row = 2, column = 1)
 
-    tk.Label(window_MoveSample, text = "Box Y position:").grid(row = 3)
+    tk.Label(window_MoveSample, text = "Box Y position:", font=myFont, bg="cadet blue").grid(row = 3)
     boxY = tk.Entry(window_MoveSample)
     boxY.grid(row = 3, column = 1)
 
-    tk.Label(window_MoveSample, text = "Box Z position:").grid(row = 4)
+    tk.Label(window_MoveSample, text = "Box Z position:", font=myFont, bg="cadet blue").grid(row = 4)
     boxZ = tk.Entry(window_MoveSample)
     boxZ.grid(row = 4, column = 1)
 
-    tk.Button(window_MoveSample, text = 'Move Sample', command = MoveSample).grid(row = 5, column=1)
+    tk.Button(window_MoveSample, text = 'Move Sample', command = MoveSample, font=myFont).grid(row = 5, column=1)
     tk.Button(window_MoveSample, text = 'Back to Sample Menu', 
-                        command = Open_MainSample_Window).grid(row = 10, column=1)
+                        command = Open_MainSample_Window, font=myFont).grid(row = 10, column=1)
 
-    tk.Button(window_MoveSample, text = 'Suggest Box', command = Open_SuggestBox_Window).grid(row = 1, column=3)
+    tk.Button(window_MoveSample, text = 'Suggest Box', command = Open_SuggestBox_Window, font=myFont).grid(row = 1, column=3)
 
     window_MoveSample.mainloop()
 ##########---------->END: WINDOW FOR MOVING SAMPLE<----------##########
@@ -352,15 +364,19 @@ def DeleteSample_Window(conn):
     window_DeleteSample = tk.Tk()
     #window_DeleteSample.geometry("300x300")
     window_DeleteSample.title("DELETE SAMPLE")
-    window_DeleteSample["bg"] = 'red'
+    window_DeleteSample["bg"] = 'cadet blue'
 
-    tk.Label(window_DeleteSample, text = "Delete sample with SampleID: ").grid(row = 0)
+    text = tk.Text(window_DeleteSample)
+    myFont = Font(family="fixedsys",size=12)
+    text.configure(font=myFont)
+
+    tk.Label(window_DeleteSample, text = "Delete sample with SampleID: ", font=myFont, bg="cadet blue").grid(row = 0)
     sampleID = tk.Entry(window_DeleteSample)
     sampleID.grid(row = 0, column = 1)
 
-    tk.Button(window_DeleteSample, text = 'Delete Sample', command = deleteSample).grid(row = 5, column=1)
+    tk.Button(window_DeleteSample, text = 'Delete Sample', command = deleteSample, font=myFont).grid(row = 5, column=1)
     tk.Button(window_DeleteSample, text = 'Back to Sample Menu', 
-                        command = Open_MainSample_Window).grid(row = 10, column=1)
+                        command = Open_MainSample_Window, font=myFont).grid(row = 10, column=1)
 
     window_DeleteSample.mainloop()
 ##########---------->END: WINDOW FOR DELETING SAMPLE<----------##########
@@ -372,6 +388,11 @@ def MainSample_Window(conn):
     window_MainSample = tk.Tk()
     window_MainSample.geometry("300x300")
     window_MainSample.title("SAMPLE MENU")
+    window_MainSample["bg"]='cadet blue'
+
+    text = tk.Text(window_MainSample)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
 
     def Open_AddSample_Window():
         window_MainSample.destroy()
@@ -393,20 +414,22 @@ def MainSample_Window(conn):
         window_MainSample.destroy()
         Main_UI.Edit_Window(conn)
 
+    tk.Label(window_MainSample, text="", width=6, height=1, bg='cadet blue').grid(row=0,column=1)
     tk.Button(window_MainSample, text = 'Add Sample', 
-                        command = Open_AddSample_Window).grid(row = 0, column=0)
-
+                        command = Open_AddSample_Window, font=myFont).grid(row = 1, column=1, sticky="ew")
+    tk.Label(window_MainSample, text="", width=6, height=1, bg='cadet blue').grid(row=2, column=0)
     tk.Button(window_MainSample, text = 'Move Sample', 
-                        command = Open_MoveSample_Window).grid(row = 2, column=0)
-
+                        command = Open_MoveSample_Window, font=myFont).grid(row = 3, column=1, sticky="ew")
+    tk.Label(window_MainSample, text="", width=6, height=1, bg='cadet blue').grid(row=4, column=0)
     tk.Button(window_MainSample, text = 'Delete Sample', 
-                        command = Open_DeleteSample_Window).grid(row = 3, column=0)
-
+                        command = Open_DeleteSample_Window, font=myFont).grid(row =5, column=1, sticky="ew")
+    tk.Label(window_MainSample, text="", width=6, height=1, bg='cadet blue').grid(row=6, column=0)
     tk.Button(window_MainSample, text = 'Add Sample Test', 
-                        command = Open_SampleTest_Window).grid(row = 4, column=0)
-
+                        command = Open_SampleTest_Window, font=myFont).grid(row = 7, column=1, sticky="ew")
+    tk.Label(window_MainSample, text="", width=6, height=1, bg='cadet blue').grid(row=8, column=0)
     tk.Button(window_MainSample, text = 'Back to Edit Menu', 
-                        command = Open_MainMenu_Window).grid(row = 5, column=0)
+                        command = Open_MainMenu_Window, font=myFont).grid(row = 9, column=1, sticky="ew")
+    tk.Label(window_MainSample, text="", width=6, height=1, bg='cadet blue').grid(row=10, column=0)
 
     window_MainSample.mainloop()
 ##########---------->END: MAIN WINDOW FOR SAMPLES<----------##########

@@ -151,7 +151,7 @@ def DeleteBox_Window(conn):
         MainBox_Window(conn)
 
     window_DeleteBox = tk.Tk()
-    # window_DeleteBox.geometry("300x300")
+    #window_DeleteBox.geometry("300x300")
     window_DeleteBox.title("DELETE BOX")
     window_DeleteBox["bg"] = 'cadet blue'
     
@@ -174,7 +174,7 @@ def DeleteBox_Window(conn):
 ##########---------->START: MAIN WINDOW FOR BOXES<----------##########
 def MainBox_Window(conn):
     window_MainBox = tk.Tk()
-    #window_MainBox.geometry("300x300")
+    window_MainBox.geometry("300x250")
     window_MainBox.title("BOX MENU")
     window_MainBox["bg"] = 'cadet blue'
     
