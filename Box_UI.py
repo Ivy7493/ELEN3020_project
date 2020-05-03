@@ -110,8 +110,6 @@ def AddBox_Window(conn):
 ##########---------->END: WINDOW FOR ADDING BOXES<----------##########
 
 ##########---------->START: WINDOW FOR MOVING BOXES<----------##########
-
-
 def MoveBox_Window(conn):
     def MoveBox():
         try:
@@ -199,60 +197,6 @@ def DeleteBox_Window(conn):
     window_DeleteBox.mainloop()
 ##########---------->END: WINDOW FOR DELETING BOXES<----------##########
 
-##########---------->START: WINDOW FOR SEARCHING BOXES<------##########
-def SearchBox_Window(conn):
-    window_SearchBox = tk.Tk()
-    window_SearchBox.title("SEARCH BOX WINDOW")
-    #window_SearchBox.geometry("400x250")
-    window_SearchBox["bg"] = 'cadet blue'
-    
-    text = tk.Text(window_SearchBox)
-    myFont = Font(family="fixedsys", size=12)
-    text.configure(font=myFont)
-
-    #--------------------
-    def Open_AllBoxes():
-        DisplayBoxes.OpenAllBoxes(conn)
-
-    displayBoxesButton = tk.Button(window_SearchBox, text='Display All Boxes', command=Open_AllBoxes, font = myFont)
-    displayBoxesButton.grid(row=1, column=2, sticky = "ew")
-    #--------------------
-    searchLabel1 = tk.Label(window_SearchBox, text = 'Box ID:', anchor = "w", font = myFont, bg = 'cadet blue').grid(row=3, column = 1, sticky = "ew")
-    searchField1 = tk.Entry(window_SearchBox)
-    searchField1.grid(row=3, column=2, sticky = "ew")
-    
-    def runDisplayBoxes():
-        DisplayBoxes.OpenBoxIDSearch(conn, searchField1.get())
-
-    searchButton1 = tk.Button(window_SearchBox, text='Search', command= runDisplayBoxes, font = myFont)
-    searchButton1.grid(row=3, column=3, sticky = "ew")
-    #--------------------
-    searchLabel2 = tk.Label(window_SearchBox, text = 'Fridge ID:', anchor = "w", font = myFont, bg = 'cadet blue').grid(row = 4, column = 1, sticky = "ew")
-    searchField2 = tk.Entry(window_SearchBox)
-    searchField2.grid(row=4, column=2, sticky = "ew")
-
-    def runDisplayFridgeID():
-    	DisplayBoxes.OpenFridgeIDSearch(conn, searchField2.get())
-
-    searchButton2 = tk.Button(window_SearchBox, text = 'Search', command=runDisplayFridgeID, font = myFont)
-    searchButton2.grid(row=4, column=3, sticky = "ew")
-    #--------------------
-    def Open_MainMenu_Window():
-        window_SearchBox.destroy()
-        MainBox_Window(conn)
-
-    ReturnButton = tk.Button(window_SearchBox, text='Back to Box Menu', command=Open_MainMenu_Window, font = myFont).grid(row=6, column=2)
-    #--------------------
-
-    tk.Label(window_SearchBox, height = 1, width = 2, bg="cadet blue").grid(row =0, column =0)
-    tk.Label(window_SearchBox, height = 1, width = 2, bg="cadet blue").grid(row =2, column =0)
-    tk.Label(window_SearchBox, height = 1, width = 2, bg="cadet blue").grid(row =5, column =0)
-    tk.Label(window_SearchBox, height = 1, width = 2, bg="cadet blue").grid(row =7, column = 4)
-
-    window_SearchBox.mainloop()
-
-##########---------->END: WINDOW FOR SEARCHING BOXES<------##########
-
 ##########---------->START: MAIN WINDOW FOR BOXES<----------##########
 def MainBox_Window(conn):
     window_MainBox = tk.Tk()
@@ -262,10 +206,6 @@ def MainBox_Window(conn):
     text = tk.Text(window_MainBox)
     myFont = Font(family="fixedsys", size=12)
     text.configure(font=myFont)
-
-    def Open_SearchBox_Window():
-        window_MainBox.destroy()
-        SearchBox_Window(conn)
 
     def Open_AddBox_Window():
         window_MainBox.destroy()
@@ -286,15 +226,13 @@ def MainBox_Window(conn):
     tk.Button(window_MainBox, text='Add Box', command=Open_AddBox_Window, font = myFont).grid(row=1, column=1, sticky = "ew")
     tk.Button(window_MainBox, text='Move Box', command=Open_MoveBox_Window, font = myFont).grid(row=3, column=1, sticky = "ew")
     tk.Button(window_MainBox, text='Delete Box', command=Open_DeleteBox_Window, font = myFont).grid(row=5, column=1, sticky = "ew")
-    tk.Button(window_MainBox, text='Search Box', command=Open_SearchBox_Window, font = myFont).grid(row=7, column=1, sticky = "ew")
-    tk.Button(window_MainBox, text='Back to Edit Menu', command=Open_MainMenu_Window, font = myFont).grid(row=9, column=1, sticky = "ew")
+    tk.Button(window_MainBox, text='Back to Edit Menu', command=Open_MainMenu_Window, font = myFont).grid(row=7, column=1, sticky = "ew")
 
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 0, column = 0)
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 2, column = 0)
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 4, column = 0)
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 6, column = 0)
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 8, column = 0)
-    tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 10, column = 2)
 
     window_MainBox.mainloop()
 ##########---------->END: MAIN WINDOW FOR BOXES<----------##########

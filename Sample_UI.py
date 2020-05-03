@@ -7,6 +7,7 @@ import time
 import datetime
 from tkinter.font import Font
 from tkinter import messagebox
+from tkinter.font import Font
 from tkinter import ttk
 from datetime import date
 from tkinter import *
@@ -111,10 +112,6 @@ def AddSample_Window(conn):
             except:
                 MessagePopup("ERROR: Invalid data entered", "Add Sample")
 
-    def RefreshCollectionTitlesList():
-        valuesList = GetCollectionTitles()
-        collectionTitle['values'] = valuesList 
-        
     def Open_MainSample_Window():
         window_AddSample.destroy()
         MainSample_Window(conn)

@@ -148,7 +148,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel1 = tk.Label(window_SampleSearch, text = 'Sample ID:', anchor = "w", font=myFont, bg='cadet blue').grid(row=3, column =1)
-	searchField1 = tk.Entry(window_SampleSearch).grid(row = 3, column = 2, sticky = "ew")
+	searchField1 = tk.Entry(window_SampleSearch)
+	searchField1.grid(row = 3, column = 2, sticky = "ew")
 
 	def runDisplaySamples():
 		DisplaySamples.OpenSampleSearch(conn, searchField1.get())
@@ -162,7 +163,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel2 = tk.Label(window_SampleSearch, text = 'Box ID:', anchor = "w", font=myFont, bg='cadet blue').grid(row=4, column =1)
-	searchField2 = tk.Entry(window_SampleSearch).grid(row = 4, column = 2, sticky = "ew")
+	searchField2 = tk.Entry(window_SampleSearch)
+	searchField2.grid(row = 4, column = 2, sticky = "ew")
 
 	def runDisplayBoxID():
 		DisplaySamples.OpenBoxIDSearch(conn, searchField2.get())
@@ -176,7 +178,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel3 = tk.Label(window_SampleSearch, text = 'Sample Type:', anchor = "w", font=myFont, bg='cadet blue').grid(row=5, column =1)
-	searchField3 = tk.Entry(window_SampleSearch).grid(row = 5, column = 2, sticky = "ew")
+	searchField3 = tk.Entry(window_SampleSearch)
+	searchField3.grid(row = 5, column = 2, sticky = "ew")
 
 	def runDisplaySampleType():
 		DisplaySamples.OpenSampleTypeSearch(conn, searchField3.get())
@@ -190,7 +193,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel4 = tk.Label(window_SampleSearch, text = 'Country of Origin:', anchor = "w", font=myFont, bg='cadet blue').grid(row=6, column =1)
-	searchField4 = tk.Entry(window_SampleSearch).grid(row = 6, column = 2, sticky = "ew")
+	searchField4 = tk.Entry(window_SampleSearch)
+	searchField4.grid(row = 6, column = 2, sticky = "ew")
 
 	def runOriginCountrySearch():
 		DisplaySamples.OpenOriginCountrySearch(conn, searchField4.get())
@@ -204,7 +208,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel5 = tk.Label(window_SampleSearch, text = 'Collection Date:', anchor = "w", font=myFont, bg='cadet blue').grid(row=7, column =1)
-	searchField5 = tk.Entry(window_SampleSearch).grid(row = 7, column = 2, sticky = "ew")
+	searchField5 = tk.Entry(window_SampleSearch)
+	searchField5.grid(row = 7, column = 2, sticky = "ew")
 
 	def runCollectionDateSearch():
 		DisplaySamples.OpenCollectionDateSearch(conn, searchField5.get())
@@ -217,7 +222,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel6 = tk.Label(window_SampleSearch, text = 'Entry Date:', anchor = "w", font=myFont, bg='cadet blue').grid(row=8, column =1)
-	searchField6 = tk.Entry(window_SampleSearch).grid(row = 8, column = 2, sticky = "ew")
+	searchField6 = tk.Entry(window_SampleSearch)
+	searchField6.grid(row = 8, column = 2, sticky = "ew")
 
 	def runEntryDateSearch():
 		DisplaySamples.OpenEntryDateSearch(conn, searchField6.get())
@@ -231,7 +237,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel7 = tk.Label(window_SampleSearch, text = 'Subject Age:', anchor = "w", font=myFont, bg='cadet blue').grid(row=9, column =1)
-	searchField7 = tk.Entry(window_SampleSearch).grid(row = 9, column = 2, sticky = "ew")
+	searchField7 = tk.Entry(window_SampleSearch)
+	searchField7.grid(row = 9, column = 2, sticky = "ew")
 
 	def runDisplaySubjectAge():
 		DisplaySamples.OpenSubjectAgeSearch(conn, searchField7.get())
@@ -245,7 +252,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel8 = tk.Label(window_SampleSearch, text = 'Tube Rating:', anchor = "w", font=myFont, bg='cadet blue').grid(row=10, column =1)
-	searchField8 = tk.Entry(window_SampleSearch).grid(row = 10, column = 2, sticky = "ew")
+	searchField8 = tk.Entry(window_SampleSearch)
+	searchField8.grid(row = 10, column = 2, sticky = "ew")
 
 	def runDisplayTubeRating():
 		DisplaySamples.OpenTubeRatingSearch(conn, searchField8.get())
@@ -258,7 +266,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel9 = tk.Label(window_SampleSearch, text = 'Collection Title:', anchor = "w", font=myFont, bg='cadet blue').grid(row=11, column =1)
-	searchField9 = tk.Entry(window_SampleSearch).grid(row = 11, column = 2, sticky = "ew")
+	searchField9 = tk.Entry(window_SampleSearch)
+	searchField9.grid(row = 11, column = 2, sticky = "ew")
 
 	def runDisplayCollectionTitle():
 		DisplaySamples.OpenCollectionTitleSearch(conn, searchField9.get())
@@ -272,7 +281,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel10 = tk.Label(window_SampleSearch, text = 'Return Type:', anchor = "w", font=myFont, bg='cadet blue').grid(row=12, column =1)
-	searchField10 = tk.Entry(window_SampleSearch).grid(row = 12, column = 2, sticky = "ew")
+	searchField10 = tk.Entry(window_SampleSearch)
+	searchField10.grid(row = 12, column = 2, sticky = "ew")
 
 	def runDisplayReturnType():
 		DisplaySamples.OpenReturnTypeSearch(conn, searchField10.get())
@@ -286,7 +296,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel11 = tk.Label(window_SampleSearch, text = 'Return Date:', anchor = "w", font=myFont, bg='cadet blue').grid(row=13, column =1)
-	searchField11 = tk.Entry(window_SampleSearch).grid(row = 13, column = 2, sticky = "ew")
+	searchField11 = tk.Entry(window_SampleSearch)
+	searchField11.grid(row = 13, column = 2, sticky = "ew")
 
 	def runDisplayReturnDate():
 		DisplaySamples.OpenReturnDateSearch(conn, searchField11.get())
@@ -301,7 +312,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel12 = tk.Label(window_SampleSearch, text = 'Phenotype Value:', anchor = "w", font=myFont, bg='cadet blue').grid(row=14, column =1)
-	searchField12 = tk.Entry(window_SampleSearch).grid(row = 14, column = 2, sticky = "ew")
+	searchField12 = tk.Entry(window_SampleSearch)
+	searchField12.grid(row = 14, column = 2, sticky = "ew")
 
 	def runDisplayPhenotypeValue():
 		DisplaySamples.OpenPhenotypeValueSearch(conn, searchField12.get())
@@ -316,7 +328,8 @@ def SearchSample_Window(conn):
 
 	#--------------------------------
 	searchLabel13 = tk.Label(window_SampleSearch, text = 'Disease State:', anchor = "w", font=myFont, bg='cadet blue').grid(row=15, column =1)
-	searchField13 = tk.Entry(window_SampleSearch).grid(row = 15, column = 2, sticky = "ew")
+	searchField13 = tk.Entry(window_SampleSearch)
+	searchField13.grid(row = 15, column = 2, sticky = "ew")
 
 	def runDisplayDiseaseState():
 		DisplaySamples.OpenDiseaseStateSearch(conn, searchField13.get())
