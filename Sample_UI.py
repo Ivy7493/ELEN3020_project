@@ -95,8 +95,8 @@ def AddSample_Window(conn):
         window_Collection["bg"] = 'cadet blue'
 
         text = tk.Text(window_SuggestBox)
-    	myFont = Font(family="fixedsys", size=12)
-    	text.configure(font=myFont)
+        myFont = Font(family="fixedsys", size=12)
+        text.configure(font=myFont)
 
         tk.Label(window_Collection, text = "Collection Title", font = myFont, bg = 'cadet blue').grid(row = 0)
         newCollectionTitle = tk.Entry(window_Collection)
