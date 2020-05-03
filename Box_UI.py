@@ -232,7 +232,7 @@ def MainBox_Window(conn):
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 2, column = 0)
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 4, column = 0)
     tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 6, column = 0)
-    tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 8, column = 0)
+    tk.Label(window_MainBox, height = 1, width = 6, bg ='cadet blue').grid(row = 8, column = 2)
 
     window_MainBox.mainloop()
 ##########---------->END: MAIN WINDOW FOR BOXES<----------##########
