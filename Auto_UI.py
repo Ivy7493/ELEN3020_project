@@ -59,6 +59,7 @@ def AddSamples(conn):
 
     def Cancel():
         window_Check.destroy()
+        Main_Window(conn)
 
     btn1 = tk.Button(window_Check, text = 'Yes', command = Confirm, font=myFont)
     btn1.grid(row = 3, column=0)
