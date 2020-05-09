@@ -80,24 +80,26 @@ def BoxLog(_conn, _boxID, _fridgeID):
 
 
 def MoveBox(_conn, _boxID, _fridgeID, _fridgeX, _fridgeY):
-    fridgePosFree = IsFridgePositionFree(_conn, _fridgeID, _fridgeX, _fridgeY)
-    if DoesIDExist(_conn, "FRIDGE", _fridgeID) == "TRUE" and DoesIDExist(_conn, "BOX", _boxID) == "TRUE" and fridgePosFree == "TRUE":
-        if IsFridgeFull(_conn, _fridgeID) == "TRUE":
-            return ("Fridge: " + _fridgeID + " is full, please select another box!")
-        else:
-            c = _conn.cursor()
-            c.execute("UPDATE BoxTable SET fridgeID =?, fridgeX =?, fridgeY =? WHERE boxID =?",(_fridgeID, _fridgeX, _fridgeY, _boxID,))
-            _conn.commit()
-            stringMessage = "Box: " + _boxID + " was moved to fridge: " + _fridgeID + " (" + str(_fridgeX) + "," + str(_fridgeY) + ")"
-            LoggingAPI.Log(_conn, stringMessage)
-            BoxLog(_conn, _boxID, _fridgeID)
-            return (stringMessage)
+    if DoesIDExist(_conn, "FRIDGE", _fridgeID) == "TRUE" and DoesIDExist(_conn, "BOX", _boxID) == "TRUE" :
+        fridgePosFree = IsFridgePositionFree(_conn, _fridgeID, _fridgeX, _fridgeY)
+        if fridgePosFree == "TRUE":
+            if IsFridgeFull(_conn, _fridgeID) == "TRUE":
+                return ("Fridge: " + _fridgeID + " is full, please select another box!")
+            else:
+                c = _conn.cursor()
+                c.execute("UPDATE BoxTable SET fridgeID =?, fridgeX =?, fridgeY =? WHERE boxID =?",(_fridgeID, _fridgeX, _fridgeY, _boxID,))
+                _conn.commit()
+                stringMessage = "Box " + _boxID + " was moved to Fridge " + _fridgeID + " (" + str(_fridgeX) + "," + str(_fridgeY) + ")"
+                LoggingAPI.Log(_conn, stringMessage)
+                BoxLog(_conn, _boxID, _fridgeID)
+                return (stringMessage)
+        elif fridgePosFree != "TRUE":
+            return fridgePosFree
     elif DoesIDExist(_conn, "FRIDGE", _fridgeID) == "FALSE":
-        return "FridgeID: " + _fridgeID + " does not exist!" 
+        return "Fridge ID " + _fridgeID + " does not exist" 
     elif DoesIDExist(_conn, "BOX", _boxID) == "FALSE":
-        return "BoxID: " + _boxID + " does not exist!" 
-    elif fridgePosFree != "TRUE":
-        return fridgePosFree
+        return "Box ID " + _boxID + " does not exist" 
+    
 
 
 def AddBox(_conn, _boxID, _fridgeID, _fridgeX, _fridgeY, _boxX, _boxY, _boxZ):
@@ -119,32 +121,42 @@ def AddBox(_conn, _boxID, _fridgeID, _fridgeX, _fridgeY, _boxX, _boxY, _boxZ):
 def AddSample(_conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState):
     try:
         c = _conn.cursor()
-        boxPosFree = IsBoxPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ)
-        if boxPosFree == "TRUE":
-            c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, subjectAge, tubeRating, collectionTitle, returnType, returnDate, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState))
-            _conn.commit()
-            
-            _FridgeID = ReturnFridgeSampleIn(_conn,_sampleID)
-            fridgeTemp = ReturnTempOfFridge(_conn,_FridgeID) 
-            stringMessage = ("Added new sample: " + _sampleID + " to box " + _boxID + "(" + str(_boxX) + "," + str(_boxY) + "," + str(_boxZ) + ") in fridge: " + _FridgeID + " (temperature = " + fridgeTemp + ")")
+        checkCollection = CheckCollection(_conn, _collectionTitle)
+        if checkCollection == "TRUE":
+            checkBox = DoesIDExist(_conn, "BOX", _boxID)
+            if checkBox == "TRUE":
+                boxPosFree = IsBoxPositionFree(_conn, _boxID, _boxX, _boxY, _boxZ)
+                if boxPosFree == "TRUE":
+                    c.execute("INSERT INTO SampleTable(sampleID , boxID, boxX, boxY, boxZ, sampleType, originCountry, collectionDate, entryDate, subjectAge, tubeRating, collectionTitle, returnType, returnDate, phenotypeValue, diseaseState) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(_sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState))
+                    _conn.commit()
+                    
+                    _FridgeID = ReturnFridgeSampleIn(_conn,_sampleID)
+                    fridgeTemp = ReturnTempOfFridge(_conn,_FridgeID) 
+                    stringMessage = ("Added new sample: " + _sampleID + " to box " + _boxID + "(" + str(_boxX) + "," + str(_boxY) + "," + str(_boxZ) + ") in fridge: " + _FridgeID + " (temperature = " + fridgeTemp + ")")
 
-            LoggingAPI.IndividualLog(_conn, stringMessage, _sampleID)
-            LoggingAPI.Log(_conn, stringMessage) 
-            return ("Successfully added sample " + _sampleID)             
+                    LoggingAPI.IndividualLog(_conn, stringMessage, _sampleID)
+                    LoggingAPI.Log(_conn, stringMessage) 
+                    return ("Successfully added sample " + _sampleID)             
+                else:
+                    return (boxPosFree + " in box " + _boxID)
+            else:
+                return "Box " + _boxID + " does not exist"
         else:
-            return (boxPosFree + " in box: " + _boxID)
-           
+            return(checkCollection)
     except sqlite3.Error as error:
         return error
 
 def AddSampleTest(_conn, _sampleID, _testType, _testResult):
     try:
-        c = _conn.cursor()
-        c.execute("INSERT INTO SampleTestTable (sampleID, testType, testResult) VALUES (?, ?, ?)",(_sampleID, _testType, _testResult))
-        _conn.commit()
-        LoggingAPI.IndividualLog(_conn, "Added new test: " + _testType + " to sample: " + _sampleID, _sampleID)
-        return("Successfully added Sample Test for " + _sampleID)
-
+        checkSample = DoesIDExist(_conn, "SAMPLE", _sampleID)
+        if checkSample == "TRUE":
+            c = _conn.cursor()
+            c.execute("INSERT INTO SampleTestTable (sampleID, testType, testResult) VALUES (?, ?, ?)",(_sampleID, _testType, _testResult))
+            _conn.commit()
+            LoggingAPI.IndividualLog(_conn, "Added new test: " + _testType + " to sample: " + _sampleID, _sampleID)
+            return("Successfully added sample test for sample ID " + _sampleID)
+        else:
+            return "Sample ID " + _sampleID + " does not exist - cannot add sample test"
     except sqlite3.Error as error:
         return(error)
 
@@ -171,7 +183,7 @@ def IsFridgePositionFree(_conn, _fridgeID, _posX, _posY):
     result = c.fetchone()
     fridgeX = result[2]
     fridgeY = result[3]
-    if _posY <= fridgeX and _posY <= fridgeY and _posX >= 1 and _posY >= 1:
+    if _posX <= fridgeX and _posY <= fridgeY and _posX >= 1 and _posY >= 1:
         c.execute("SELECT * FROM BoxTable WHERE fridgeID=? AND fridgeX=? AND fridgeY=?", (_fridgeID, _posX, _posY,))
         localResults = c.fetchall()
         count = 0;
@@ -206,35 +218,37 @@ def IsBoxPositionFree(_conn, _boxID, _posX, _posY, _posZ):
     elif _posX > boxX or _posX < 1:
         return "Invalid X location"
     elif _posY > boxY or _posY < 1:
-        return "Invalid Y Location"
+        return "Invalid Y location"
     elif _posZ > boxZ or _posZ < 1:
-        return "Invalid Z Location"
+        return "Invalid Z location"
 
 def MoveSample(_conn, _sampleID, _boxID, _posX , _posY, _posZ):
     c = _conn.cursor()
-    boxPosFree = IsBoxPositionFree(_conn, _boxID, _posX, _posY, _posZ)
+    checkSample = DoesIDExist(_conn, "SAMPLE", _sampleID)
+    if checkSample == "TRUE":
+        checkBox = DoesIDExist(_conn, "BOX", _boxID)
+        if checkBox == "TRUE":
+            if IsBoxFull(_conn, _boxID) == "TRUE":
+                return("Box " + _boxID + " is full - please select another box")
+            else: 
+                boxPosFree = IsBoxPositionFree(_conn, _boxID, _posX, _posY, _posZ)
+                if boxPosFree == "TRUE":
+                    c.execute("UPDATE SampleTable SET boxID=?, boxX=?, boxY=?, boxZ=? WHERE sampleID=?", (_boxID,_posX,_posY,_posZ,_sampleID,))
+                    _conn.commit()
+                
+                    _fridgeID = ReturnFridgeSampleIn(_conn, _sampleID)
+                    _fridgeTemp = ReturnTempOfFridge(_conn, _fridgeID)
+                    stringMessage = ("Sample: " + _sampleID + " was moved into Box " + _boxID + " in Fridge " + _fridgeID + " with temperature of " + _fridgeTemp)
+                    LoggingAPI.IndividualLog(_conn, stringMessage, _sampleID)
+                    LoggingAPI.Log(_conn, stringMessage)
+                    return ("Successfully moved Sample ID " + _sampleID + " into Box " + _boxID)
+                else:
+                    return boxPosFree + " in box " + _boxID
+        else:
+            return "Box ID " + _boxID + " does not exist"
+    else:
+        return "Sample ID " + _sampleID + " does not exist"
 
-
-    if IsBoxFull(_conn, _boxID) == "TRUE":
-        return("Box: " + _boxID + " is full, please select another box!")
-    else: 
-        if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE" and DoesIDExist(_conn, "BOX", _boxID) == "TRUE" and boxPosFree == "TRUE":
-            c.execute("UPDATE SampleTable SET boxID=?, boxX=?, boxY=?, boxZ=? WHERE sampleID=?", (_boxID,_posX,_posY,_posZ,_sampleID,))
-            _conn.commit()
-        
-            _fridgeID = ReturnFridgeSampleIn(_conn, _sampleID)
-            _fridgeTemp = ReturnTempOfFridge(_conn, _fridgeID)
-            stringMessage = ("Sample: " + _sampleID + " was moved into box: " + _boxID + " in fridge: " + _fridgeID + " with temperature of: " + _fridgeTemp)
-
-            LoggingAPI.IndividualLog(_conn, stringMessage, _sampleID)
-            LoggingAPI.Log(_conn, stringMessage)
-            return ("Successfully moved sample: " + _sampleID + " into box: " + _boxID)
-        elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
-            return "Sample ID: " + _sampleID + " does not exist!"
-        elif DoesIDExist(_conn, "BOX", _boxID) == "FALSE":
-            return "Box ID: " + _boxID + " does not exist!"
-        elif boxPosFree != "TRUE":
-            return boxPosFree
 
 
 def IsBoxEmpty(_conn , _boxID):
@@ -257,10 +271,10 @@ def DeleteBox(_conn , _boxID):
         c = _conn.cursor()
         c.execute("DELETE FROM BoxTable WHERE boxID=?",(_boxID,))
         _conn.commit()
-        LoggingAPI.Log(_conn, "Box: " + _boxID +  " deleted!")
-        return "Box: " + _boxID +  " succesfully deleted!"
+        LoggingAPI.Log(_conn, "Box " + _boxID +  " deleted")
+        return "Box " + _boxID +  " successfully deleted"
     elif IsBoxEmpty(_conn, _boxID) == "FALSE":
-        return "Box doesn't exist or is not empty! Cannot be deleted"
+        return "Box does not exist or is not empty - cannot be deleted"
 
 def IsFridgeEmpty(_conn, _fridgeID):
     c = _conn.cursor()
@@ -283,9 +297,9 @@ def DeleteFridge(_conn, _fridgeID):
         c.execute("DELETE FROM FridgeTable WHERE fridgeID=?",(_fridgeID,))
         _conn.commit()
         LoggingAPI.Log(_conn, "Fridge: " + _fridgeID +  " deleted!")
-        return "Fridge: " + _fridgeID +  " succesfully deleted!"
+        return "Fridge " + _fridgeID +  " successfully deleted"
     elif IsFridgeEmpty(_conn, _fridgeID) == "FALSE":
-        return "Fridge doesn't exist or is not empty! Cannot be deleted"    
+        return "Fridge does not exist or is not empty - cannot be deleted"    
 
 def DeleteSample(_conn, _sampleID):
     if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE":
@@ -295,14 +309,19 @@ def DeleteSample(_conn, _sampleID):
         _conn.commit()
         LoggingAPI.Log(_conn, "Sample: " + _sampleID +  " deleted!")
         LoggingAPI.IndividualLog(_conn, "Sample: " + _sampleID +  " deleted!", _sampleID)
-        return "Sample: " + _sampleID + " successfully deleted!"
+        return "Sample " + _sampleID + " successfully deleted"
     elif DoesIDExist(_conn, "SAMPLE", _sampleID) == "FALSE":
-        return "Sample ID: " + _sampleID + " does not exist"  
+        return "Sample ID " + _sampleID + " does not exist"  
          
 def DeleteSampleTest(_conn, _sampleID):
-    c = _conn.cursor()
-    c.execute("DELETE FROM SampleTestTable WHERE sampleID=?",(_sampleID,))
-    _conn.commit()
+    checkSample = DoesIDExist(_conn, "SAMPLE", _sampleID)
+    if checkSample == "TRUE":
+        c = _conn.cursor()
+        c.execute("DELETE FROM SampleTestTable WHERE sampleID=?",(_sampleID,))
+        _conn.commit()
+        return "Successfully deleted sample test from sample ID " + _sampleID
+    else:
+        return checkSample + " - cannot delete sample test"
 
 
 def FindEmptyFridge(_conn):
@@ -371,13 +390,17 @@ def DeleteCollection(_conn , _collectionTitle):
     c.execute("SELECT * FROM SampleTable WHERE collectionTitle = ?", (_collectionTitle,))  
     result = c.fetchone()
     if result is None:
-        c.execute("DELETE FROM CollectionTable WHERE collectionTitle=?",(_collectionTitle,))
-        _conn.commit()
-        message =  "Collection: " + _collectionTitle + " successfully deleted!"
-        LoggingAPI.Log(_conn, message)
-        return message
+        checkCollection = CheckCollection(_conn, _collectionTitle)
+        if checkCollection == "TRUE":
+            c.execute("DELETE FROM CollectionTable WHERE collectionTitle=?",(_collectionTitle,))
+            _conn.commit()
+            message =  "Collection " + _collectionTitle + " successfully deleted"
+            LoggingAPI.Log(_conn, message)
+            return message
+        else:
+            return checkCollection + " - cannot be deleted"
     else:
-        return "Collection doesn't exist or it is not empty! Cannot be deleted."
+        return "Collection " + _collectionTitle + " is not empty - cannot be deleted"
         
 
             
