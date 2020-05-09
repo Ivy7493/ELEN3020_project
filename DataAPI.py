@@ -365,6 +365,21 @@ def AddCollection(_conn, _collectionTitle, _donorID, _clientName, _clientPhone, 
 
     except sqlite3.Error as error:
         return(error)
+
+def DeleteCollection(_conn , _collectionTitle):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM SampleTable WHERE collectionTitle = ?", (_collectionTitle,))  
+    result = c.fetchone()
+    if result is None:
+        c.execute("DELETE FROM CollectionTable WHERE collectionTitle=?",(_collectionTitle,))
+        _conn.commit()
+        message =  "Collection: " + _collectionTitle + " successfully deleted!"
+        LoggingAPI.Log(_conn, message)
+        return message
+    else:
+        return "Collection doesn't exist or it is not empty! Cannot be deleted."
+        
+
             
 def GetCollectionTitles(_conn):
     c = _conn.cursor()
@@ -457,6 +472,21 @@ def AddUser(_conn, _username, _password, _accessLevelTemp):
 
     except sqlite3.Error as error:
         return(error)   
+
+def DeleteUser(_conn , _username):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM LoginTable WHERE username = ?", (_username,))  
+    result = c.fetchone()
+    if result is None:
+        message =  "User: " + _username + " doesn't exist! Cannot be deleted."
+        return message
+    else:
+        c.execute("DELETE FROM LoginTable WHERE username=?",(_username,))
+        _conn.commit()
+        message = "User: " + _username + " successfully deleted!"
+        LoggingAPI.Log(_conn, message)
+        return message
+        
 
 def CheckFridge(_conn, _fridgeID):
     result = DoesIDExist(_conn, "FRIDGE", _fridgeID)
