@@ -542,6 +542,19 @@ def CheckCollection(_conn, _collectionID):
         return ("Collection " + _collectionID + " does not exist")
     else:
         return "TRUE"
+
+def CheckReturnStatus(_returnType):
+    if _returnType == "Destroy" or _returnType == "Return":
+        return "TRUE"
+    else:
+        return "FALSE"
+
+def CheckSampleType(_sampleType):
+    print(_sampleType)
+    if _sampleType == "Blood" or _sampleType == "Urine" or _sampleType == "Platelets" or _sampleType == "Skin cells" or _sampleType == "Organ tissue":
+        return "TRUE"
+    else:
+        return "FALSE"
         
         
 
@@ -574,6 +587,12 @@ def CheckValidEntry(_conn, _fileName):
         collectionResult = CheckCollection(_conn, tempCollection)
         if collectionResult != "TRUE":
             return ("Failed at line " + str(count) + ": " + collectionResult)
+        tempReturnType = info[12]
+        if CheckReturnStatus(tempReturnType) != "TRUE":
+            return ("Failed at line " + str(count) + ": " + "return type not of defined set")
+        tempSampleType = info[7]        
+        if CheckSampleType(tempSampleType) != "TRUE":
+            return ("Failed at line " + str(count) + ": " + "sample type not of defined set")
     f.close()   
     return "TRUE"
 
