@@ -79,6 +79,16 @@ def ViewBoxes(conn, _fridgeID):
     myFont = Font(family="fixedsys",size= 12)
     text.configure(font=myFont)
 
+    fridgeID = "Fridge ID: " + str(_fridgeID)
+    fridgeLabel = Label(text = fridgeID, bg = 'cadet blue', font = myFont)
+    fridgeLabel.grid(row = 0, column = 0, columnspan = 2)
+
+    c.execute("SELECT temperature FROM FridgeTable where fridgeID = ?", (_fridgeID,))
+    fridgeTemp = "Temperature: " + str(c.fetchone()[0])
+    fridgeLabel2 = Label(text = fridgeTemp, bg = 'cadet blue', font = myFont)
+    fridgeLabel2.grid(row = 1, column = 0, columnspan = 2)
+
+
     c.execute("SELECT * FROM BoxTable WHERE fridgeID = ?", (_fridgeID,))
     results = c.fetchall()
     count = 0
@@ -91,7 +101,8 @@ def ViewBoxes(conn, _fridgeID):
     
     rowCol = math.sqrt(count)
     
-    myRow = 0
+    
+    myRow = 2
     myCol = 0
 
     def BoxClick(b):
