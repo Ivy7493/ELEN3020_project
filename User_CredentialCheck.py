@@ -5,8 +5,8 @@ import Box_UI
 import Fridge_UI
 import Sample_UI
 import Main_UI
-import Display_Guest_Samples
-import Customer_UI
+import CustomerViewMode_UI
+#import Customer_UI
 
 def Check_Window(conn):
     window_check = Tk()
@@ -73,14 +73,15 @@ def Check_Window(conn):
             Main_UI.Warning_Window(conn)
             Main_UI.Main_Window(conn)
 
-    def openDonorMain(donorNum):
-        window_check.destroy()
-        Display_Guest_Samples.FetchGuestSamples(conn, donorNum) 
+    #def openDonorMain(donorNum):
+        #window_check.destroy()
+        #Display_Guest_Samples.FetchGuestSamples(conn, donorNum) 
 
     def openCustomerMain():
+        username = entry_name.get()
         window_check.destroy()
-        Customer_UI.ShowSampleTypes(conn) 
-
+        CustomerViewMode_UI.ViewFridges(conn, username) 
+ 
     def enterPress(event):
         checkCreds()
 

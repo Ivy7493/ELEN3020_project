@@ -100,7 +100,7 @@ def CreateBoxTable(_conn):
 def CreateSampleTestTable(_conn):
     c = _conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS SampleTestTable(
-                                    sampleID TEXT NOT NULL PRIMARY KEY,
+                                    sampleID TEXT NOT NULL,
                                     testType TEXT NOT NULL,
                                     testResult TEXT NOT NULL,                                    
                                     FOREIGN KEY(sampleID) REFERENCES SampleTable(sampleID))""")

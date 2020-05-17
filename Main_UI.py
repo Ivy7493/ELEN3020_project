@@ -85,7 +85,6 @@ def Main_Window(conn):
 ##########---------->START: EDIT WINDOW<--------------------##########
 def Edit_Window(conn):
     window_Edit = tk.Tk()
-    #window_Edit.geometry("300x250")
     window_Edit.title("EDIT MENU")
     window_Edit["bg"] = 'cadet blue'
     
@@ -109,10 +108,14 @@ def Edit_Window(conn):
         window_Edit.destroy()
         Auto_UI.Main_Window(conn)
 
-    def Open_Register_Window():
+    def Open_NewUserLogin_Window():
         window_Edit.destroy()
-        Register_UI.Register_Window(conn)
+        Register_UI.RegisterUser_Window(conn)
     
+    def Open_NewClientCollection_Window():
+        window_Edit.destroy()
+        Register_UI.RegisterClient_Window(conn)
+
     def Return():
         window_Edit.destroy()
         Main_Window(conn)
@@ -130,12 +133,14 @@ def Edit_Window(conn):
     tk.Button(window_Edit, text = 'Open Auto Add Menu', font=myFont, command = Open_AutoAddSamples_Window).grid(row = 7, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=8, column=0)
 
-    tk.Button(window_Edit, text = 'Register', font=myFont, command = Open_Register_Window).grid(row = 9, column=1, sticky = "ew")
+    tk.Button(window_Edit, text = 'New User Login', font=myFont, command = Open_NewUserLogin_Window).grid(row = 9, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=10, column=0)
 
-    tk.Button(window_Edit, text = 'Return', command = Return, font=myFont).grid(row = 11, column=1, sticky = "ew")
+    tk.Button(window_Edit, text = 'New Client Collection', command = Open_NewClientCollection_Window, font=myFont).grid(row = 11, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=12, column=0)
 
+    tk.Button(window_Edit, text = 'Return', command = Return, font=myFont).grid(row = 13, column=1, sticky = "ew")
+    tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=14, column=0)
     window_Edit.mainloop()
 ##########---------->END: EDIT WINDOW<----------------------##########
 

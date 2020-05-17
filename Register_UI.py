@@ -24,48 +24,12 @@ def MessagePopup(messageText, messageTitle):
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1)  
 
-def Register_Window(conn):
-    window_register = tk.Tk()
-    window_register.title("REGISTER")
-    window_register["bg"] = 'cadet blue'
-
-    text = tk.Text(window_register)
-    myFont = Font(family="fixedsys", size=12)
-    text.configure(font=myFont)
- 
-
-    def Open_AddClient():
-        window_register.destroy()
-        RegisterClient_Window(conn)
-
-    def Open_AddUser():
-        window_register.destroy()
-        RegisterUser_Window(conn)
-
-    def Return():
-        window_register.destroy()
-        Main_UI.Edit_Window(conn)
-        
-    registerClientButton = tk.Button(window_register, text = "New Client Collection", command = Open_AddClient, font = myFont)
-    registerClientButton.grid(row = 1, column = 1, sticky = "ew")
-
-    registerUserButton = tk.Button(window_register, text = "New User Login", command = Open_AddUser, font = myFont)
-    registerUserButton.grid(row = 3, column = 1, sticky = "ew")
-
-    returnButton = tk.Button(window_register, text = "Return", command = Return, font = myFont)
-    returnButton.grid(row = 5, column = 1, sticky = "ew")
-
-    tk.Label(window_register, height = 1, width = 6, bg ='cadet blue').grid(row = 0, column = 0)
-    tk.Label(window_register, height = 1, width = 6, bg ='cadet blue').grid(row = 2, column = 0)
-    tk.Label(window_register, height = 1, width = 6, bg ='cadet blue').grid(row = 4, column = 2)
-    tk.Label(window_register, height = 1, width = 6, bg ='cadet blue').grid(row = 6, column = 0)
-
-    window_register.mainloop()
-
 def RegisterClient_Window(conn):
 
     def AddCollection():
         _collectionTitle = newCollectionTitle.get()
+        _username = newCollectionTitle.get()
+        _password = password.get()
         _donorID = donorID.get()
         _clientName = clientName.get()
         _clientPhone = clientPhone.get()
@@ -76,15 +40,18 @@ def RegisterClient_Window(conn):
         _clientCountry = clientCountry.get()
         _clientPostalCode = clientPostalCode.get()
 
-        if any( [_collectionTitle == "", _donorID == "", _clientName == "", _clientPhone == "", _clientEmail == "", _clientOrganization == "", _clientStreet == "", _clientCity == "", _clientCountry == "", _clientPostalCode == ""]):
+        if any( [_collectionTitle == "", _username =="", _password == "",  _donorID == "", _clientName == "", _clientPhone == "", _clientEmail == "", _clientOrganization == "", _clientStreet == "", _clientCity == "", _clientCountry == "", _clientPostalCode == ""]):
             MessagePopup("One or more fields are missing data", "ERROR")
         else:
-            messageText = DataAPI.AddCollection(conn, _collectionTitle, _donorID, _clientName, _clientPhone, _clientEmail, _clientOrganization, _clientStreet, _clientCity, _clientCountry, _clientPostalCode)
-            MessagePopup(messageText, "COLLECTION STATUS")
+            messageText1 = DataAPI.AddCollection(conn, _collectionTitle, _donorID, _clientName, _clientPhone, _clientEmail, _clientOrganization, _clientStreet, _clientCity, _clientCountry, _clientPostalCode)
+            MessagePopup(messageText1, "COLLECTION RECORD STATUS")
+
+            messageText2 = DataAPI.AddUser(conn, _username, _password, "Customer")
+            MessagePopup(messageText2, "COLLECTION USER STATUS")
 
     def Return():
         window_Collection.destroy()
-        Register_Window(conn)
+        Main_UI.Edit_Window(conn)
 
     window_Collection = tk.Tk()
     window_Collection.title("COLLECTION")
@@ -144,15 +111,20 @@ def RegisterClient_Window(conn):
     clientPostalCode = tk.Entry(window_Collection)
     clientPostalCode.grid(row = 10, column = 2, sticky = "ew")
 
+    label12 = tk.Label(window_Collection, text = "Client Password", anchor = "w", bg = 'cadet blue', font = myFont)
+    label12.grid(row = 12, column = 1, sticky = "ew")
+    password = tk.Entry(window_Collection)
+    password.grid(row = 12, column = 2, sticky = "ew")
+
     addButton = tk.Button(window_Collection, text = 'Add New Collection', command = AddCollection, font = myFont)
-    addButton.grid(row = 11, column=2, sticky = "ew")
+    addButton.grid(row = 13, column=2, sticky = "ew")
 
     returnButton = tk.Button(window_Collection, text = "Return", command = Return, font = myFont)
-    returnButton.grid(row = 13, column = 2, sticky = "ew")
+    returnButton.grid(row = 15, column = 2, sticky = "ew")
 
     tk.Label(window_Collection, height = 1, width = 2, bg ='cadet blue').grid(row = 0, column = 0)
-    tk.Label(window_Collection, height = 1, width = 2, bg ='cadet blue').grid(row = 12, column = 3)
-    tk.Label(window_Collection, height = 1, width = 2, bg ='cadet blue').grid(row = 14, column = 0)
+    tk.Label(window_Collection, height = 1, width = 2, bg ='cadet blue').grid(row = 14, column = 3)
+    tk.Label(window_Collection, height = 1, width = 2, bg ='cadet blue').grid(row = 16, column = 0)
 
     window_Collection.mainloop()
 
@@ -173,11 +145,11 @@ def RegisterUser_Window(conn):
                 MessagePopup("ERROR: Invalid data entered", "REGISTER STATUS")
 
     def GetAccessLevel():
-        return ["Customer", "Employee", "Supervisor"]
+        return ["Employee", "Supervisor"]
 
     def Return():
         window_register.destroy()
-        Register_Window(conn)
+        Main_UI.Edit_Window(conn)
 
     window_register = tk.Tk()
     window_register.title("ADD USER")
@@ -188,26 +160,24 @@ def RegisterUser_Window(conn):
     text.configure(font=myFont)
 
     userLabel = tk.Label(window_register, text = "Username: ", anchor = "w", bg = 'cadet blue', font = myFont)
-    passLabel = tk.Label(window_register, text = "Password: ", anchor = "w", bg = 'cadet blue', font = myFont)
-    accessLabel = tk.Label(window_register, text = "Access Level: ", anchor = "w", bg = 'cadet blue', font = myFont)
-
-    username = tk.Entry(window_register)
-    password = tk.Entry(window_register)
-    accessLevel = ttk.Combobox(window_register, state="readonly", values=GetAccessLevel()) 
-
-    registerButton = tk.Button(window_register, text = "Register", command = AddUser, font = myFont)
-    returnButton = tk.Button(window_register, text = "Return", command = Return, font = myFont)
-
     userLabel.grid(row = 1, column = 1, sticky = "ew")
+    username = tk.Entry(window_register)
     username.grid(row = 1, column = 2, sticky = "ew")
 
+    passLabel = tk.Label(window_register, text = "Password: ", anchor = "w", bg = 'cadet blue', font = myFont)
     passLabel.grid(row = 2, column = 1, sticky = "ew")
+    password = tk.Entry(window_register)
     password.grid(row = 2, column = 2, sticky = "ew")
-
+    
+    accessLabel = tk.Label(window_register, text = "Access Level: ", anchor = "w", bg = 'cadet blue', font = myFont)
     accessLabel.grid(row = 3, column = 1, sticky = "ew")
+    accessLevel = ttk.Combobox(window_register, state="readonly", values=GetAccessLevel()) 
     accessLevel.grid(row = 3, column = 2, sticky = "ew")
 
+    registerButton = tk.Button(window_register, text = "Register", command = AddUser, font = myFont)
     registerButton.grid(row = 4, column = 2, sticky = "ew")
+
+    returnButton = tk.Button(window_register, text = "Return", command = Return, font = myFont)
     returnButton.grid(row = 6, column = 2, sticky = "ew")
 
     tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 0, column = 0)
