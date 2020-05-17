@@ -307,7 +307,7 @@ def MoveSample_Window(conn):
 
     tk.Button(window_MoveSample, text = 'Move Sample', command = MoveSample, font = myFont).grid(row = 6, column=2, sticky = "ew")
     tk.Button(window_MoveSample, text = 'Back to Sample Menu', command = Open_MainSample_Window, font = myFont).grid(row = 8, column=2, sticky = "ew")
-    tk.Button(window_MoveSample, text = 'Suggest Box', command = Open_SuggestBox_Window, font = myFont).grid(row = 2, column=3, sticky = "ew")
+    tk.Button(window_MoveSample, text = 'Suggest Box', command = Open_SuggestBox, font = myFont).grid(row = 2, column=3, sticky = "ew")
 
     tk.Label(window_MoveSample, height = 1, width = 2, bg="cadet blue").grid(row =0, column =0)
     tk.Label(window_MoveSample, height = 1, width = 2, bg="cadet blue").grid(row =7, column =0)

@@ -13,6 +13,10 @@ def ViewSamples(conn, _boxID, _fridgeID):
     window_ViewSamples = Tk()
     window_ViewSamples.title("VIEW SAMPLES")
     
+    text = tk.Text(window_ViewSamples)
+    myFont = Font(family="fixedsys",size= 12)
+    text.configure(font=myFont)
+
     cols = ('ID', 'Box ID', 'X', 'Y' , 'Z', 'Type', 'Origin Country', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
     tree = ttk.Treeview(window_ViewSamples, columns=cols, show='headings')
     for col in cols:
@@ -53,18 +57,24 @@ def ViewSamples(conn, _boxID, _fridgeID):
     if count!=0:
         count2 = 0
         sampleTestLabel = Label(text = "TEST RESULTS:").grid(column = count2, row = count)
+
         for indx, s in enumerate(sampleList):
-            count2 = count2 + 1 
             cmd = lambda _s=s: SampleTestClick(_s)
-            sampleTestButton = Button(text=s[0], command=cmd, height = 1) #, font=myFont)
-            sampleTestButton.grid(column = count2, row = count, sticky = tk.N)
+            c.execute("SELECT * FROM SampleTestTable WHERE sampleID = ?", (s[0],))
+            result = c.fetchone()
+            if result is None:
+                pass
+            else:    
+                count2 = count2 + 1 
+                sampleTestButton = Button(text=s[0], command=cmd, height = 1, font=myFont)
+                sampleTestButton.grid(column = count2, row = count, sticky = tk.N)
 
 
     def OpenViewBoxes():
         window_ViewSamples.destroy()
         ViewBoxes(conn, _fridgeID)
 
-    backButton = Button(window_ViewSamples, text="Return", command=OpenViewBoxes).grid(column=0)
+    backButton = Button(window_ViewSamples, text="Return", command=OpenViewBoxes, font = myFont).grid(column=0)
     window_ViewSamples.mainloop()
 
 
@@ -80,13 +90,13 @@ def ViewBoxes(conn, _fridgeID):
     text.configure(font=myFont)
 
     fridgeID = "Fridge ID: " + str(_fridgeID)
-    fridgeLabel = Label(text = fridgeID, bg = 'cadet blue', font = myFont)
-    fridgeLabel.grid(row = 0, column = 0, columnspan = 2)
+    fridgeLabel = Label(text = fridgeID, bg = 'cadet blue', font = myFont, anchor = "w")
+    fridgeLabel.grid(row = 0, column = 0, columnspan = 2, sticky = "ew")
 
     c.execute("SELECT temperature FROM FridgeTable where fridgeID = ?", (_fridgeID,))
     fridgeTemp = "Temperature: " + str(c.fetchone()[0])
-    fridgeLabel2 = Label(text = fridgeTemp, bg = 'cadet blue', font = myFont)
-    fridgeLabel2.grid(row = 1, column = 0, columnspan = 2)
+    fridgeLabel2 = Label(text = fridgeTemp, bg = 'cadet blue', font = myFont, anchor = "w")
+    fridgeLabel2.grid(row = 1, column = 0, columnspan = 2, sticky = "ew")
 
 
     c.execute("SELECT * FROM BoxTable WHERE fridgeID = ?", (_fridgeID,))
@@ -126,8 +136,9 @@ def ViewBoxes(conn, _fridgeID):
     def OpenViewFridges():
         window_ViewBoxes.destroy()
         ViewFridges(conn)
-
-    backButton = Button(window_ViewBoxes, text="Return", command=OpenViewFridges).grid(column=0)
+    tk.Label(window_ViewBoxes, height = 1, width = 2, bg="cadet blue").grid(column =0)
+    backButton = Button(window_ViewBoxes, text="Return", command=OpenViewFridges, font = myFont).grid(columnspan = 3)
+    tk.Label(window_ViewBoxes, height = 1, width = 2, bg="cadet blue").grid(column =2)
     window_ViewBoxes.mainloop()
 
 def ViewFridges(conn):
@@ -147,6 +158,8 @@ def ViewFridges(conn):
     
     fridgeList = []
 
+    
+
     for result in results:
         count = count + 1
         fridgeList.append(result)
@@ -164,27 +177,23 @@ def ViewFridges(conn):
     for indx, f in enumerate(fridgeList):
         cmd = lambda _f=f: FridgeClick(_f)
         fridgeButton = Button(text=f[0], command=cmd, font=myFont)
-        #fridgeLabel = tk.Label(window_ViewFridges, text = "", width=1, height=1, bg='pink')
-        #fridgeLabel2 = tk.Label(window_ViewFridges, text = "", width =1, height =1, bg='blue').grid(row = 0, column = 0)
         
-        #if myCol!=0 and myRow!=0:
         if myCol < rowCol:
             fridgeButton.grid(row = myRow, column = myCol, sticky=NSEW, padx=10, pady=10)
-            #fridgeLabel.grid(row=myRow, column=myCol)
-
             myCol = myCol + 1
         else:
             myRow = myRow + 1
             myCol = 0
             fridgeButton.grid(row = myRow, column = myCol,sticky=NSEW, padx=10, pady=10)
-            #fridgeLabel.grid(row=myRow, column=myCol)
             myCol = myCol + 1
 
     def Return():
         window_ViewFridges.destroy()
         Main_UI.Main_Window(conn)
 
-    backButton = Button(window_ViewFridges, text="Return", command=Return).grid(column=0)
+    tk.Label(window_ViewFridges, height = 1, width = 2, bg="cadet blue").grid(column =0)
+    backButton = Button(window_ViewFridges, text="Return", command=Return, font = myFont).grid(columnspan=3)
+    tk.Label(window_ViewFridges, height = 1, width = 2, bg="cadet blue").grid(column =2)
     
     window_ViewFridges.mainloop()
 

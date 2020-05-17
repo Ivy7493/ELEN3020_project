@@ -26,6 +26,10 @@ def OpenAllTestResults(conn):
     window_TestResults = tk.Tk()
     window_TestResults.title("TEST RESULTS")
 
+    text = tk.Text(window_TestResults)
+    myFont = Font(family="fixedsys",size= 12)
+    text.configure(font=myFont)
+
     cols = ('Sample ID', 'Test Type', 'Test Result')
     tree = ttk.Treeview(window_TestResults, columns=cols, show='headings')
     for col in cols:
@@ -40,7 +44,7 @@ def OpenAllTestResults(conn):
     def openTestResultSearchMenu():
         window_TestResults.destroy()
 
-    backButton = tk.Button(window_TestResults, text = 'Close', command = openTestResultSearchMenu).grid(row=5, column=1)
+    backButton = tk.Button(window_TestResults, text = 'Close', command = openTestResultSearchMenu, font = myFont).grid(row=5, column=1)
     
     window_TestResults.mainloop()
 #----------------------------------------------------------------------------------------
@@ -57,6 +61,10 @@ def OpenTestResultSearch(conn, searchField, searchColumn):
         window_TestResults = tk.Tk()
         window_TestResults.title("TEST RESULTS")
 
+        text = tk.Text(window_TestResults)
+        myFont = Font(family="fixedsys",size= 12)
+        text.configure(font=myFont)
+
         cols = ('Sample ID', 'Test Type', 'Test Result')
         tree = ttk.Treeview(window_TestResults, columns=cols, show='headings')
         for col in cols:
@@ -72,7 +80,7 @@ def OpenTestResultSearch(conn, searchField, searchColumn):
             window_TestResults.destroy()
             
 
-        backButton = tk.Button(window_TestResults, text = 'Close', command = openTestResultSearchMenu).grid(row=5, column=1)
+        backButton = tk.Button(window_TestResults, text = 'Close', command = openTestResultSearchMenu, font = myFont).grid(row=5, column=1)
         
         window_TestResults.mainloop()
 #----------------------------------------------------------------------------------------

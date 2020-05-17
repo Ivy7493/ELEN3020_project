@@ -212,7 +212,7 @@ def IsBoxPositionFree(_conn, _boxID, _posX, _posY, _posZ):
         for result in LocResults:
             count = count + 1
         if count > 0:
-            return "Position Already taken"
+            return "Position already taken"
         elif count == 0:
             return "TRUE" 
     elif _posX > boxX or _posX < 1:
@@ -524,7 +524,7 @@ def CheckBox(_conn , _boxID, _boxX, _boxY, _boxZ):
         return ("Box " + _boxID + " does not exist")
     result = IsBoxPositionFree(_conn, _boxID,_boxX, _boxY, _boxZ)
     if result != "TRUE":
-        return ("Box Position already taken " + str(_boxX) + "," + str(_boxY) + "," + str(_boxZ))
+        return ("Box position already taken " + str(_boxX) + "," + str(_boxY) + "," + str(_boxZ))
     return "TRUE"
 
 def CheckSampleID(_conn, _sampleID):
@@ -550,7 +550,6 @@ def CheckReturnStatus(_returnType):
         return "FALSE"
 
 def CheckSampleType(_sampleType):
-    print(_sampleType)
     if _sampleType == "Blood" or _sampleType == "Urine" or _sampleType == "Platelets" or _sampleType == "Skin cells" or _sampleType == "Organ tissue":
         return "TRUE"
     else:

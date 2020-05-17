@@ -4,17 +4,13 @@ import os
 def CreateLogsFolder():
     try:
         os.mkdir('Logs')
-        print("Logs folder was not found and was created automatically")
     except:
-        #print("Folder creation failed, either the folder exists or failed to create")
         pass
 
 def CreateInvoicesFolder():
     try:
         os.mkdir('Invoices')
-        print("Invoices folder was not found and was created automatically")
     except:
-        #print("Folder creation failed, either the folder exists or failed to create")
         pass
     f = open("Invoices/InvoiceIndex", "a+")
     f.close()
@@ -22,7 +18,6 @@ def CreateInvoicesFolder():
 def CreateToAddFolder():
     try:
         os.mkdir('ToAdd')
-        print("ToAdd folder was not found and was created automatically")
     except:
         pass
     
@@ -106,6 +101,16 @@ def CreateSampleTestTable(_conn):
                                     FOREIGN KEY(sampleID) REFERENCES SampleTable(sampleID))""")
     _conn.commit()
 
+#NOTE: This is for prototype testing purposes only
+def CreateAdmin(_conn):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM LoginTable WHERE username = ?", ("admin",))
+    result = c.fetchone()
+    if result is None:
+        c.execute("INSERT INTO LoginTable  (username, password, accessLevel, loggedIn) VALUES (?,?,?,?)", ("admin", "admin", 2, 0))
+        _conn.commit()
+    else:
+        pass
 
 def CreateAllTables(_conn):
     CreateFridgeTable(_conn)
@@ -117,5 +122,6 @@ def CreateAllTables(_conn):
     CreateLogsFolder()
     CreateInvoicesFolder()
     CreateToAddFolder()
+    CreateAdmin(_conn)
 
 #JESSE'S COMMENT

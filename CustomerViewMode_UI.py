@@ -37,6 +37,7 @@ def ViewSamples(conn, _boxID, _fridgeID, _collectionTitle):
     tree.column("Phenotype Value", minwidth=0, width=65, stretch=NO)
     tree.column("Disease State", minwidth=0, width=65, stretch=NO)
 
+
     c.execute("SELECT * FROM SampleTable WHERE boxID=? AND collectionTitle = ?", (str(_boxID), str(_collectionTitle),))
     results = c.fetchall()
 
@@ -55,10 +56,15 @@ def ViewSamples(conn, _boxID, _fridgeID, _collectionTitle):
         count2 = 0
         sampleTestLabel = Label(text = "TEST RESULTS:").grid(column = count2, row = count)
         for indx, s in enumerate(sampleList):
-            count2 = count2 + 1 
             cmd = lambda _s=s: SampleTestClick(_s)
-            sampleTestButton = Button(text=s[0], command=cmd, height = 1) #, font=myFont)
-            sampleTestButton.grid(column = count2, row = count, sticky = tk.N)
+            c.execute("SELECT * FROM SampleTestTable WHERE sampleID = ?", (s[0],))
+            result = c.fetchone()
+            if result is None:
+                pass
+            else:  
+                count2 = count2 + 1 
+                sampleTestButton = Button(text=s[0], command=cmd, height = 1) #, font=myFont)
+                sampleTestButton.grid(column = count2, row = count, sticky = tk.N)
 
 
 
@@ -183,20 +189,14 @@ def ViewFridges(conn, collectionTitle):
     for indx, f in enumerate(fridgeList):
         cmd = lambda _f=f: FridgeClick(_f)
         fridgeButton = Button(text=f[0], command=cmd, font=myFont)
-        #fridgeLabel = tk.Label(window_ViewFridges, text = "", width=1, height=1, bg='pink')
-        #fridgeLabel2 = tk.Label(window_ViewFridges, text = "", width =1, height =1, bg='blue').grid(row = 0, column = 0)
-        
-        #if myCol!=0 and myRow!=0:
+
         if myCol < rowCol:
             fridgeButton.grid(row = myRow, column = myCol, sticky=NSEW, padx=10, pady=10)
-            #fridgeLabel.grid(row=myRow, column=myCol)
-
             myCol = myCol + 1
         else:
             myRow = myRow + 1
             myCol = 0
             fridgeButton.grid(row = myRow, column = myCol,sticky=NSEW, padx=10, pady=10)
-            #fridgeLabel.grid(row=myRow, column=myCol)
             myCol = myCol + 1
 
     def Return():
