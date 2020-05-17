@@ -30,7 +30,7 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
-
+    tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row = 2)
     message_window.mainloop()
 
 def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _postalCode, _sampleArray, _rateArray, _fridgeArray):

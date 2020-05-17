@@ -5,8 +5,7 @@ import Box_UI
 import Fridge_UI
 import Sample_UI
 import Main_UI
-import CustomerViewMode_UI
-#import Customer_UI
+import ViewMode_UI
 
 def Check_Window(conn):
     window_check = Tk()
@@ -80,7 +79,7 @@ def Check_Window(conn):
     def openCustomerMain():
         username = entry_name.get()
         window_check.destroy()
-        CustomerViewMode_UI.ViewFridges(conn, username) 
+        ViewMode_UI.ViewFridges(conn, username) 
  
     def enterPress(event):
         checkCreds()

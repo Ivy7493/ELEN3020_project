@@ -8,7 +8,7 @@ from tkinter.font import Font
 import Main_UI
 import DisplayTestResults
 
-def ViewSamples(conn, _boxID, _fridgeID):
+def ViewSamples(conn, _boxID, _fridgeID, _collectionTitle):
     c = conn.cursor()
     window_ViewSamples = Tk()
     window_ViewSamples.title("VIEW SAMPLES")
@@ -40,12 +40,16 @@ def ViewSamples(conn, _boxID, _fridgeID):
     tree.column("Phenotype Value", minwidth=0, width=65, stretch=NO)
     tree.column("Disease State", minwidth=0, width=65, stretch=NO)
 
-    c.execute("SELECT * FROM SampleTable WHERE boxID=?", (str(_boxID),))
-    results = c.fetchall()
-
+    if _collectionTitle == "FALSE":
+        c.execute("SELECT * FROM SampleTable WHERE boxID=?", (str(_boxID),))
+        results = c.fetchall()
+    else:
+        c.execute("SELECT * FROM SampleTable WHERE boxID=? AND collectionTitle = ?", (str(_boxID), str(_collectionTitle),))
+        results = c.fetchall()
+    
     sampleList = []
-
     count = 0
+
     for result in results:
         tree.insert("", "end", values = result)
         sampleList.append(result)
@@ -57,7 +61,6 @@ def ViewSamples(conn, _boxID, _fridgeID):
     if count!=0:
         count2 = 0
         sampleTestLabel = Label(text = "TEST RESULTS:").grid(column = count2, row = count)
-
         for indx, s in enumerate(sampleList):
             cmd = lambda _s=s: SampleTestClick(_s)
             c.execute("SELECT * FROM SampleTestTable WHERE sampleID = ?", (s[0],))
@@ -69,16 +72,15 @@ def ViewSamples(conn, _boxID, _fridgeID):
                 sampleTestButton = Button(text=s[0], command=cmd, height = 1, font=myFont)
                 sampleTestButton.grid(column = count2, row = count, sticky = tk.N)
 
-
     def OpenViewBoxes():
         window_ViewSamples.destroy()
-        ViewBoxes(conn, _fridgeID)
+        ViewBoxes(conn, _fridgeID, _collectionTitle)
 
     backButton = Button(window_ViewSamples, text="Return", command=OpenViewBoxes, font = myFont).grid(column=0)
     window_ViewSamples.mainloop()
 
 
-def ViewBoxes(conn, _fridgeID):
+def ViewBoxes(conn, _fridgeID, _collectionTitle):
     c = conn.cursor()
 
     window_ViewBoxes = tk.Tk()
@@ -100,25 +102,36 @@ def ViewBoxes(conn, _fridgeID):
 
 
     c.execute("SELECT * FROM BoxTable WHERE fridgeID = ?", (_fridgeID,))
-    results = c.fetchall()
+    boxResults = c.fetchall()
     count = 0
     
     boxList = []
 
-    for result in results:
-        count = count + 1
-        boxList.append(result)
-    
+    def sampleLoop(boxID):
+        c.execute("SELECT * FROM SampleTable WHERE boxID = ? AND collectionTitle = ?", (box[0], _collectionTitle,))
+        
+        sampleResults = c.fetchall()
+        if sampleResults is None:
+            pass
+        else:
+            return "TRUE"
+
+    for box in boxResults:
+        if _collectionTitle != "FALSE":
+            if sampleLoop(box[0]) == "TRUE":
+                count = count + 1
+                boxList.append(box)
+        else:
+            count = count + 1
+            boxList.append(box)
+
     rowCol = math.sqrt(count)
-    
-    
     myRow = 2
     myCol = 0
 
     def BoxClick(b):
         window_ViewBoxes.destroy()
-        ViewSamples(conn, b[0], _fridgeID)
-    
+        ViewSamples(conn, b[0], _fridgeID, _collectionTitle)
 
     for indx, b in enumerate(boxList):
         cmd = lambda _b=b: BoxClick(_b)
@@ -135,13 +148,14 @@ def ViewBoxes(conn, _fridgeID):
 
     def OpenViewFridges():
         window_ViewBoxes.destroy()
-        ViewFridges(conn)
+        ViewFridges(conn, _collectionTitle)
+
     tk.Label(window_ViewBoxes, height = 1, width = 2, bg="cadet blue").grid(column =0)
     backButton = Button(window_ViewBoxes, text="Return", command=OpenViewFridges, font = myFont).grid(columnspan = 3)
     tk.Label(window_ViewBoxes, height = 1, width = 2, bg="cadet blue").grid(column =2)
     window_ViewBoxes.mainloop()
 
-def ViewFridges(conn):
+def ViewFridges(conn, collectionTitle):
     c = conn.cursor()
 
     window_ViewFridges = tk.Tk()
@@ -153,26 +167,39 @@ def ViewFridges(conn):
     text.configure(font=myFont)
 
     c.execute("SELECT * FROM FridgeTable")
-    results = c.fetchall()
+    fridgeResults = c.fetchall()
     count = 0
     
     fridgeList = []
 
+    def fridgeLoop(fridgeID):
+        c.execute("SELECT * FROM BoxTable WHERE fridgeID = ?", (str(fridgeID),))
+        boxResults = c.fetchall()
+        for box in boxResults:
+            c.execute("SELECT * FROM SampleTable WHERE boxID = ? AND collectionTitle = ?", (box[0], collectionTitle,))
+            sampleResults = c.fetchall()
+            if sampleResults is None:
+                pass
+            else:
+                return "TRUE"
     
-
-    for result in results:
-        count = count + 1
-        fridgeList.append(result)
+    for fridge in fridgeResults:
+        if collectionTitle != "FALSE":
+            if fridgeLoop(fridge[0]) == "TRUE":
+                count = count + 1
+                fridgeList.append(fridge)
+        else:
+            count = count + 1
+            fridgeList.append(fridge)
     
     rowCol = math.sqrt(count)
-    
     myRow = 0
     myCol = 0
 
 
     def FridgeClick(option):
         window_ViewFridges.destroy()
-        ViewBoxes(conn, option[0])
+        ViewBoxes(conn, option[0], collectionTitle)
 
     for indx, f in enumerate(fridgeList):
         cmd = lambda _f=f: FridgeClick(_f)

@@ -55,7 +55,7 @@ def Main_Window(conn):
 
     def Open_View_Window():
         window_Main.destroy()
-        ViewMode_UI.ViewFridges(conn)
+        ViewMode_UI.ViewFridges(conn, "FALSE")
     
     def Open_Billing_Window():
         window_Main.destroy()
