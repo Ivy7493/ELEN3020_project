@@ -17,6 +17,23 @@ import datetime
 from datetime import date
 from datetime import datetime
 
+def MessagePopup(messageText, messageTitle):
+    message_window = tk.Tk()
+    message_window.title(messageTitle)
+
+    text = tk.Text(message_window)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    message_window["bg"] = 'cadet blue'
+    message = tk.Label(message_window, text = messageText, font = myFont, bg = 'cadet blue')
+    message.grid(row = 0, column = 0)
+
+    def CloseMessage():
+        message_window.destroy()
+
+    backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+
 ##########---------->START: MAIN WINDOW<--------------------##########
 def Main_Window(conn):
     window_Main = tk.Tk()
@@ -30,15 +47,7 @@ def Main_Window(conn):
     def Open_Edit_Window():
         temp = LoggingAPI.GetCurrentAccess(conn)
         if temp == 1:
-            message_window = tk.Tk()
-            message_window.title("ERROR")
-            message = tk.Label(message_window, text = "INVALID ACCESS LEVEL")
-            message.grid(row = 0, column = 0)
-
-            def Close():
-                message_window.destroy()          
-
-            backButton = tk.Button(message_window, text = 'Close', command =Close, bg = "mint cream").grid(row=1)
+            MessagePopup("INVALID ACCESS LEVEL", "ERROR")
 
         elif temp == 2:
             window_Main.destroy()

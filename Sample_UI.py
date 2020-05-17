@@ -208,18 +208,19 @@ def AddSample_Window(conn):
 ##########---------->START: WINDOW FOR ADDING SAMPLE TEST<----------##########
 def AddSampleTest_Window(conn):
     def CreateSampleTest():
-        try:
-            _sampleID = sampleID.get()
-            _testType = testType.get()
-            _testResult = testResult.get()
+        _sampleID = sampleID.get()
+        _testType = testType.get()
+        _testResult = testResult.get()           
 
-            messagebox.showinfo("Add Sample Test", DataAPI.AddSampleTest(conn, _sampleID,  _testType, _testResult))
-        except:
-            messagebox.showinfo("Add Sample Test", "ERROR: Invalid data entered")
+        if any( [_sampleID == "", _testType == "", _testResult == ""]):
+            MessagePopup("One or more fields are missing data", "ERROR")
+        else:
+            try:
+                messageText = DataAPI.AddSampleTest(conn, _sampleID,  _testType, _testResult)
+                MessagePopup(messageText, "Add Sample Test")
+            except:
+                MessagePopup("ERROR: Invalid data entered", "Add Sample")
 
-    def console_PrintSampleTest():
-        print("Sample ID: %s\nTest Type: %s\nTestResult: %s" % 
-        (sampleID.get(), testType.get(), testResult.get()))
 
     def Open_MainSample_Window():
         window_AddSampleTest.destroy()
@@ -264,9 +265,10 @@ def MoveSample_Window(conn):
             _boxX = int(boxX.get())
             _boxY = int(boxY.get())
             _boxZ = int(boxZ.get())
-            messagebox.showinfo("Move Sample", DataAPI.MoveSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ))
+            messageText = DataAPI.MoveSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ)
+            MessagePopup(messageText, "Move Sample")
         except:
-            messagebox.showinfo("Move Sample", "ERROR: Invalid data entered")
+            MessagePopup("ERROR: Invalid data entered", "Move Sample")
 
     def Open_MainSample_Window():
         window_MoveSample.destroy()
@@ -319,7 +321,8 @@ def MoveSample_Window(conn):
 def DeleteSample_Window(conn):
     def deleteSample():
         _sampleID = sampleID.get()
-        messagebox.showinfo("Delete Sample", DataAPI.DeleteSample(conn, _sampleID))
+        messageText = DataAPI.DeleteSample(conn, _sampleID)
+        MessagePopup(messageText, "Delete Sample")
         
     def Open_MainSample_Window():
         window_DeleteSample.destroy()
