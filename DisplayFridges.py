@@ -34,7 +34,13 @@ def OpenAllFridges(conn):
     tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
     for col in cols:
         tree.heading(col, text=col)
-    tree.grid(row=2, column=0, columnspan=8)
+    tree.grid(row=0, column=0, columnspan=5)
+
+    tree.column("Frdige ID", minwidth=0, width=100, strecth=tk.NO )
+    tree.column("Temperature", minwidth=0, width=100, strecth=tk.NO )
+    tree.column("NumShelves", minwidth=0, width=100, strecth=tk.NO)
+    tree.column("WidthShelves", minwidth=0, width=100, strecth=tk.NO)
+    tree.column("Rate", minwidth=0, width=100, strecth=tk.NO)
 
     c.execute("SELECT * FROM FridgeTable")
 
@@ -75,7 +81,13 @@ def OpenFridgeSearch(conn, searchField, searchColumn):
         tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
         for col in cols:
             tree.heading(col, text=col)
-        tree.grid(row=2, column=0, columnspan=8)
+        tree.grid(row=0, column=0, columnspan=5)
+
+        tree.column("Frdige ID", minwidth=0, width=110, strecth=tk.NO )
+        tree.column("Temperature", minwidth=0, width=110, strecth=tk.NO )
+        tree.column("NumShelves", minwidth=0, width=110, strecth=tk.NO)
+        tree.column("WidthShelves", minwidth=0, width=110, strecth=tk.NO)
+        tree.column("Rate", minwidth=0, width=110, strecth=tk.NO)
 
         c.execute('''SELECT * FROM FridgeTable WHERE ''' + searchColumn + '''=?''', (str(searchField),))
 

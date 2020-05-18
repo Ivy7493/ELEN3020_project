@@ -35,6 +35,15 @@ def OpenAllBoxes(conn):
     for col in cols:
         tree.heading(col, text=col)
     tree.grid(row=2, column=0, columnspan=7)
+
+    tree.column("Box ID", minwidth=0, width=65, stretch=tk.NO)
+    tree.column("Fridge ID", minwidth=0, width=80, stretch=tk.NO)
+    tree.column("Fridge X", minwidth=0, width=75, stretch=tk.NO)
+    tree.column("Fridge Y", minwidth=0, width=75, stretch=tk.NO)
+    tree.column("Box X", minwidth=0, width=65, stretch=tk.NO)
+    tree.column("Box Y", minwidth=0, width=65, stretch=tk.NO)
+    tree.column("Box Z", minwidth=0, width=65, stretch=tk.NO)
+    
 	
     c.execute("SELECT * FROM BoxTable")
 	
@@ -73,6 +82,14 @@ def OpenBoxSearch(conn, searchField, searchColumn):
         for col in cols:
             tree.heading(col, text=col)
         tree.grid(row=2, column=0, columnspan=7)
+   
+        tree.column("Box ID", minwidth=0, width=65, stretch=tk.NO)
+        tree.column("Fridge ID", minwidth=0, width=80, stretch=tk.NO)
+        tree.column("Fridge X", minwidth=0, width=75, stretch=tk.NO)
+        tree.column("Fridge Y", minwidth=0, width=75, stretch=tk.NO)
+        tree.column("Box X", minwidth=0, width=65, stretch=tk.NO)
+        tree.column("Box Y", minwidth=0, width=65, stretch=tk.NO)
+        tree.column("Box Z", minwidth=0, width=65, stretch=tk.NO)
 
         c.execute('''SELECT * FROM BoxTable WHERE ''' + searchColumn + ''' =?''', (str(searchField),))
 
