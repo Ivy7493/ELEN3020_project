@@ -26,16 +26,21 @@ def MainBilling_Window(conn):
     def RunAutoBilling():
         AutoBilling.AutoBilling(conn)
 
+    def RunNewSampleBilling():
+        AutoBilling.BillNewSamples(conn)
+
     def Return():
         window_MainBilling.destroy()
         Main_UI.Main_Window(conn)
 
-    tk.Button(window_MainBilling, text = 'Invoice for Storage', command = RunAutoBilling, font = myFont).grid(row = 1, column=1, sticky = "ew")
-    tk.Button(window_MainBilling, text = 'Return', command = Return, font = myFont).grid(row = 3, column=1, sticky = "ew")
+    tk.Button(window_MainBilling, text = 'Invoice for New Samples', command = RunNewSampleBilling, font = myFont).grid(row = 1, column=1, sticky = "ew")
+    tk.Button(window_MainBilling, text = 'Invoice for Storage', command = RunAutoBilling, font = myFont).grid(row = 3, column=1, sticky = "ew")
+    tk.Button(window_MainBilling, text = 'Return', command = Return, font = myFont).grid(row = 5, column=1, sticky = "ew")
 
     tk.Label(window_MainBilling, height = 1, width = 6, bg="cadet blue").grid(row =0, column =0)
     tk.Label(window_MainBilling, height = 1, width = 6, bg="cadet blue").grid(row =2, column =0)
     tk.Label(window_MainBilling, height = 1, width = 6, bg="cadet blue").grid(row =4, column =2)
+    tk.Label(window_MainBilling, height = 1, width = 6, bg="cadet blue").grid(row =6, column =2)
 
     window_MainBilling.mainloop()
 

@@ -33,7 +33,7 @@ def MessagePopup(messageText, messageTitle):
     tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row = 2)
     message_window.mainloop()
 
-def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _postalCode, _sampleArray, _rateArray, _fridgeArray):
+def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _postalCode, _sampleArray, _rateArray, _fridgeArray, _addingOrStoring):
     try:
         pdf = FPDF()
         pdf.add_page()
@@ -145,7 +145,10 @@ def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _posta
 
         pdf.output("Invoices/Invoice" + str(index)+".pdf")  
 
-        invoiceMessage = ("Invoiced " + _clientName + " for storing samples in the biobank for the month of " + str(invoiceDate.strftime('%B')) + " (TOTAL: R"+ str(round(total,2)) + ")")
+        if _addingOrStoring == "adding":
+            invoiceMessage = ("Invoiced " + _clientName + " for adding samples to the biobank in the month of " + str(invoiceDate.strftime('%B')) + " (TOTAL: R"+ str(round(total,2)) + ")")
+        else:
+            invoiceMessage = ("Invoiced " + _clientName + " for storing samples in the biobank for the month of " + str(invoiceDate.strftime('%B')) + " (TOTAL: R"+ str(round(total,2)) + ")")
         return invoiceMessage
     except:
         return "FALSE"   
@@ -183,8 +186,8 @@ def AutoBilling(_conn):
             c.execute("SELECT rate FROM FridgeTable WHERE fridgeID = ?", (fridgeID,))
             fridgeRate = c.fetchone()[0]
             fridgeRateArray.append(fridgeRate)
-        
-        invoiceStatus =  CreateStoringPDF(_conn, clientName, clientStreet, clientCity, clientCountry, clientPostalCode, sampleArray, fridgeRateArray, fridgeIDArray)
+
+        invoiceStatus =  CreateStoringPDF(_conn, clientName, clientStreet, clientCity, clientCountry, clientPostalCode, sampleArray, fridgeRateArray, fridgeIDArray, "storing")
         if invoiceStatus == "FALSE":
             messageArray.append("ERROR invoicing client " + clientName)
         else:
@@ -195,4 +198,122 @@ def AutoBilling(_conn):
     for message in messageArray:
         stringMessage = stringMessage + '\n' + message
     MessagePopup(stringMessage, "INVOICE RESULT")
+
+
+
+
+def BillNewSamples(_conn):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM CollectionInvoiceTable")
+    results = c.fetchall()
+    
+
+    collectionTitleArray = []
+    sampleArray = []
+    invoiceCheckArray = []
+    fridgeRateArray = []
+    fridgeIDArray = []
+
+    count = 0
+    noSampleCount = 0
+    totalSampleCount = 0
+
+    for row in results:
+        totalSampleCount = totalSampleCount + 1
+        collectionTitle = row[0]
+        sampleID = row[1]
+        invoiceCheck = row[2]
+        if(invoiceCheck == 0):
+            collectionTitleArray.append(collectionTitle)
+
+            c.execute("SELECT * FROM SampleTable WHERE sampleID = ?", (sampleID,))
+            sampleRow = c.fetchone()
+            sampleArray.append(sampleRow)
+            invoiceCheckArray.append(invoiceCheck)
+
+            fridgeID = DataAPI.ReturnFridgeSampleIn(_conn, sampleID)
+            fridgeIDArray.append(fridgeID)
+            c.execute("SELECT rate FROM FridgeTable WHERE fridgeID = ?", (fridgeID,))
+            fridgeRate = c.fetchone()[0]
+            fridgeRateArray.append(fridgeRate)
+
+            count = count + 1
+        else:  
+            noSampleCount = noSampleCount + 1  
+
+    messageArray = []
+
+    while count > 0:
+        c.execute("SELECT * FROM CollectionTable WHERE collectionTitle=?",(collectionTitleArray[0],))
+        collection = c.fetchone()
+        collectionTitle = collection[0]
+        clientName = collection[2]
+        clientPhoneNumber = collection[3]
+        clientEmail = collection[4]
+        clientOrganization = collection[5]
+        clientStreet = collection[6]
+        clientCity = collection[7]
+        clientCountry = collection[8]
+        clientPostalCode = collection[9]
+        
+        tempSampleArray = []
+        tempFridgeRateArray = []
+        tempFridgeIDArray = []
+
+        tempSampleArray2 = []
+        tempFridgeRateArray2 = []
+        tempFridgeIDArray2 = []
+        tempCollectionArray2 = []
+
+
+
+        count3 = 0
+        for sample in sampleArray:
+            if(collectionTitleArray[count3] == collectionTitleArray[0]):
+                tempSampleArray.append(sample)
+                tempFridgeRateArray.append(fridgeRateArray[count3])
+                tempFridgeIDArray.append(fridgeIDArray[count3])
+                count = count - 1
+                c.execute("UPDATE CollectionInvoiceTable SET invoiceCheck =? WHERE sampleID =?",(1, sample[0],))
+                _conn.commit()
+                
+            else:
+                tempSampleArray2.append(sample)
+                tempFridgeRateArray2.append(fridgeRateArray[count3])
+                tempFridgeIDArray2.append(fridgeIDArray[count3])
+                tempCollectionArray2.append(collectionTitleArray[count3])
+            count3 = count3 + 1
+
+        sampleArray = tempSampleArray2
+        fridgeRateArray = tempFridgeRateArray2
+        fridgeIDArray = tempFridgeIDArray2
+        collectionTitleArray = tempCollectionArray2
+
+        invoiceStatus =  CreateStoringPDF(_conn, clientName, clientStreet, clientCity, clientCountry, clientPostalCode, tempSampleArray, tempFridgeRateArray, tempFridgeIDArray, "adding")
+        if invoiceStatus == "FALSE":
+            messageArray.append("ERROR invoicing client " + clientName)
+        else:
+            #REMOVE THIS IF WE DON'T WANT TO DISPLAY THE SUCCESSFUL INVOICES
+            messageArray.append(invoiceStatus)
+            LoggingAPI.Log(_conn, invoiceStatus)
+
+    stringMessage = ""
+    for message in messageArray:
+        stringMessage = stringMessage + '\n' + message
+
+    if noSampleCount != totalSampleCount:
+        MessagePopup(stringMessage, "INVOICE RESULT")
+    else:
+        MessagePopup("No new samples to invoice", "INVOICE RESULT")
+
+
+def UpdateCollectionInvoiceTable(conn, sampleID, collectionTitle):
+    c = conn.cursor()
+    try:
+        c.execute("INSERT INTO CollectionInvoiceTable (collectionTitle, sampleID, invoiceCheck) VALUES (?, ?, ?)",(collectionTitle,sampleID, 0))
+        conn.commit()
+        LoggingAPI.Log(conn, "Added sample " + sampleID + " from collection " + collectionTitle + " to collection invoice table, ready to invoice")
+        return("Successfully added sample " + sampleID + " to the collection invoice table, ready to invoice")
+    except sqlite3.Error as error:
+        return(error)  
 

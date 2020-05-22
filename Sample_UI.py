@@ -3,6 +3,7 @@ import sqlite3
 import tkinter as tk
 import DataAPI
 import Main_UI
+import AutoBilling
 import time
 import datetime
 from tkinter.font import Font
@@ -108,6 +109,8 @@ def AddSample_Window(conn):
         else:
             try:
                 messageText = DataAPI.AddSample(conn, _sampleID, _boxID, _boxX, _boxY, _boxZ, _sampleType, _originCountry, _collectionDate, _entryDate, _subjectAge, _tubeRating, _collectionTitle, _returnType, _returnDate, _phenotypeValue, _diseaseState)
+
+                messageText = messageText + '\n' + '\n' + AutoBilling.UpdateCollectionInvoiceTable(conn, _sampleID, _collectionTitle)
                 MessagePopup(messageText, "Add Sample")
             except:
                 MessagePopup("ERROR: Invalid data entered", "Add Sample")

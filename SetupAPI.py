@@ -101,6 +101,15 @@ def CreateSampleTestTable(_conn):
                                     FOREIGN KEY(sampleID) REFERENCES SampleTable(sampleID))""")
     _conn.commit()
 
+def CreateCollectionInvoiceTable(_conn):
+    c = _conn.cursor()
+    c.execute("""CREATE TABLE IF NOT EXISTS CollectionInvoiceTable(
+                                    collectionTitle TEXT NOT NULL,
+                                    sampleID TEXT NOT NULL,
+                                    invoiceCheck INTEGER NOT NULL,                                    
+                                    FOREIGN KEY(collectionTitle) REFERENCES CollectionTable(collectionTitle),
+                                    FOREIGN KEY(sampleID) REFERENCES SampleTable(sampleID))""")
+
 #NOTE: This is for prototype testing purposes only
 def CreateAdmin(_conn):
     c = _conn.cursor()
@@ -119,6 +128,7 @@ def CreateAllTables(_conn):
     CreateLoginTable(_conn)
     CreateSampleTestTable(_conn)
     CreateCollectionTable(_conn)
+    CreateCollectionInvoiceTable(_conn)
     CreateLogsFolder()
     CreateInvoicesFolder()
     CreateToAddFolder()

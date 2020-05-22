@@ -26,21 +26,11 @@ def OpenAllFridges(conn):
     window_Fridges = tk.Tk()
     window_Fridges.title("FRIDGES")
 
-    text = tk.Text(window_Fridges)
-    myFont = Font(family="fixedsys", size=12)
-    text.configure(font=myFont)
-
     cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves', 'Rate')
     tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
     for col in cols:
         tree.heading(col, text=col)
-    tree.grid(row=0, column=0, columnspan=5)
-
-    tree.column("Frdige ID", minwidth=0, width=100, strecth=tk.NO )
-    tree.column("Temperature", minwidth=0, width=100, strecth=tk.NO )
-    tree.column("NumShelves", minwidth=0, width=100, strecth=tk.NO)
-    tree.column("WidthShelves", minwidth=0, width=100, strecth=tk.NO)
-    tree.column("Rate", minwidth=0, width=100, strecth=tk.NO)
+    tree.grid(row=2, column=0, columnspan=8)
 
     c.execute("SELECT * FROM FridgeTable")
 
@@ -50,7 +40,7 @@ def OpenAllFridges(conn):
     def openFridgeSearchMenu():
         window_Fridges.destroy()
 
-    backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu, font = myFont).grid(row=5, column=1)
+    backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu).grid(row=5, column=1)
     
     window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------
@@ -60,34 +50,18 @@ def OpenAllFridges(conn):
 def OpenFridgeSearch(conn, searchField, searchColumn):
     c = conn.cursor()
 
-    c.execute('''SELECT * FROM FridgeTable WHERE ''' + searchColumn + '''=?''', (str(searchField),))
-    result = c.fetchone()
-
     if searchField == "":
-        MessagePopup("Search field is missing data", "ERROR")
-
-    elif result is None:
-        MessagePopup("There are no results for that search", "ERROR")
+        MessagePopup("That is not valid", "ERROR")
 
     else:
         window_Fridges = tk.Tk()
         window_Fridges.title("FRIDGES")
 
-        text = tk.Text(window_Fridges)
-        myFont = Font(family="fixedsys", size=12)
-        text.configure(font=myFont)
-
         cols = ('Fridge ID', 'Temperature', 'NumShelves', 'WidthShelves', 'Rate')
         tree = ttk.Treeview(window_Fridges, columns=cols, show='headings')
         for col in cols:
             tree.heading(col, text=col)
-        tree.grid(row=0, column=0, columnspan=5)
-
-        tree.column("Frdige ID", minwidth=0, width=110, strecth=tk.NO )
-        tree.column("Temperature", minwidth=0, width=110, strecth=tk.NO )
-        tree.column("NumShelves", minwidth=0, width=110, strecth=tk.NO)
-        tree.column("WidthShelves", minwidth=0, width=110, strecth=tk.NO)
-        tree.column("Rate", minwidth=0, width=110, strecth=tk.NO)
+        tree.grid(row=2, column=0, columnspan=8)
 
         c.execute('''SELECT * FROM FridgeTable WHERE ''' + searchColumn + '''=?''', (str(searchField),))
 
@@ -98,7 +72,7 @@ def OpenFridgeSearch(conn, searchField, searchColumn):
             window_Fridges.destroy()
             
 
-        backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu, font = myFont).grid(row=5, column=1)
+        backButton = tk.Button(window_Fridges, text = 'Close', command = openFridgeSearchMenu).grid(row=5, column=1)
         
         window_Fridges.mainloop()
 #----------------------------------------------------------------------------------------

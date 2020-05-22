@@ -21,75 +21,45 @@ def MessagePopup(messageText, messageTitle):
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
 
 def OpenAllBoxes(conn):
-    c = conn.cursor()
+	c = conn.cursor()
 	
-    window_Boxes = tk.Tk()
-    window_Boxes.title("BOXES")
-
-    text = tk.Text(window_Boxes)
-    myFont = Font(family="fixedsys", size=12)
-    text.configure(font=myFont)
+	window_Boxes = tk.Tk()
+	window_Boxes.title("BOXES")
 	
-    cols = ('Box ID', 'Fridge ID', 'Fridge X', 'Fridge Y', 'Box X', 'Box Y', 'Box Z')
-    tree = ttk.Treeview(window_Boxes, columns=cols, show='headings')
-    for col in cols:
-        tree.heading(col, text=col)
-    tree.grid(row=2, column=0, columnspan=7)
-
-    tree.column("Box ID", minwidth=0, width=65, stretch=tk.NO)
-    tree.column("Fridge ID", minwidth=0, width=80, stretch=tk.NO)
-    tree.column("Fridge X", minwidth=0, width=75, stretch=tk.NO)
-    tree.column("Fridge Y", minwidth=0, width=75, stretch=tk.NO)
-    tree.column("Box X", minwidth=0, width=65, stretch=tk.NO)
-    tree.column("Box Y", minwidth=0, width=65, stretch=tk.NO)
-    tree.column("Box Z", minwidth=0, width=65, stretch=tk.NO)
-    
+	cols = ('Box ID', 'Fridge ID', 'Fridge X', 'Fridge Y', 'Box X', 'Box Y', 'Box Z')
+	tree = ttk.Treeview(window_Boxes, columns=cols, show='headings')
+	for col in cols:
+		tree.heading(col, text=col)
+	tree.grid(row=2, column=0, columnspan=7)
 	
-    c.execute("SELECT * FROM BoxTable")
+	c.execute("SELECT * FROM BoxTable")
 	
-    for row in c.fetchall():
-        tree.insert("", "end", values = (row))
+	for row in c.fetchall():
+		tree.insert("", "end", values = (row))
 		
-    def openBoxSearchMenu():
-        window_Boxes.destroy()
+	def openBoxSearchMenu():
+		window_Boxes.destroy()
 		
-    backButton = tk.Button(window_Boxes, text = 'Close', command = openBoxSearchMenu, font = myFont).grid(row=5, column=1)
+	backButton = tk.Button(window_Boxes, text = 'Close', command = openBoxSearchMenu).grid(row=5, column=1)
 	
-    window_Boxes.mainloop()
+	window_Boxes.mainloop()
 	
 #----------------------------------------------------------------------------------------
 def OpenBoxSearch(conn, searchField, searchColumn):
     c = conn.cursor()
-    c.execute('''SELECT * FROM BoxTable WHERE ''' + searchColumn + ''' =?''', (str(searchField),))
-    result = c.fetchone()
 
     if searchField == "":
-        MessagePopup("Search field is missing data", "ERROR")
-
-    elif result is None:
-        MessagePopup("There are no results for that search", "ERROR")
+        MessagePopup("That is not valid", "ERROR")
 
     else:
         window_Boxes = tk.Tk()
         window_Boxes.title("BOXES")
-
-        text = tk.Text(window_Boxes)
-        myFont = Font(family="fixedsys", size=12)
-        text.configure(font=myFont)
 
         cols = ('Box ID', 'Fridge ID', 'Fridge X', 'Fridge Y', 'Box X', 'Box Y', 'Box Z')
         tree = ttk.Treeview(window_Boxes, columns=cols, show='headings')
         for col in cols:
             tree.heading(col, text=col)
         tree.grid(row=2, column=0, columnspan=7)
-   
-        tree.column("Box ID", minwidth=0, width=65, stretch=tk.NO)
-        tree.column("Fridge ID", minwidth=0, width=80, stretch=tk.NO)
-        tree.column("Fridge X", minwidth=0, width=75, stretch=tk.NO)
-        tree.column("Fridge Y", minwidth=0, width=75, stretch=tk.NO)
-        tree.column("Box X", minwidth=0, width=65, stretch=tk.NO)
-        tree.column("Box Y", minwidth=0, width=65, stretch=tk.NO)
-        tree.column("Box Z", minwidth=0, width=65, stretch=tk.NO)
 
         c.execute('''SELECT * FROM BoxTable WHERE ''' + searchColumn + ''' =?''', (str(searchField),))
 
@@ -99,7 +69,7 @@ def OpenBoxSearch(conn, searchField, searchColumn):
         def openBoxSearchMenu():
             window_Boxes.destroy()
 
-        backButton = tk.Button(window_Boxes, text = 'Close', command = openBoxSearchMenu, font = myFont).grid(row=5, column=1)
+        backButton = tk.Button(window_Boxes, text = 'Close', command = openBoxSearchMenu).grid(row=5, column=1)
         
         window_Boxes.mainloop()
 #----------------------------------------------------------------------------------------

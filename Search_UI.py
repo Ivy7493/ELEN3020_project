@@ -12,23 +12,6 @@ import DisplayTestResults
 from tkcalendar import *
 from tkinter import ttk
 
-def MessagePopup(messageText, messageTitle):
-    message_window = tk.Tk()
-    message_window.title(messageTitle)
-
-    text = tk.Text(message_window)
-    myFont = Font(family="fixedsys", size=12)
-    text.configure(font=myFont)
-
-    message_window["bg"] = 'cadet blue'
-    message = tk.Label(message_window, text = messageText, font = myFont, bg = 'cadet blue')
-    message.grid(row = 0, column = 0)
-
-    def CloseMessage():
-        message_window.destroy()
-
-    backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
-
 ##########---------->START: WINDOW FOR SEARCHING FRIDGES<-------##########
 def SearchFridge_Window(conn):
     window_SearchFridge = tk.Tk()
