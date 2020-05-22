@@ -1,24 +1,31 @@
 from datetime import datetime
 import sqlite3
-#JESSE'S COMMENT
 
-mainlog = 'Logs/Mainlog.txt'
+mainLog = 'Logs/MainLog.txt'
+billingLog = 'Logs/BillingLog.txt'
 
-def Log(conn, LogInfo):
-    f = open(mainlog,"a")
+def Log(conn, _logInfo):
+    f = open(mainLog,"a")
     now = datetime.now()
-    now = now.strftime("%Y-%M-%D %H:%M:%S")
-    logMes = now + " - " + " user: " + GetCurrentLogin(conn) + " "  + LogInfo + '\n'
+    now = now.strftime("%Y-%m-%d %H:%M:%S")
+    logMes = now + " - " + " user: " + GetCurrentLogin(conn) + " "  + _logInfo + '\n'
     f.write(logMes)
     f.close()
-
 
 def IndividualLog(conn, _logInfo, _fileName):
     fullName = 'Logs/'+_fileName + '.txt'
     f = open(fullName,"a")
     now = datetime.now()
-    now = now.strftime("%Y-%M-%D %H:%M:%S")
+    now = now.strftime("%Y-%m-%d %H:%M:%S")
     logMes = now + " - " + " user: " + GetCurrentLogin(conn) + " " + _logInfo + '\n'
+    f.write(logMes)
+    f.close()
+
+def BillingLog(conn, _logInfo):
+    f = open(billingLog,"a")
+    now = datetime.now()
+    now = now.strftime("%Y-%m-%d %H:%M:%S")
+    logMes = now + " - " + _logInfo + '\n'
     f.write(logMes)
     f.close()
 

@@ -14,24 +14,6 @@ from tkinter import *
 from tkcalendar import *
 from fpdf import FPDF
 
-def MessagePopup(messageText, messageTitle):
-    message_window = tk.Tk()
-    message_window.title(messageTitle)
-
-    text = tk.Text(message_window)
-    myFont = Font(family="fixedsys", size=12)
-    text.configure(font=myFont)
-
-    message_window["bg"] = 'cadet blue'
-    message = tk.Label(message_window, text = messageText, font = myFont, bg = 'cadet blue', wraplength = 400, justify = "center")
-    message.grid(row = 0, column = 0)
-
-    def CloseMessage():
-        message_window.destroy()
-
-    backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
-    tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row = 2)
-    message_window.mainloop()
 
 def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _postalCode, _sampleArray, _rateArray, _fridgeArray, _addingOrStoring):
     try:
@@ -193,21 +175,19 @@ def AutoBilling(_conn):
         else:
             #REMOVE THIS IF WE DON'T WANT TO DISPLAY THE SUCCESSFUL INVOICES
             messageArray.append(invoiceStatus)
-            LoggingAPI.Log(_conn, invoiceStatus)
+            LoggingAPI.BillingLog(_conn, invoiceStatus)
     stringMessage = ""
     for message in messageArray:
         stringMessage = stringMessage + '\n' + message
-    MessagePopup(stringMessage, "INVOICE RESULT")
-
-
-
+    if stringMessage == "":
+        stringMessage = "ERROR"
+    return stringMessage
 
 def BillNewSamples(_conn):
     c = _conn.cursor()
     c.execute("SELECT * FROM CollectionInvoiceTable")
     results = c.fetchall()
     
-
     collectionTitleArray = []
     sampleArray = []
     invoiceCheckArray = []
@@ -240,7 +220,6 @@ def BillNewSamples(_conn):
             count = count + 1
         else:  
             noSampleCount = noSampleCount + 1  
-
     messageArray = []
 
     while count > 0:
@@ -259,13 +238,10 @@ def BillNewSamples(_conn):
         tempSampleArray = []
         tempFridgeRateArray = []
         tempFridgeIDArray = []
-
         tempSampleArray2 = []
         tempFridgeRateArray2 = []
         tempFridgeIDArray2 = []
         tempCollectionArray2 = []
-
-
 
         count3 = 0
         for sample in sampleArray:
@@ -295,24 +271,27 @@ def BillNewSamples(_conn):
         else:
             #REMOVE THIS IF WE DON'T WANT TO DISPLAY THE SUCCESSFUL INVOICES
             messageArray.append(invoiceStatus)
-            LoggingAPI.Log(_conn, invoiceStatus)
+            logMessage = " user: " + LoggingAPI.GetCurrentLogin(_conn) + " " +invoiceStatus
+            LoggingAPI.BillingLog(_conn, invoiceStatus)
 
     stringMessage = ""
     for message in messageArray:
         stringMessage = stringMessage + '\n' + message
 
+    messageResult = ""
     if noSampleCount != totalSampleCount:
-        MessagePopup(stringMessage, "INVOICE RESULT")
+        messageResult = stringMessage
     else:
-        MessagePopup("No new samples to invoice", "INVOICE RESULT")
+        messageResult = "No new samples to invoice"
+    return messageResult
 
 
-def UpdateCollectionInvoiceTable(conn, sampleID, collectionTitle):
-    c = conn.cursor()
+def UpdateCollectionInvoiceTable(_conn, sampleID, collectionTitle):
+    c = _conn.cursor()
     try:
         c.execute("INSERT INTO CollectionInvoiceTable (collectionTitle, sampleID, invoiceCheck) VALUES (?, ?, ?)",(collectionTitle,sampleID, 0))
-        conn.commit()
-        LoggingAPI.Log(conn, "Added sample " + sampleID + " from collection " + collectionTitle + " to collection invoice table, ready to invoice")
+        _conn.commit()
+        LoggingAPI.BillingLog(_conn, "Added sample " + sampleID + " from collection " + collectionTitle + " to collection invoice table, ready to invoice")
         return("Successfully added sample " + sampleID + " to the collection invoice table, ready to invoice")
     except sqlite3.Error as error:
         return(error)  

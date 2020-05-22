@@ -304,6 +304,7 @@ def DeleteFridge(_conn, _fridgeID):
 def DeleteSample(_conn, _sampleID):
     if DoesIDExist(_conn, "SAMPLE", _sampleID) == "TRUE":
         DeleteSampleTest(_conn, _sampleID)
+        DeleteSampleCollectionInvoiceEntry(_conn, _sampleID)
         c = _conn.cursor()
         c.execute("DELETE FROM SampleTable WHERE sampleID=?",(_sampleID,))
         _conn.commit()
@@ -323,6 +324,15 @@ def DeleteSampleTest(_conn, _sampleID):
     else:
         return checkSample + " - cannot delete sample test"
 
+def DeleteSampleCollectionInvoiceEntry(_conn, _sampleID):
+    checkSample = DoesIDExist(_conn, "SAMPLE", _sampleID)
+    if checkSample == "TRUE":
+        c = _conn.cursor()
+        c.execute("DELETE FROM CollectionInvoiceTable WHERE sampleID=?",(_sampleID,))
+        _conn.commit()
+        return "TRUE"
+    else:
+        return checkSample + " - cannot delete"
 
 def FindEmptyFridge(_conn):
     c = _conn.cursor()

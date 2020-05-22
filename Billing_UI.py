@@ -14,6 +14,26 @@ from tkcalendar import *
 from fpdf import FPDF
 from tkinter.font import Font
 
+
+def MessagePopup(messageText, messageTitle):
+    message_window = tk.Tk()
+    message_window.title(messageTitle)
+
+    text = tk.Text(message_window)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    message_window["bg"] = 'cadet blue'
+    message = tk.Label(message_window, text = messageText, font = myFont, bg = 'cadet blue', wraplength = 400, justify = "center")
+    message.grid(row = 0, column = 0)
+
+    def CloseMessage():
+        message_window.destroy()
+
+    backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+    tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row = 2)
+    message_window.mainloop()
+
 def MainBilling_Window(conn):
     window_MainBilling = tk.Tk()
     window_MainBilling.title("INVOICE")
@@ -24,17 +44,17 @@ def MainBilling_Window(conn):
     text.configure(font=myFont)
 
     def RunAutoBilling():
-        AutoBilling.AutoBilling(conn)
+        MessagePopup(AutoBilling.AutoBilling(conn), "INVOICE RESULT")
 
     def RunNewSampleBilling():
-        AutoBilling.BillNewSamples(conn)
+        MessagePopup(AutoBilling.BillNewSamples(conn), "INVOICE RESULT")
 
     def Return():
         window_MainBilling.destroy()
         Main_UI.Main_Window(conn)
 
     tk.Button(window_MainBilling, text = 'Invoice for New Samples', command = RunNewSampleBilling, font = myFont).grid(row = 1, column=1, sticky = "ew")
-    tk.Button(window_MainBilling, text = 'Invoice for Storage', command = RunAutoBilling, font = myFont).grid(row = 3, column=1, sticky = "ew")
+    tk.Button(window_MainBilling, text = 'Invoice for Storage', command = RunAutoBilling, font = myFont, bg = "red").grid(row = 3, column=1, sticky = "ew")
     tk.Button(window_MainBilling, text = 'Return', command = Return, font = myFont).grid(row = 5, column=1, sticky = "ew")
 
     tk.Label(window_MainBilling, height = 1, width = 6, bg="cadet blue").grid(row =0, column =0)
