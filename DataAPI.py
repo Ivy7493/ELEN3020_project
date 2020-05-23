@@ -651,5 +651,42 @@ def CommitAuto(_conn, _fileName):
         return AutoAddSamples(_conn, fileName)    
     else:
         return result      
+
+def StockTakeBoxes(_conn, numofBoxes):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM BoxTable")
+    results = c.fetchall()
+    counter = 0
+    for result in results:
+        counter = counter +1
+
+    if counter == numofBoxes:
+        return("Stock take is successful, there are " + str(numofBoxes) + " boxes in storage")
+    elif counter != numofBoxes:
+        return("Stock take mismatch, there are " + str(counter) + " boxes in storage")
+
+def StockTakeSamples(_conn, numofSamples):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM SampleTable")
+    results = c.fetchall()
+    counter = 0
+    for result in results:
+        counter = counter + 1
+    if counter == numofSamples:
+        return("Stock take is successful, there are " + str(numofSamples) + " samples in storage")
+    elif counter != numofSamples:
+        return("Stock take mismatch, there are " + str(counter) + " samples in storage")
+
+def StockTakeFridge(_conn, numofFridge):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM FridgeTable")
+    results = c.fetchall()
+    counter = 0
+    for result in results:
+        counter = counter + 1
+    if counter == numofFridge:
+        return("Stock take is successful, there are " + str(numofFridge) + " fridges in storage")
+    elif counter != numofFridge:
+        return("Stock take mismatch, there are " + str(counter) + " fridges in storage") 
     
 
