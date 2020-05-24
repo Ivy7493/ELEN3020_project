@@ -90,6 +90,7 @@ def Main_Window(conn):
     window_Main = tk.Tk()
     window_Main.title("AUTO ADD MENU")
     window_Main["bg"] = 'cadet blue'
+    window_Main
     
     text = tk.Text(window_Main)
     myFont = Font(family="fixedsys", size=12)
@@ -104,12 +105,13 @@ def Main_Window(conn):
         window_Main.destroy()
         Main_UI.Edit_Window(conn)
 
-    tk.Label(window_Main, text = 'Add CSV files to the ToAdd folder', height = 1, width = 6, bg = 'cadet blue').grid(row=0, column=2)
-    tk.Button(window_Main, text = 'Add Samples', command = Open_AddSamples, font=myFont).grid(row = 1, column=1, sticky = "ew")
-    tk.Label(window_Main, height = 1, width = 6, bg = 'cadet blue').grid(row=2, column=0)
+    tk.Label(window_Main, text = 'Make sure to Add CSV files to the ToAdd folder', font=myFont, bg = 'cadet blue', wraplength = 200, justify = "center").grid(row=0, column=1)
+    tk.Label(window_Main, height = 1, width = 6, bg = 'cadet blue').grid(row=1, column=2)
+    tk.Button(window_Main, text = 'Add Samples', command = Open_AddSamples, font=myFont).grid(row = 2, column=1, sticky = "ew")
+    tk.Label(window_Main, height = 1, width = 6, bg = 'cadet blue').grid(row=3, column=0)
 
-    tk.Button(window_Main, text = 'Return', command = Return, font=myFont).grid(row = 3, column=1, sticky = "ew")
-    tk.Label(window_Main, height = 1, width = 6, bg = 'cadet blue').grid(row=4, column=0)
+    tk.Button(window_Main, text = 'Return', command = Return, font=myFont).grid(row = 4, column=1, sticky = "ew")
+    tk.Label(window_Main, height = 1, width = 6, bg = 'cadet blue').grid(row=5, column=2)
 
     window_Main.mainloop()
 ##########---------->END: MAIN AUTO WINDOW<----------------------##########
