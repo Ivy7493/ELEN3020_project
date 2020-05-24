@@ -23,28 +23,45 @@ def MessagePopup(messageText, messageTitle):
 
 
 def OpenAllSamples(conn):
-	c = conn.cursor()
+    c = conn.cursor()
 
-	window_Samples = tk.Tk()
-	window_Samples.title("SAMPLES")
+    window_Samples = tk.Tk()
+    window_Samples.title("SAMPLES")
 
-	cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
-	tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
-	for col in cols:
-		tree.heading(col, text = col)
-	tree.grid(row=2, column = 0, columnspan=7)
+    cols = ('Sample ID', 'Box ID', 'X', 'Y', 'Z', 'Sample Type', 'Origin Country', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
+    tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
+    for col in cols:
+        tree.heading(col, text = col)
+    tree.grid(row=0, column = 0, columnspan=16)
 
-	c.execute("SELECT * FROM SampleTable")
+    tree.column("Sample ID", minwidth=0, width=90, stretch=tk.NO)
+    tree.column("Box ID", minwidth=0, width=65, stretch=tk.NO)
+    tree.column("X", minwidth=0, width=30, stretch=tk.NO)
+    tree.column("Y", minwidth=0, width=30, stretch=tk.NO)
+    tree.column("Z", minwidth=0, width=30, stretch=tk.NO)
+    tree.column("Sample Type", minwidth=0, width=100, stretch=tk.NO)
+    tree.column("Origin Country", minwidth=0, width=120, stretch=tk.NO)
+    tree.column("Collection Date", minwidth=0, width=120, stretch=tk.NO)
+    tree.column("Entry Date", minwidth=0, width=90, stretch=tk.NO)
+    tree.column("Subject Age", minwidth=0, width=100, stretch=tk.NO)
+    tree.column("Tube Rating", minwidth=0, width=100, stretch=tk.NO)
+    tree.column("Collection Title", minwidth=0, width=135, stretch=tk.NO)
+    tree.column("Return Type", minwidth=0, width=100, stretch=tk.NO)
+    tree.column("Return Date", minwidth=0, width=100, stretch=tk.NO)
+    tree.column("Phenotype Value", minwidth=0, width=135, stretch=tk.NO)
+    tree.column("Disease State", minwidth=0, width=120, stretch=tk.NO)
 
-	for row in c.fetchall():
-		tree.insert("", "end", values = (row))
+    c.execute("SELECT * FROM SampleTable")
 
-	def openSampleSearchMenu():
-		window_Samples.destroy()
+    for row in c.fetchall():
+        tree.insert("", "end", values = (row))
 
-	backButton = tk.Button(window_Samples, text = 'close', command=openSampleSearchMenu).grid(row=5, column=1)
+    def openSampleSearchMenu():
+        window_Samples.destroy()
 
-	window_Samples.mainloop()
+    backButton = tk.Button(window_Samples, text = 'close', command=openSampleSearchMenu).grid(row=5, column=1)
+
+    window_Samples.mainloop()
 
 
 
@@ -52,17 +69,34 @@ def OpenSampleSearch(conn, searchField, searchColumn):
     c = conn.cursor()
 
     if searchField == "":
-        MessagePopup("That is not valid", "ERROR")
+        MessagePopup("That is tk.NOt valid", "ERROR")
 
     else:
         window_Samples = tk.Tk()
         window_Samples.title("SAMPLES")
 
-        cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
+        cols = ('Sample ID', 'Box ID', 'X', 'Y', 'Z', 'Sample Type', 'Origin Country', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
         tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
         for col in cols:
             tree.heading(col, text = col)
-        tree.grid(row=2, column = 0, columnspan=7)
+        tree.grid(row=0, column = 0, columnspan=16)
+
+        tree.column("Sample ID", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Box ID", minwidth=0, width=65, stretch=tk.NO)
+        tree.column("X", minwidth=0, width=30, stretch=tk.NO)
+        tree.column("Y", minwidth=0, width=30, stretch=tk.NO)
+        tree.column("Z", minwidth=0, width=30, stretch=tk.NO)
+        tree.column("Sample Type", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Origin Country", minwidth=0, width=120, stretch=tk.NO)
+        tree.column("Collection Date", minwidth=0, width=120, stretch=tk.NO)
+        tree.column("Entry Date", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Subject Age", minwidth=0, width=100, stretch=tk.NO)
+        tree.column("Tube Rating", minwidth=0, width=100, stretch=tk.NO)
+        tree.column("Collection Title", minwidth=0, width=135, stretch=tk.NO)
+        tree.column("Return Type", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Return Date", minwidth=0, width=100, stretch=tk.NO)
+        tree.column("Phenotype Value", minwidth=0, width=135, stretch=tk.NO)
+        tree.column("Disease State", minwidth=0, width=120, stretch=tk.NO)
 
         c.execute('''SELECT * FROM SampleTable WHERE ''' + searchColumn + ''' =?''', (str(searchField),))
 
@@ -81,17 +115,34 @@ def OpenSampleFridgeSearch(conn, fridgeID):
     c = conn.cursor()
 
     if fridgeID == "":
-        MessagePopup("That is not valid", "ERROR")
+        MessagePopup("That is tk.NOt valid", "ERROR")
 
     else:
         window_Samples = tk.Tk()
         window_Samples.title("SAMPLES")
 
-        cols = ('Sample ID', 'Box ID', 'Box X', 'Box Y', 'Box Z', 'Sample Type', 'Country of Origin', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
+        cols = ('Sample ID', 'Box ID', 'X', 'Y', 'Z', 'Sample Type', 'Origin Country', 'Collection Date', 'Entry Date', 'Subject Age', 'Tube Rating', 'Collection Title', 'Return Type', 'Return Date', 'Phenotype Value', 'Disease State')
         tree = ttk.Treeview(window_Samples, columns=cols, show='headings')
         for col in cols:
             tree.heading(col, text = col)
-        tree.grid(row=2, column = 0, columnspan=7)
+        tree.grid(row=0, column = 0, columnspan=16)
+
+        tree.column("Sample ID", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Box ID", minwidth=0, width=65, stretch=tk.NO)
+        tree.column("X", minwidth=0, width=30, stretch=tk.NO)
+        tree.column("Y", minwidth=0, width=30, stretch=tk.NO)
+        tree.column("Z", minwidth=0, width=30, stretch=tk.NO)
+        tree.column("Sample Type", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Origin Country", minwidth=0, width=120, stretch=tk.NO)
+        tree.column("Collection Date", minwidth=0, width=120, stretch=tk.NO)
+        tree.column("Entry Date", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Subject Age", minwidth=0, width=100, stretch=tk.NO)
+        tree.column("Tube Rating", minwidth=0, width=100, stretch=tk.NO)
+        tree.column("Collection Title", minwidth=0, width=135, stretch=tk.NO)
+        tree.column("Return Type", minwidth=0, width=90, stretch=tk.NO)
+        tree.column("Return Date", minwidth=0, width=100, stretch=tk.NO)
+        tree.column("Phenotype Value", minwidth=0, width=135, stretch=tk.NO)
+        tree.column("Disease State", minwidth=0, width=120, stretch=tk.NO)
 
         c.execute("SELECT * FROM SampleTable")
         for result in c.fetchall():
