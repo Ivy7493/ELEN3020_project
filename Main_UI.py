@@ -115,7 +115,7 @@ def Edit_Window(conn):
 
     def Open_AutoAddSamples_Window():
         window_Edit.destroy()
-        Auto_UI.Main_Window(conn)
+        Auto_UI.AddSamples(conn)
 
     def Open_NewUserLogin_Window():
         window_Edit.destroy()
