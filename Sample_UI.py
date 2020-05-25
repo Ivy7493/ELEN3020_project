@@ -8,7 +8,6 @@ import time
 import datetime
 from tkinter.font import Font
 from tkinter import messagebox
-from tkinter.font import Font
 from tkinter import ttk
 from datetime import date
 from tkinter import *

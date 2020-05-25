@@ -14,7 +14,6 @@ from tkinter import *
 from tkcalendar import *
 from fpdf import FPDF
 
-
 def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _postalCode, _sampleArray, _rateArray, _fridgeArray, _addingOrStoring):
     try:
         pdf = FPDF()
@@ -284,7 +283,6 @@ def BillNewSamples(_conn):
     else:
         messageResult = "No new samples to invoice"
     return messageResult
-
 
 def UpdateCollectionInvoiceTable(_conn, sampleID, collectionTitle):
     c = _conn.cursor()

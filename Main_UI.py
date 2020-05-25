@@ -13,6 +13,7 @@ import LoggingAPI
 import Register_UI
 import Billing_UI
 import Auto_UI
+import StockTake_UI
 import datetime
 from datetime import date
 from datetime import datetime
@@ -65,6 +66,10 @@ def Main_Window(conn):
         window_Main.destroy()
         Search_UI.MainSearch_Window(conn)
 
+    def Open_StockTake_Window():
+        window_Main.destroy()
+        StockTake_UI.MainStockTake_Window(conn)
+
     def Logout():
         window_Main.destroy()
         DataAPI.LogoutAll(conn)
@@ -77,8 +82,9 @@ def Main_Window(conn):
     tk.Button(window_Main, text = 'View Mode', font=myFont, command = Open_View_Window).grid(row = 3, column=1, sticky = "ew")
     tk.Button(window_Main, text = 'Invoice Mode', font=myFont, command = Open_Billing_Window).grid(row = 5, column=1, sticky = "ew")
     tk.Button(window_Main, text = 'Search Mode', font=myFont, command = Open_Search_Window).grid(row=7, column=1, sticky = "ew")
-    tk.Button(window_Main, text = 'Log Out', font=myFont, command = Logout).grid(row = 9, column=1, sticky = "ew")
-    tk.Button(window_Main, text = 'Exit', font=myFont, command = Exit).grid(row = 11, column=1, sticky = "ew")
+    tk.Button(window_Main, text = 'Stock Take Mode', font=myFont, command = Open_StockTake_Window).grid(row=9, column=1, sticky = "ew")
+    tk.Button(window_Main, text = 'Log Out', font=myFont, command = Logout).grid(row = 11, column=1, sticky = "ew")
+    tk.Button(window_Main, text = 'Exit', font=myFont, command = Exit).grid(row = 13, column=1, sticky = "ew")
 
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=0, column=2)
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=2, column=0)
@@ -87,6 +93,7 @@ def Main_Window(conn):
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=8, column=0)
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=10, column=0)
     tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=12, column=0)
+    tk.Label(window_Main, height = 1, width = 6, bg="cadet blue").grid(row=14, column=0)
 
     window_Main.mainloop()
 ##########---------->END: MAIN WINDOW<----------------------##########
