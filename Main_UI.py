@@ -137,16 +137,16 @@ def Edit_Window(conn):
         Main_Window(conn)
 
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=0, column=2)
-    tk.Button(window_Edit, text = 'Open Fridge Menu', command = Open_FridgeMenu_Window, font=myFont).grid(row = 1, column=1, sticky = "ew")
+    tk.Button(window_Edit, text = 'Fridge Menu', command = Open_FridgeMenu_Window, font=myFont).grid(row = 1, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=2, column=0)
 
-    tk.Button(window_Edit, text = 'Open Box Menu', command = Open_BoxMenu_Window, font=myFont).grid(row = 3, column=1, sticky = "ew")
+    tk.Button(window_Edit, text = 'Box Menu', command = Open_BoxMenu_Window, font=myFont).grid(row = 3, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=4, column=0)
 
-    tk.Button(window_Edit, text = 'Open Sample Menu', command = Open_SampleMenu_Window, font=myFont).grid(row = 5, column=1, sticky = "ew")
+    tk.Button(window_Edit, text = 'Sample Menu', command = Open_SampleMenu_Window, font=myFont).grid(row = 5, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg = 'cadet blue').grid(row=6, column=0)
 
-    tk.Button(window_Edit, text = 'Open Auto Add Menu', font=myFont, command = Open_AutoAddSamples_Window).grid(row = 7, column=1, sticky = "ew")
+    tk.Button(window_Edit, text = 'Auto Add Menu', font=myFont, command = Open_AutoAddSamples_Window).grid(row = 7, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=8, column=0)
 
     tk.Button(window_Edit, text = 'Manage User Login', font=myFont, command = Open_ManageUserLogin_Window).grid(row = 9, column=1, sticky = "ew")
