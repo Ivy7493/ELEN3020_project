@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.font import Font
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -19,7 +20,9 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+##########---------->END: MESSAGE POPUP<--------------------##########
 
+##########---------->START: BOXES DISPLAYP<--------------------##########
 def OpenAllBoxes(conn):
 	c = conn.cursor()
 	
@@ -43,8 +46,9 @@ def OpenAllBoxes(conn):
 	backButton = tk.Button(window_Boxes, text = 'Close', command = openBoxSearchMenu).grid(row=5, column=1)
 	
 	window_Boxes.mainloop()
-	
-#----------------------------------------------------------------------------------------
+##########---------->END: BOXES DISPLAY<--------------------##########
+
+##########---------->START: BOXES SEARCH<--------------------##########
 def OpenBoxSearch(conn, searchField, searchColumn):
     c = conn.cursor()
 
@@ -72,5 +76,4 @@ def OpenBoxSearch(conn, searchField, searchColumn):
         backButton = tk.Button(window_Boxes, text = 'Close', command = openBoxSearchMenu).grid(row=5, column=1)
         
         window_Boxes.mainloop()
-#----------------------------------------------------------------------------------------
-
+##########---------->END: BOXES SEARCH<--------------------##########

@@ -1,6 +1,5 @@
 import os
 
-
 def CreateLogsFolder():
     try:
         os.mkdir('Logs')
@@ -133,5 +132,3 @@ def CreateAllTables(_conn):
     CreateInvoicesFolder()
     CreateToAddFolder()
     CreateAdmin(_conn)
-
-#JESSE'S COMMENT

@@ -1,1 +1,8 @@
-2020-05-27 15:25:53 - Added sample S21 from collection C1 to collection invoice table, ready to invoice
+2020-05-27 15:52:51 - Added sample S1 from collection C1 to collection invoice table, ready to invoice
+2020-05-27 15:52:59 - Added sample S2 from collection C1 to collection invoice table, ready to invoice
+2020-05-27 15:53:03 - Added sample S3 from collection C1 to collection invoice table, ready to invoice
+2020-05-27 15:53:12 - Added sample S4 from collection C1 to collection invoice table, ready to invoice
+2020-05-27 15:55:19 - Added sample S5 from collection C2 to collection invoice table, ready to invoice
+2020-05-27 15:55:29 - Added sample S6 from collection C2 to collection invoice table, ready to invoice
+2020-05-27 18:10:11 - Invoiced Client1 for adding samples to the biobank in the month of May (TOTAL: R575.0)
+2020-05-27 18:10:11 - Invoiced Client2 for adding samples to the biobank in the month of May (TOTAL: R230.0)

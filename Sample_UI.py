@@ -13,6 +13,7 @@ from datetime import date
 from tkinter import *
 from tkcalendar import *
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -29,7 +30,9 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+##########---------->END: MESSAGE POPUP<--------------------##########
 
+##########---------->START: SUGGEST BOX POPUP<--------------------##########
 def Open_SuggestBox_Window(conn):
     def SuggestBox():
         _minTemp = minTemp.get()
@@ -70,6 +73,7 @@ def Open_SuggestBox_Window(conn):
     maxTemp.grid(row = 1, column = 1)
 
     tk.Button(window_SuggestBox, text = 'Suggest Box', command = SuggestBox, font = myFont).grid(row = 2, column=1)
+##########---------->END: SUGGEST BOX POPUP<--------------------##########
 
 ##########---------->START: WINDOW FOR ADDING SAMPLE<----------##########
 def AddSample_Window(conn):
@@ -223,7 +227,6 @@ def AddSampleTest_Window(conn):
             except:
                 MessagePopup("ERROR: Invalid data entered", "Add Sample")
 
-
     def Open_MainSample_Window():
         window_AddSampleTest.destroy()
         MainSample_Window(conn)
@@ -318,7 +321,6 @@ def MoveSample_Window(conn):
     window_MoveSample.mainloop()
 ##########---------->END: WINDOW FOR MOVING SAMPLE<----------##########
 
-
 ##########---------->START: WINDOW FOR DELETING SAMPLE<----------##########
 def DeleteSample_Window(conn):
     def deleteSample():
@@ -352,7 +354,6 @@ def DeleteSample_Window(conn):
 
     window_DeleteSample.mainloop()
 ##########---------->END: WINDOW FOR DELETING SAMPLE<----------##########
-
 
 ##########---------->START: MAIN WINDOW FOR SAMPLES<----------##########
 def MainSample_Window(conn):
@@ -399,4 +400,3 @@ def MainSample_Window(conn):
 
     window_MainSample.mainloop()
 ##########---------->END: MAIN WINDOW FOR SAMPLES<----------##########
-

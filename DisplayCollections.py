@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.font import Font
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -19,7 +20,9 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+##########---------->END: MESSAGE POPUP<--------------------##########
 
+##########---------->START: DISPLAY COLLECTIONS<--------------------##########
 def OpenAllCollections(conn):
     c = conn.cursor()
 
@@ -43,10 +46,9 @@ def OpenAllCollections(conn):
     backButton = tk.Button(window_Collections, text = 'Close', command = openCollectionSearchMenu).grid(row=5, column=1)
     
     window_Collections.mainloop()
-#----------------------------------------------------------------------------------------
+##########---------->END: DISPLAY COLLECTIONS<--------------------##########
     
-
-#----------------------------------------------------------------------------------------
+##########---------->START: COLLECTION SEARCH<--------------------##########
 def OpenCollectionSearch(conn, searchField, searchColumn):
     c = conn.cursor()
 
@@ -75,4 +77,4 @@ def OpenCollectionSearch(conn, searchField, searchColumn):
         backButton = tk.Button(window_Collections, text = 'Close', command = openCollectionSearchMenu).grid(row=5, column=1)
         
         window_Collections.mainloop()
-#----------------------------------------------------------------------------------------
+##########---------->END: COLLECTION SEARCH<--------------------##########

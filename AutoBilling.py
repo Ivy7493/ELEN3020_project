@@ -14,6 +14,7 @@ from tkinter import *
 from tkcalendar import *
 from fpdf import FPDF
 
+##########---------->START: CREATE STORING PDF<--------------------##########
 def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _postalCode, _sampleArray, _rateArray, _fridgeArray, _addingOrStoring):
     try:
         pdf = FPDF()
@@ -133,7 +134,9 @@ def CreateStoringPDF(_conn, _clientName, _streetAddress, _city, _country, _posta
         return invoiceMessage
     except:
         return "FALSE"   
+##########---------->END: CREATE STORING PDF<--------------------##########
 
+##########---------->START: AUTO BILLING<--------------------##########
 def AutoBilling(_conn):
     c = _conn.cursor()
     c.execute("SELECT * FROM CollectionTable")
@@ -172,7 +175,7 @@ def AutoBilling(_conn):
         if invoiceStatus == "FALSE":
             messageArray.append("ERROR invoicing client " + clientName)
         else:
-            #REMOVE THIS IF WE DON'T WANT TO DISPLAY THE SUCCESSFUL INVOICES
+            #REMOVE THIS TO NOT DISPLAY SUCCESSFUL INVOICES
             messageArray.append(invoiceStatus)
             LoggingAPI.BillingLog(_conn, invoiceStatus)
     stringMessage = ""
@@ -181,7 +184,9 @@ def AutoBilling(_conn):
     if stringMessage == "":
         stringMessage = "ERROR"
     return stringMessage
+##########---------->END: AUTO BILLING<--------------------##########
 
+##########---------->START: BILLING FOR NEW SAMPLES<--------------------##########
 def BillNewSamples(_conn):
     c = _conn.cursor()
     c.execute("SELECT * FROM CollectionInvoiceTable")
@@ -268,7 +273,7 @@ def BillNewSamples(_conn):
         if invoiceStatus == "FALSE":
             messageArray.append("ERROR invoicing client " + clientName)
         else:
-            #REMOVE THIS IF WE DON'T WANT TO DISPLAY THE SUCCESSFUL INVOICES
+            #REMOVE THIS TO NOT DISPLAY SUCCESSFUL INVOICES
             messageArray.append(invoiceStatus)
             logMessage = " user: " + LoggingAPI.GetCurrentLogin(_conn) + " " +invoiceStatus
             LoggingAPI.BillingLog(_conn, invoiceStatus)
@@ -283,7 +288,9 @@ def BillNewSamples(_conn):
     else:
         messageResult = "No new samples to invoice"
     return messageResult
+##########---------->END: BILLING FOR NEW SAMPLES<--------------------##########
 
+##########---------->START: UPDATE COLLECTION INVOICE TABLE<--------------------##########
 def UpdateCollectionInvoiceTable(_conn, sampleID, collectionTitle):
     c = _conn.cursor()
     try:
@@ -293,4 +300,4 @@ def UpdateCollectionInvoiceTable(_conn, sampleID, collectionTitle):
         return("Successfully added sample " + sampleID + " to the collection invoice table, ready to invoice")
     except sqlite3.Error as error:
         return(error)  
-
+##########---------->END: UPDATE COLLECTION INVOICE TABLE<--------------------##########

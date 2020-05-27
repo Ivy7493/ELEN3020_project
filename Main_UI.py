@@ -18,6 +18,7 @@ import datetime
 from datetime import date
 from datetime import datetime
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -34,6 +35,7 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+##########---------->END: MESSAGE POPUP<--------------------##########
 
 ##########---------->START: MAIN WINDOW<--------------------##########
 def Main_Window(conn):
@@ -184,4 +186,3 @@ def Warning_Window(conn):
 
         window_Warning.mainloop()
 ##########---------->END: WARNING WINDOW<------------------##########    
-

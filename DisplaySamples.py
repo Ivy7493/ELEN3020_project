@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter.font import Font
 import DataAPI
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -20,8 +21,9 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+##########---------->END: MESSAGE POPUP<--------------------##########
 
-
+##########---------->START: SAMPLE DISPLAY<--------------------##########
 def OpenAllSamples(conn):
     c = conn.cursor()
 
@@ -62,9 +64,9 @@ def OpenAllSamples(conn):
     backButton = tk.Button(window_Samples, text = 'close', command=openSampleSearchMenu).grid(row=5, column=1)
 
     window_Samples.mainloop()
+##########---------->END: SAMPLE DISPLAY<--------------------##########
 
-
-
+##########---------->START: SAMPLE SEARCH<--------------------##########
 def OpenSampleSearch(conn, searchField, searchColumn):
     c = conn.cursor()
 
@@ -109,13 +111,14 @@ def OpenSampleSearch(conn, searchField, searchColumn):
         backButton = tk.Button(window_Samples, text = 'close', command=openSampleSearchMenu).grid(row=5, column=1)
 
         window_Samples.mainloop() 
+##########---------->START: SAMPLE SEARCH<--------------------##########
 
-
+##########---------->START: SAMPLE FRIDGE SEARCH<--------------------##########
 def OpenSampleFridgeSearch(conn, fridgeID):
     c = conn.cursor()
 
     if fridgeID == "":
-        MessagePopup("That is tk.NOt valid", "ERROR")
+        MessagePopup("That is not valid", "ERROR")
 
     else:
         window_Samples = tk.Tk()
@@ -155,5 +158,4 @@ def OpenSampleFridgeSearch(conn, fridgeID):
         backButton = tk.Button(window_Samples, text = 'close', command=openSampleSearchMenu).grid(row=5, column=1)
 
         window_Samples.mainloop() 
-
-
+##########---------->START: SAMPLE FRIDGE SEARCH<--------------------##########

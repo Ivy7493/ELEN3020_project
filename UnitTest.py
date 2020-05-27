@@ -3,13 +3,11 @@ import DataAPI
 import sqlite3
 
 conn = sqlite3.connect('Test.db')
-
-#USE THIS TO ADD A USER BEFORE RUNNING TESTS - REMEMBER TO DELETE THE USER AFTER
+#IF NECESSARY, USE THE CODE BELOW TO ADD A NEW USER BEFORE RUNNING TESTS - REMEMBER TO DELETE THE USER AFTER
 #c = conn.cursor()
 #c.execute("INSERT INTO LoginTable (username, password, accessLevel, loggedIn) VALUES (?, ?, ?, ?)",("TEST", "TEST", 2, 1))
 #conn.commit()
 
-#NOTE: NEED TO HAVE A LOGIN SET TO 1
 class TestData(unittest.TestCase):
 
     #UNIT TEST 1: ADDING A FRIDGE

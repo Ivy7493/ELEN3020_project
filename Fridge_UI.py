@@ -7,6 +7,7 @@ import Main_UI
 import DisplayFridges
 from tkinter import messagebox
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -23,7 +24,7 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
-
+##########---------->END: MESSAGE POPUP<--------------------##########
 
 ##########---------->START: WINDOW FOR ADDING FRIDGES<----------##########
 def AddFridge_Window(conn):
@@ -94,7 +95,6 @@ def AddFridge_Window(conn):
     window_AddFridge.mainloop()
 ##########---------->END: MAIN WINDOW FOR ADDING FRIDGES<----------##########
 
-
 ##########---------->START: WINDOW FOR DELETING FRIDGES<----------##########
 def DeleteFridge_Window(conn):
     def DeleteFridge():
@@ -161,4 +161,3 @@ def MainFridge_Window(conn):
 
     window_MainFridge.mainloop()
 ##########---------->END: MAIN WINDOW FOR FRIDGES<----------##########
-

@@ -9,6 +9,7 @@ import Main_UI
 import DisplayTestResults
 import User_CredentialCheck
 
+##########---------->START: VIEW SAMPLES<--------------------##########
 def ViewSamples(conn, _boxID, _fridgeID, _collectionTitle):
     c = conn.cursor()
     window_ViewSamples = Tk()
@@ -79,8 +80,9 @@ def ViewSamples(conn, _boxID, _fridgeID, _collectionTitle):
 
     backButton = Button(window_ViewSamples, text="Return", command=OpenViewBoxes, font = myFont).grid(column=0)
     window_ViewSamples.mainloop()
+##########---------->END: VIEW SAMPLES<--------------------##########
 
-
+##########---------->START: VIEW BOXES<--------------------##########
 def ViewBoxes(conn, _fridgeID, _collectionTitle):
     c = conn.cursor()
 
@@ -100,7 +102,6 @@ def ViewBoxes(conn, _fridgeID, _collectionTitle):
     fridgeTemp = "Temperature: " + str(c.fetchone()[0])
     fridgeLabel2 = Label(text = fridgeTemp, bg = 'cadet blue', font = myFont, anchor = "w")
     fridgeLabel2.grid(row = 1, column = 0, columnspan = 2, sticky = "ew")
-
 
     c.execute("SELECT * FROM BoxTable WHERE fridgeID = ?", (_fridgeID,))
     boxResults = c.fetchall()
@@ -155,7 +156,9 @@ def ViewBoxes(conn, _fridgeID, _collectionTitle):
     backButton = Button(window_ViewBoxes, text="Return", command=OpenViewFridges, font = myFont).grid(columnspan = 3)
     tk.Label(window_ViewBoxes, height = 1, width = 2, bg="cadet blue").grid(column =2)
     window_ViewBoxes.mainloop()
+##########---------->END: VIEW BOXES<--------------------##########
 
+##########---------->START: VIEW FRIDGES<--------------------##########
 def ViewFridges(conn, collectionTitle):
     c = conn.cursor()
 
@@ -227,5 +230,4 @@ def ViewFridges(conn, collectionTitle):
     tk.Label(window_ViewFridges, height = 1, width = 2, bg="cadet blue").grid(column =2)
     
     window_ViewFridges.mainloop()
-
-
+##########---------->END: VIEW FRIDGES<--------------------##########

@@ -1,0 +1,1 @@
+2020-05-27 15:55:29 -  user: admin Added new sample: S6 to box B1(2,1,2) in fridge: F1 (temperature = 0)

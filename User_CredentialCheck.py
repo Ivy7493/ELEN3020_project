@@ -7,6 +7,7 @@ import Sample_UI
 import Main_UI
 import ViewMode_UI
 
+##########---------->START: USER CREDENTIAL CHECK<--------------------##########
 def Check_Window(conn):
     window_check = Tk()
     window_check.title("Employee Login")
@@ -90,3 +91,4 @@ def Check_Window(conn):
     empty2 = Label(window_check, height = 1, width = 2, bg ='cadet blue').grid(row = 6, column = 3)
     
     window_check.mainloop()
+##########---------->END: USER CREDENTIAL CHECK<--------------------##########

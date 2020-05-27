@@ -7,6 +7,7 @@ import Main_UI
 import DisplayBoxes
 from tkinter import messagebox
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -23,6 +24,7 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+##########---------->END: MESSAGE POPUP<--------------------##########
 
 ##########---------->START: WINDOW FOR ADDING BOXES<----------##########
 def AddBox_Window(conn):
@@ -236,4 +238,3 @@ def MainBox_Window(conn):
 
     window_MainBox.mainloop()
 ##########---------->END: MAIN WINDOW FOR BOXES<----------##########
-

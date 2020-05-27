@@ -9,7 +9,7 @@ from datetime import date
 from datetime import datetime
 from tkinter import messagebox
 
-
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -26,7 +26,7 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
-
+##########---------->END: MESSAGE POPUP<--------------------##########
 
 ##########---------->START: ADD SAMPLES AUTO WINDOW<--------------------##########
 def AddSamples(conn):
@@ -99,7 +99,6 @@ def Main_Window(conn):
     def Open_AddSamples():
         window_Main.destroy()
         AddSamples(conn)
-
 
     def Return():
         window_Main.destroy()

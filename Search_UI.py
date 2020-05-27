@@ -480,7 +480,6 @@ def SearchTestResults_Window(conn):
     window_SearchTestResults.mainloop()
 ##########---------->END: WINDOW FOR SEARCHING TEST RESULTS<-------##########
 
-
 #########----------->START: MAIN WINDOW FOR SEARCH<----------###########
 def MainSearch_Window(conn):
     window_MainSearch = tk.Tk()
@@ -531,5 +530,4 @@ def MainSearch_Window(conn):
     tk.Label(window_MainSearch, height = 1, width = 6, bg="cadet blue").grid(row =12, column =2) 
 
     window_MainSearch.mainloop()
-
-
+#########----------->END: MAIN WINDOW FOR SEARCH<----------###########

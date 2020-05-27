@@ -7,6 +7,7 @@ from tkinter import messagebox
 import DataAPI
 import Main_UI
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -23,7 +24,9 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1)  
+##########---------->END: MESSAGE POPUP<--------------------##########
 
+##########---------->START: REGISTER CLIENT<--------------------##########
 def RegisterClient_Window(conn):
 
     def AddCollection():
@@ -127,7 +130,9 @@ def RegisterClient_Window(conn):
     tk.Label(window_Collection, height = 1, width = 2, bg ='cadet blue').grid(row = 16, column = 0)
 
     window_Collection.mainloop()
+##########---------->END: REGISTER CLIENT<--------------------##########
 
+##########---------->START: REGISTER USER<--------------------##########
 def RegisterUser_Window(conn):
     def AddUser():
         _username = username.get()
@@ -184,8 +189,9 @@ def RegisterUser_Window(conn):
     tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 7, column = 3)
 
     window_register.mainloop()
+##########---------->END: REGISTER USER<--------------------##########
 
-
+##########---------->START: DELETE USER<--------------------##########
 def DeleteUser_Window(conn):
     window_register = tk.Tk()
     window_register.title("DELETE USER")
@@ -260,8 +266,9 @@ def DeleteUser_Window(conn):
     tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 5, column = 3)
 
     window_register.mainloop()
+##########---------->END: DELETE USER<--------------------##########
 
-
+##########---------->START: MANAGE USERS<--------------------##########
 def Manage_Window(conn):
     window_register = tk.Tk()
     window_register.title("MANAGE USERS")
@@ -298,3 +305,4 @@ def Manage_Window(conn):
     tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 6, column = 3)
 
     window_register.mainloop()
+##########---------->END: MANAGE USERS<--------------------##########

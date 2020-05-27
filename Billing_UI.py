@@ -14,7 +14,7 @@ from tkcalendar import *
 from fpdf import FPDF
 from tkinter.font import Font
 
-
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -33,7 +33,9 @@ def MessagePopup(messageText, messageTitle):
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
     tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row = 2)
     message_window.mainloop()
+##########---------->END: MESSAGE POPUP<--------------------##########
 
+##########---------->START: MAIN BILLING WINDOW<--------------------##########
 def MainBilling_Window(conn):
     window_MainBilling = tk.Tk()
     window_MainBilling.title("INVOICE")
@@ -63,5 +65,4 @@ def MainBilling_Window(conn):
     tk.Label(window_MainBilling, height = 1, width = 6, bg="cadet blue").grid(row =6, column =2)
 
     window_MainBilling.mainloop()
-
-
+##########---------->END: MAIN BILLING WINDOW<--------------------##########

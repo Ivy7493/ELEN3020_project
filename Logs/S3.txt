@@ -1,0 +1,2 @@
+2020-05-27 15:53:03 -  user: admin Added new sample: S3 to box B1(1,1,3) in fridge: F1 (temperature = 0)
+2020-05-27 15:54:20 -  user: admin Added new test: Test3 to sample: S3

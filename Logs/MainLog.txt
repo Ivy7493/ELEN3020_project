@@ -1,1 +1,17 @@
-2020-05-27 15:25:53 -  user: admin Added new sample: S21 to box B20(5,5,5) in fridge: F2 (temperature = -10)
+2020-05-27 15:50:34 -  user: admin Added new fridge: F1
+2020-05-27 15:50:46 -  user: admin Added new fridge: F2
+2020-05-27 15:50:56 -  user: admin Added new box: B1 to fridge: F1 at position (1,1)
+2020-05-27 15:51:01 -  user: admin Added new box: B2 to fridge: F2 at position (1,1)
+2020-05-27 15:51:07 -  user: admin Added new box: B3 to fridge: F1 at position (2,1)
+2020-05-27 15:51:11 -  user: admin Added new box: B4 to fridge: F1 at position (3,1)
+2020-05-27 15:51:15 -  user: admin Added new box: B5 to fridge: F1 at position (4,1)
+2020-05-27 15:51:19 -  user: admin Added new box: B6 to fridge: F1 at position (5,1)
+2020-05-27 15:52:04 -  user: admin Added new user: C1 with access level of Customer
+2020-05-27 15:52:16 -  user: admin Added new user: C2 with access level of Customer
+2020-05-27 15:52:51 -  user: admin Added new sample: S1 to box B1(1,1,1) in fridge: F1 (temperature = 0)
+2020-05-27 15:52:59 -  user: admin Added new sample: S2 to box B1(1,1,2) in fridge: F1 (temperature = 0)
+2020-05-27 15:53:03 -  user: admin Added new sample: S3 to box B1(1,1,3) in fridge: F1 (temperature = 0)
+2020-05-27 15:53:12 -  user: admin Added new sample: S4 to box B2(1,1,1) in fridge: F2 (temperature = 2)
+2020-05-27 15:55:19 -  user: admin Added new sample: S5 to box B1(2,1,1) in fridge: F1 (temperature = 0)
+2020-05-27 15:55:29 -  user: admin Added new sample: S6 to box B1(2,1,2) in fridge: F1 (temperature = 0)
+

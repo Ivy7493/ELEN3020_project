@@ -39,10 +39,4 @@ def GetCurrentAccess(conn):
     c = conn.cursor()
     c.execute("SELECT * FROM LoginTable WHERE loggedIn=?",("1",))
     result = c.fetchone()
-    return result[2]
-    
-
-    
-
-    
-    
+    return result[2] 

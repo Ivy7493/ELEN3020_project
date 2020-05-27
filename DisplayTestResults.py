@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.font import Font
 
+##########---------->START: MESSAGE POPUP<--------------------##########
 def MessagePopup(messageText, messageTitle):
     message_window = tk.Tk()
     message_window.title(messageTitle)
@@ -19,7 +20,9 @@ def MessagePopup(messageText, messageTitle):
         message_window.destroy()
 
     backButton = tk.Button(message_window, text = 'Close', command = CloseMessage, font = myFont).grid(row=1) 
+##########---------->END: MESSAGE POPUP<--------------------##########
 
+##########---------->START: DISPLAY TEST RESULTS<--------------------##########
 def OpenAllTestResults(conn):
     c = conn.cursor()
 
@@ -47,10 +50,9 @@ def OpenAllTestResults(conn):
     backButton = tk.Button(window_TestResults, text = 'Close', command = openTestResultSearchMenu, font = myFont).grid(row=5, column=1)
     
     window_TestResults.mainloop()
-#----------------------------------------------------------------------------------------
+##########---------->END: DISPLAY TEST RESULTS<--------------------##########
     
-
-#----------------------------------------------------------------------------------------
+##########---------->START: TEST RESULTS SEARCH<--------------------##########
 def OpenTestResultSearch(conn, searchField, searchColumn):
     c = conn.cursor()
 
@@ -78,9 +80,8 @@ def OpenTestResultSearch(conn, searchField, searchColumn):
 
         def openTestResultSearchMenu():
             window_TestResults.destroy()
-            
 
         backButton = tk.Button(window_TestResults, text = 'Close', command = openTestResultSearchMenu, font = myFont).grid(row=5, column=1)
         
         window_TestResults.mainloop()
-#----------------------------------------------------------------------------------------
+##########---------->END: TEST RESULTS SEARCH<--------------------##########
