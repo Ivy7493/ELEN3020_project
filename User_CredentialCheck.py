@@ -24,17 +24,11 @@ def Check_Window(conn):
         c = conn.cursor()
         c.execute("SELECT password FROM LoginTable WHERE username=?", (str(n1),))
         temp_password = c.fetchall()
-        c.execute("SELECT clientPhoneNumber FROM CollectionTable WHERE clientName=?", (str(n1),))
-        temp_number = c.fetchall()
         count = 0
-        count2 = 0
         employeeLog = "FALSE"
 
         for result in temp_password:
             count = count + 1
-
-        for result in temp_number:
-            count2 = count2 + 1
 
         if count == 0:
             message['text'] = "No such username or password"
@@ -54,27 +48,10 @@ def Check_Window(conn):
             else:
                 message['text'] = "Invalid Credentials"
 
-        if employeeLog == "FALSE":
-            if count2 == 0:
-                message['text'] = "No such username or password"
-            elif count2 > 0:
-                c.execute("SELECT clientPhoneNumber FROM CollectionTable WHERE clientName=?", (str(n1),))
-                result2 = c.fetchone()[0]      
-                if p1 == result2:
-                    c.execute("SELECT collectionTitle FROM CollectionTable WHERE clientPhoneNumber=?", (str(p1),))
-                    collTitle = c.fetchone()[0]
-                    openDonorMain(collTitle)
-                else:
-                    message['text'] = "Invalid Credentials"
-
     def openMain():
-            window_check.destroy()
-            Main_UI.Warning_Window(conn)
-            Main_UI.Main_Window(conn)
-
-    #def openDonorMain(donorNum):
-        #window_check.destroy()
-        #Display_Guest_Samples.FetchGuestSamples(conn, donorNum) 
+        window_check.destroy()
+        Main_UI.Warning_Window(conn)
+        Main_UI.Main_Window(conn)
 
     def openCustomerMain():
         username = entry_name.get()

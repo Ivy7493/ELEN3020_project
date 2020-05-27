@@ -7,6 +7,7 @@ from tkinter import ttk
 from tkinter.font import Font
 import Main_UI
 import DisplayTestResults
+import User_CredentialCheck
 
 def ViewSamples(conn, _boxID, _fridgeID, _collectionTitle):
     c = conn.cursor()
@@ -216,7 +217,10 @@ def ViewFridges(conn, collectionTitle):
 
     def Return():
         window_ViewFridges.destroy()
-        Main_UI.Main_Window(conn)
+        if collectionTitle != "FALSE":
+            User_CredentialCheck.Check_Window(conn)
+        else:
+            Main_UI.Main_Window(conn)
 
     tk.Label(window_ViewFridges, height = 1, width = 2, bg="cadet blue").grid(column =0)
     backButton = Button(window_ViewFridges, text="Return", command=Return, font = myFont).grid(columnspan=3)
