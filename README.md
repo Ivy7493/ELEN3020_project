@@ -36,7 +36,7 @@ crontab -e
 ```
 Enter the following text. Please replace the example path with the appropriate paths to the program's root folder. Save and close the terminal window.
 ```bash
-0 0 1 * * cd /path/to/script/folder && /usr/bin/python3 /path/to/script/folder/script.py  >> /path/to/script/folder/Logs/BillingLog.txt
+0 1 1 * * cd /path/to/script/folder && /usr/bin/python3 /path/to/script/folder/script.py  >> /path/to/script/folder/Logs/BillingLog.txt
 ```
 
 ## Starting the Program
