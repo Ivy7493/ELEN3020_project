@@ -78,13 +78,13 @@ def AddBox_Window(conn):
     fridgeID = tk.Entry(window_AddBox)
     fridgeID.grid(row=2, column=2, sticky = "ew")
 
-    tk.Label(window_AddBox, text="Fridge X Position", font = myFont, bg = 'cadet blue', anchor = "w").grid(row=3, column = 1, sticky = "ew")
-    fridgeX = tk.Entry(window_AddBox)
-    fridgeX.grid(row=3, column=2, sticky = "ew")
-
-    tk.Label(window_AddBox, text="Fridge Y Position", font = myFont, bg = 'cadet blue', anchor = "w").grid(row=4, column = 1, sticky = "ew")
+    tk.Label(window_AddBox, text="Shelf Number", font = myFont, bg = 'cadet blue', anchor = "w").grid(row=3, column = 1, sticky = "ew")
     fridgeY = tk.Entry(window_AddBox)
-    fridgeY.grid(row=4, column=2, sticky = "ew")
+    fridgeY.grid(row=3, column=2, sticky = "ew")
+
+    tk.Label(window_AddBox, text="Shelf Position", font = myFont, bg = 'cadet blue', anchor = "w").grid(row=4, column = 1, sticky = "ew")
+    fridgeX = tk.Entry(window_AddBox)
+    fridgeX.grid(row=4, column=2, sticky = "ew")
 
     tk.Label(window_AddBox, text="Box X", font = myFont, bg = 'cadet blue', anchor = "w").grid(row=5, column = 1, sticky = "ew")
     boxX = tk.Entry(window_AddBox)
