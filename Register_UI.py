@@ -137,7 +137,6 @@ def RegisterUser_Window(conn):
         if any( [_username == "", _password == "", _accessLevel == ""]):
             MessagePopup("One or more fields are missing data", "ERROR")
         else:
-            
             try:
                 messageText = DataAPI.AddUser(conn, _username, _password, _accessLevel)
                 MessagePopup(messageText, "REGISTER STATUS")
@@ -149,7 +148,7 @@ def RegisterUser_Window(conn):
 
     def Return():
         window_register.destroy()
-        Main_UI.Edit_Window(conn)
+        Manage_Window(conn)
 
     window_register = tk.Tk()
     window_register.title("ADD USER")
@@ -183,5 +182,119 @@ def RegisterUser_Window(conn):
     tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 0, column = 0)
     tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 5, column = 0)
     tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 7, column = 3)
+
+    window_register.mainloop()
+
+
+def DeleteUser_Window(conn):
+    window_register = tk.Tk()
+    window_register.title("DELETE USER")
+    window_register["bg"] = 'cadet blue'
+
+    text = tk.Text(window_register)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    def RefreshUsernameList():
+        usernameList = DataAPI.GetUsernames(conn)
+        username['values'] = usernameList
+
+    def DeleteUser():
+        _username = username.get()
+
+        if any( [_username == ""]):
+            MessagePopup("One or more fields are missing data", "ERROR")
+        else:
+            message_window = tk.Tk()
+            message_window.title("CONFIRM DELETION")
+            message_window["bg"] = 'cadet blue'
+
+            text = tk.Text(message_window)
+            myFont = Font(family="fixedsys", size=12)
+            text.configure(font=myFont)
+            messageText = "Are you sure you want to delete user " + _username + "?"
+            message = tk.Label(message_window, text = messageText, font = myFont, bg = 'cadet blue', wraplength = 200)
+            message.grid(row = 1, column = 1)
+
+            def CloseMessage():
+                message_window.destroy()
+            
+            def Confirm():
+                try:
+                    messageText = DataAPI.DeleteUser(conn, _username)
+                    RefreshUsernameList()
+                    message_window.destroy()
+                    MessagePopup(messageText, "DELETION STATUS")
+
+                except:
+                    message_window.destroy()
+                    MessagePopup("ERROR: Invalid data entered", "DELETION STATUS")
+            
+            confirmButton = tk.Button(message_window, text = 'Yes', command = Confirm, font = myFont).grid(row=3, column=1, sticky = "ew")              
+            cancelButton = tk.Button(message_window, text = 'No', command = CloseMessage, font = myFont).grid(row=5, column=1, sticky = "ew") 
+             
+            tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row=0, column=2)
+            tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row=2, column=0)
+            tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row=4, column=0)
+            tk.Label(message_window, height = 1, width = 2, bg="cadet blue").grid(row=6, column=0)
+
+    def Return():
+        window_register.destroy()
+        Manage_Window(conn)
+
+    userLabel = tk.Label(window_register, text = "Username: ", anchor = "w", bg = 'cadet blue', font = myFont)
+    userLabel.grid(row = 1, column = 1, sticky = "ew")
+
+    usernameList = DataAPI.GetUsernames(conn)
+    username = ttk.Combobox(window_register, state="readonly", values = usernameList)
+    username.grid(row = 1, column = 2, sticky = "ew")
+
+    deleteButton = tk.Button(window_register, text = "Delete User", command = DeleteUser, font = myFont)
+    deleteButton.grid(row = 2, column = 2, sticky = "ew")
+
+    returnButton = tk.Button(window_register, text = "Return", command = Return, font = myFont)
+    returnButton.grid(row = 4, column = 2, sticky = "ew")
+
+    tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 0, column = 0)
+    tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 3, column = 0)
+    tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 5, column = 3)
+
+    window_register.mainloop()
+
+
+def Manage_Window(conn):
+    window_register = tk.Tk()
+    window_register.title("MANAGE USERS")
+    window_register["bg"] = 'cadet blue'
+
+    text = tk.Text(window_register)
+    myFont = Font(family="fixedsys", size=12)
+    text.configure(font=myFont)
+
+    def AddUser():
+        window_register.destroy()
+        RegisterUser_Window(conn)
+
+    def DeleteUser():
+        window_register.destroy()
+        DeleteUser_Window(conn)
+
+    def Return():
+        window_register.destroy()
+        Main_UI.Edit_Window(conn)
+
+    addUserButton = tk.Button(window_register, text = "Add User", command = AddUser, font = myFont)
+    addUserButton.grid(row = 1, column = 2, sticky = "ew")
+
+    deleteUserButton = tk.Button(window_register, text = "Delete User", command = DeleteUser, font = myFont)
+    deleteUserButton.grid(row = 3, column = 2, sticky = "ew")
+
+    returnButton = tk.Button(window_register, text = "Return", command = Return, font = myFont)
+    returnButton.grid(row = 5, column = 2, sticky = "ew")
+
+    tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 0, column = 0)
+    tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 2, column = 0)
+    tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 4, column = 3)
+    tk.Label(window_register, height = 1, width = 2, bg ='cadet blue').grid(row = 6, column = 3)
 
     window_register.mainloop()

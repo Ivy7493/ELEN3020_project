@@ -124,9 +124,9 @@ def Edit_Window(conn):
         window_Edit.destroy()
         Auto_UI.AddSamples(conn)
 
-    def Open_NewUserLogin_Window():
+    def Open_ManageUserLogin_Window():
         window_Edit.destroy()
-        Register_UI.RegisterUser_Window(conn)
+        Register_UI.Manage_Window(conn)
     
     def Open_NewClientCollection_Window():
         window_Edit.destroy()
@@ -149,7 +149,7 @@ def Edit_Window(conn):
     tk.Button(window_Edit, text = 'Open Auto Add Menu', font=myFont, command = Open_AutoAddSamples_Window).grid(row = 7, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=8, column=0)
 
-    tk.Button(window_Edit, text = 'New User Login', font=myFont, command = Open_NewUserLogin_Window).grid(row = 9, column=1, sticky = "ew")
+    tk.Button(window_Edit, text = 'Manage User Login', font=myFont, command = Open_ManageUserLogin_Window).grid(row = 9, column=1, sticky = "ew")
     tk.Label(window_Edit, height = 1, width = 6, bg="cadet blue").grid(row=10, column=0)
 
     tk.Button(window_Edit, text = 'New Client Collection', command = Open_NewClientCollection_Window, font=myFont).grid(row = 11, column=1, sticky = "ew")

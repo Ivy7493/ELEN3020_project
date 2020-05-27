@@ -520,6 +520,14 @@ def DeleteUser(_conn , _username):
         LoggingAPI.Log(_conn, message)
         return message
         
+def GetUsernames(_conn):
+    c = _conn.cursor()
+    c.execute("SELECT * FROM LoginTable WHERE accessLevel != ?", (0,))
+    results = c.fetchall()
+    usernames = []
+    for result in results:
+        usernames.append(result[0])
+    return usernames
 
 def CheckFridge(_conn, _fridgeID):
     result = DoesIDExist(_conn, "FRIDGE", _fridgeID)
